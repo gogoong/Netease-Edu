@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>test3</title>
+</head>
+<body>
+	<form action="/login" method="post">
+		<div>
+			<label for="file">头像</label>
+			<input type="file" id="file" name="touxiang">
+		</div>
+		<div>
+			<label for="nickname">昵称</label>
+			<input type="text" id="nickname" name="" placeholder="">
+		</div>
+		<div>
+			<label for="eb">学历</label>
+			<select id="eb">
+				<option value="0">本科</option>
+				<option value="1">大专</option>
+				<option value="2">高中</option>
+			</select>
+		</div>
+		<div>
+			<label>性别</label>
+			<input type="radio" id="male" name="sex">
+			<label for="male">男</label>
+			<input type="radio" id="female" name="sex">
+			<label for="female">女</label>
+		</div>
+		<div>
+			<label>爱好</label>
+			<input type="checkbox" name="hobby" id="movie">
+			<label for="movie">电影</label>
+			<input type="checkbox" name="hobby" id="photography">
+			<label for="photography">摄影</label>
+			<input type="checkbox" name="hobby" id="music">
+			<label for="music">音乐</label>
+			<input type="checkbox" name="hobby" id="reading">
+			<label for="reading">阅读</label>
+		</div>
+		<div>
+			<label for="sign">签名</label>
+			<textarea id="sign" rows="3"></textarea>
+		</div>
+		<div>
+			<button type="submit">保存</button>
+		</div>
+	</form>
+</body>
+</html>
