@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>载入-1 self</title>
+	<style type="text/css">
+		.q{position:absolute;left:50%;top:50%;margin: -25px;width: 50px;height: 50px;border: 2px solid gray;border-radius: 25px;box-sizing: border-box;}
+		.load{position: absolute;left:5px;top:-45px;width: 20px;height: 60px;background-color: #fff;transform-origin:bottom center;-webkit-animation:rotate 1s linear both infinite;}
+		@keyframes rotate{
+			from{transform: rotate(0deg);}
+			to{transform: rotate(360deg);}
+		}
+	</style>
+</head>
+<body>
+	<div class="q"><div class="load"></div></div>
+</body>
+</html>
+<!-- 自己想的,基本思路是通过一个白色矩形div旋转,遮住圆的边框 -->

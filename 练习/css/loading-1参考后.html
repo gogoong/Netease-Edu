@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>载入-1</title>
+	<style type="text/css">
+		.loading{position: fixed;left: 50%;top: 50%;width: 50px;height: 50px;border: 2px solid gray;box-sizing: border-box;border-radius: 50%;margin: -25px;border-top: 2px solid transparent;-webkit-animation:loading 1s linear both infinite;}
+		@keyframes loading{
+			to{transform: rotate(360deg);}
+		}
+	</style>
+</head>
+<body>
+	<div class="loading"></div>
+</body>
+</html>
+<!-- 基本思路就是某一边框色为透明,旋转DIV  -->
