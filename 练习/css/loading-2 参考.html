@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>载入-2</title>
+	<style type="text/css">
+		*{margin: 0;padding:0;}
+		.container{position: fixed;top: 50%;left: 50%;width: 96px;height: 12px;margin:-6px 0 0 -48px;overflow: hidden;}
+		.loading {width: 176px;-webkit-animation:loading 1s infinite both steps(6,start)}
+		.loading i{float: left; width: 8px;height: 4px;margin:4px;background-color: gray;}
+		.loading i:nth-child(6) {background-color: #000000;transform:scale(1.5);}
+		@keyframes loading{
+			0%{transform: translateX(-96px);}
+			/*50%{transform: translateX(0px);}*/
+			100%{transform: translateX(0px);}
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="loading">
+			<i></i>
+			<i></i>
+			<i></i>
+			<i></i>
+			<i></i>
+			<i></i>
+			<i></i>
+			<i></i>
+			<i></i>
+			<i></i>
+			<i></i>
+		</div>
+	</div>
+</body>
+</html>
+<!-- 参考了老师的demo,基本思路是11个div左右横移,实际显示6个DIV,以此达到效果 -->
+
+<!-- 自己的想法是一个个 对应的scale放大,想不出纯css的方法,应该可以用JS实现,后面学了JS再写一个试试 -->
+<!-- <遇到的问题以及解决方案> -->
+<!-- 
+1.小框框大小设置不合理,反复设置多次才找到合适大小
+2.完成后基本效果成型,但是没有放大的效果,原本animation写在.loading i这一选择器中,后写在.loading中得以解决.
+3.为什么分5步?end是什么意思?为什么是80%,100% translateX(0px)?直接100%为什么第六个点不亮?  5步是因为-80px到0走过了80px,80/5=16正好是一个框框的宽度(8px)加上间距(4+4);
+start denotes a left-continuous function, so that the first step happens when the animation begins;
+end denotes a right-continuous function, so that the last step happens when the animation ends. 
+!!!!!!!!首先timing-function 指定的是两个关键帧之间的动画,而不是整个动画!!!!!!
+自己粗略理解就是start第一帧是第一步动画结束,end第一帧是第一步动画开始
+所以写steps(5,end) 后面直接100%{0px} 只有前面5个点会亮 要在0%和100%中间插一个中间点X,这样0到X会亮前5个,X到100会亮最后一个.X{0px}
+或者用steps(6,start), 0%{-96px},100%{0px} 这样的话第一步动画结束时,X轴到了-80px的地方,也就是动画的第一帧,接下来每帧一个方框,6帧6方框,也能达到一样的效果. -->
