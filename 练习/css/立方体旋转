@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>立方体</title>
+	<style type="text/css">
+		#container{position: relative;margin: 0 auto;width: 400px;vertical-align: middle;transform: translateY(100px);}
+		.p{position:absolute;width: 400px;height: 400px;border:3px solid black;text-align: center;line-height:400px;perspective: 2000px;}
+		.p1{transform-origin:center top 20px;-webkit-animation:p1 2s both;}
+		.p2{transform-origin:50% 100%;-webkit-animation:p2 2s 2s both;}
+		.p3{transform-origin:0 50%;-webkit-animation:p3 2s 4s both;}
+		.p4{transform-origin:100% 50%;-webkit-animation:p4 2s 6s both;}
+		@keyframes p1{
+			from{}
+			to{transform: rotateX(100deg) translateZ(50px)}
+		}
+/*		@keyframes p2{
+			from{}
+			to{transform: rotate3d(1,0,0,95deg) translate3d(0,0,100px);}
+		}
+		@keyframes p3{
+			from{}
+			to{transform: rotate3d(0,1,0,95deg);}
+		}
+		@keyframes p4{
+			from{}
+			to{transform: rotate3d(0,1,0,95deg);}
+		}*/
+	</style>
+</head>
+<body>
+		<div class="p p1">top</div>
+		<div class="p p2">bottom</div>
+		<div class="p p3">left</div>
+		<div class="p p4">right</div>
+		<div class="p p5">back</div>
+		<div class="p p6">front</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>CSS作业3</title>
+	<style type="text/css">
+		.slide{position:relative;width: 200px;height: 100px;background-color: blue;}
+		.pointer{position: absolute;bottom: 10px;right: 10px;}
+		.pointer i{display:inline-block;width:10px;height:10px;border-radius:5px;background-color: black;margin-left:5px;cursor: pointer;}
+		.pointer i:first-child{margin-left: 0;}
+		.pointer .current{background-color: white;}
+	</style>
+</head>
+<body>
+	<div class="slide">
+	<!-- 图片省略 -->
+	<!-- 以下是指示器 -->
+	<div class="pointer"><i class="current"></i><i></i><i></i></div>
+</div>
+</body>
+</html>
