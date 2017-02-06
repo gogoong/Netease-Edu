@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>bind方法兼容实现</title>
+</head>
+<body>
+	<script type="text/javascript">
+		Function.prototype.newBind = function(thisArg){
+			var obj = thisArg,
+				params = Array.prototype.slice.call(arguments,1),
+				// arguments并不是严格意义上的数组,不能直接用slice方法,需要调用Array的原型方法slice,切记切记!! arguments的复制方法是网上搜的.
+				objFunc = this;
+				console.log(params);
+				return function(){
+					 var newParams = Array.prototype.slice.call(arguments);
+					 	 params = params.concat(newParams);
+						 objFunc.apply(obj,params);
+				}
+		}
+		function move(x, y) {
+   			 this.x += x;
+  			  this.y += y;
+		}
+		var point = {x:1, y:2},
+			pointmove = move.newBind(point);
+		pointmove(1,2); // {x:2, y:4}
+	</script>
+</body>
+</html>
