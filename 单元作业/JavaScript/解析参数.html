@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>解析查询参数</title>
+</head>
+<body>
+	<script type="text/javascript">
+		function parseQuery(query){
+			var query = query.replace(/\s/g,""),
+				arr = query.split('&'),
+				arr1,
+				obj={},
+				length=arr.length;
+			for(var i=0;i<length;i++){
+				arr1 = arr[i].split('=');
+				if(arr1[0]!=""){
+					if (arr1[1]==undefined) {
+						arr1[1]="";
+					}
+					obj[arr1[0]]=arr1[1];
+				}
+			}return obj;
+		}
+		var jerry = parseQuery("name=jerry&age=1");
+		    tom = parseQuery("name= tom &age=12&gender&");
+		console.log(jerry);
+		console.log(tom);
+	</script>
+</body>
+</html>

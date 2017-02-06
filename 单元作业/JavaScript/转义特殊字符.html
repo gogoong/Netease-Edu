@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+		function escapeHTML(htmlSrt){
+			return htmlSrt.replace(/[<>\"&]/g,function(m0){
+				switch(m0){
+					case '<':return '$lt;';
+					case '>':return '&gt;';
+					case '&':return '&amp;';
+					case '\"':return '&quot;';
+				}
+			});
+		};
+		alert(escapeHTML('<input type="text" name="mobile"> '));
+	</script>
+</body>
+</html>
