@@ -8,7 +8,7 @@
 	<script type="text/javascript">
 		function type(obj){
 			var type = Object.prototype.toString.call(obj);
-			return type.toLowerCase().slice(8,-1)
+			return type.slice(8,-1)
 		}
 		var t = type(1) ,  // t==="number"
 		    t1 = type(new Number(1)) ,// t==="number"

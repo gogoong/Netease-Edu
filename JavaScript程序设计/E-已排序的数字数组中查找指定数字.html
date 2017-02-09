@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>数组search</title>
+</head>
+<body>
+	<script type="text/javascript">
+		function search(arr,dst){
+			 function show(i){
+				return function(){
+					console.log(i);
+				}
+			}
+			for(var i = 0,length = arr.length;i<length;i++){
+				if(arr[i]==dst){
+					break;
+				}
+				show(i);
+			}
+		}
+		var arr = [1,2,3,4,8,16];
+
+		var index = search(arr,2);
+	</script>
+</body>
+</html>
