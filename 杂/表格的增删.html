@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">   
+  <title> new document </title> 
+  <style type="text/css">
+  	#table{border:1 width:50% }
+  	td{width: 10%}
+  </style>
+  <script type="text/javascript"> 
+      var rows=document.getElementsByTagName('tr');
+      // var trnum = rows.length;
+      window.onload = function changeC(){
+      	
+      	for(var i=1;i<rows.length;i++){
+      		rows[i].onmouseover=function (){
+      			this.style.backgroundColor="#f2f2f2";
+      		}
+      		rows[i].onmouseout=function (){
+      			this.style.backgroundColor="#fff"
+      		}
+      	}
+    }
+     // 鼠标移动改变背景,可以通过给每行绑定鼠标移上事件和鼠标移除事件来改变所在行背景色
+    	function add(){
+    		var trnum = rows.length;
+    		// alert(trnum);
+    		var table = document.getElementById('table');
+    		var tbody = table.firstChild;
+    		// alert(tbody.nodeName);
+    		var newtr = document.createElement('tr');
+    		for(var i=0;i<3;i++){
+    			if(i==0){
+    				var newtd=document.createElement('td');
+    				newtd.innerHTML="xh00"+trnum;
+    				newtr.appendChild(newtd);
+    			}else if(i==1){
+    				var newtd=document.createElement('td');
+    				var inner=prompt("请输入姓名");
+    				newtd.innerHTML = inner;
+    				// newtd.setAttribute("innerHTML","inner");
+    				newtr.appendChild(newtd);
+    			}else{
+    				var newtd=document.createElement('td');
+    				var url = document.createElement('a');
+    				url.href="javascript:void(0)";
+    				// url.href="http://www.baidu.com";
+    				// url.setAttribute("href","http://www.dota2.com.cn")
+    				url.setAttribute("onclick","del(this)");
+    				// url.onclick="del(this)";
+    				url.innerHTML="删除";
+    				newtd.appendChild(url);
+    				newtr.appendChild(newtd);
+    			}
+    		}
+    		tbody.appendChild(newtr);
+    	}
+      // 编写一个函数，供添加按钮调用，动态在表格的最后一行添加子节点；
+     	function del(node){
+    		node.parentNode.parentNode.parentNode.removeChild(node.parentNode.parentNode);
+     // 创建删除函数
+     	}
+     	
+     
+
+
+  </script> 
+ </head> 
+ <body> 
+	   <table border="1" width="50%" id="table"><tr>
+		<th>学号</th>
+		<th>姓名</th>
+		<th>操作</th>
+	   </tr>  
+
+	   <tr>
+		<td>xh001</td>
+		<td>王小明</td>
+		<td><a href="javascript:void(0)" onclick="del(this)">删除</a></td>   <!--在删除按钮上添加点击事件  -->
+	   </tr>
+
+	   <tr>
+		<td>xh002</td>
+		<td>刘小芳</td>
+		<td><a href="javascript:void(0)" onclick="del(this)" >删除</a></td>   <!--在删除按钮上添加点击事件  -->
+	   </tr>  
+
+	   </table>
+	   <input type="button" value="添加一行"  onclick="add()" />   <!--在添加按钮上添加点击事件  -->
+ </body>
+</html>
