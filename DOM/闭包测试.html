@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>闭包</title>
+</head>
+<body>
+	<script type="text/javascript">
+// 		function foo(x) {
+//     var tmp = 3;
+//     function bar(y) {
+//         alert(x + y + (++tmp));
+//     }
+//     bar(10);
+// }
+// foo(2);
+// foo(2);
+
+		
+
+// 		function foo(x) {
+//     var tmp = 3;
+//     return function (y) {
+//         alert(x + y + (++tmp));
+//     }
+// }
+// var bar = foo(2); // bar 现在是一个闭包
+// bar(10);
+// bar(10);
+		
+// 		var name = "The Window";
+// 　　var object = {
+// 　　　　name : "My Object",
+// 　　　　getNameFunc : function(){
+// 　　　　　　return function(){
+// 　　　　　　　　return this.name;
+// 　　　　　　};
+// 　　　　}
+// 　　};
+// 　　alert(object.getNameFunc()());
+
+		var name = "The Window";
+　　    var object = {
+　　　　name : "My Object",
+　　　　getNameFunc : function(){
+　　　　　　var that = this;
+　　　　　　return function(){
+　　　　　　　　return that.name;
+　　　　　　};
+　　　　}
+　　};
+　　alert(object.getNameFunc()());
+	</script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>getElementsByClassName IE兼容写法</title>
+	<script type="text/javascript">
+		 function newGetElementsByClassName(element,classNames){
+			// if(element.getElementsByClassName){
+			// 	return element.getElementsByClassName(classNames);
+			// }else {
+				var elements = element.getElementsByTagName('*');
+				var result = [];
+				var element,
+					classNameStr,
+					flag,
+					classNames = classNames.split(" ");
+				for(var i=0;i<elements.length;i++){
+					classNameStr = elements[i].className.split(" ");
+					flag = 0;
+					for(var j = 0;j<classNameStr.length;j++){
+						for(var k = 0;k<classNames.length;k++){
+							if(classNames[k]==classNameStr[j]){
+								flag++;
+								if(flag == classNames.length){
+									result.push(elements[i]);
+								}
+							}
+						}
+					}
+				}
+				return result;	
+			// }			
+		}
+	</script>
+</head>
+<body>
+
+	<div id="haha">
+	 <div class="xixi hoho">1</div><div class ="xixi hehe">2</div><div class="xixi hoho heihei">3</div><p class="hehe heihei">4</p><p class="xixi hehe hoho">5</p></div>
+	<script type="text/javascript">
+		var haha1 = document.getElementById('haha');
+	</script>
+</body>
+</html>
