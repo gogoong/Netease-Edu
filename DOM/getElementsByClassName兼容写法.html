@@ -4,10 +4,10 @@
 	<meta charset="UTF-8">
 	<title>getElementsByClassName IE兼容写法</title>
 	<script type="text/javascript">
-		 function newGetElementsByClassName(element,classNames){
-			// if(element.getElementsByClassName){
-			// 	return element.getElementsByClassName(classNames);
-			// }else {
+		 function getElementsByClassName(element,classNames){
+			if(element.getElementsByClassName){
+				return element.getElementsByClassName(classNames);
+			}else {
 				var elements = element.getElementsByTagName('*');
 				var result = [];
 				var element,
@@ -29,7 +29,7 @@
 					}
 				}
 				return result;	
-			// }			
+			}			
 		}
 	</script>
 </head>

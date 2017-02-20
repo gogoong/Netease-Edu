@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script type="text/javascript">
+    	function fadeout(element){
+    		var step = function(){
+    			var Eopacity = window.getComputedStyle(element).opacity;
+    			if(Eopacity <= 1 && Eopacity > 0){
+    				Eopacity -= 0.1;
+    				element.style.opacity = Eopacity;
+    			}else if(Eopacity == 0){
+    				clearInterval(timer);
+    			}
+    		}
+    		var timer = setInterval(step,100);
+    	}
+    </script>
+</head>
+<body>
+	<div id = "di" style="width: 200px;height: 200px;background: red;"></div>
+	<script type="text/javascript">
+		var div1 = document.getElementById('di');
+		fadeout(div1);
+	</script>
+</body>
+</html>

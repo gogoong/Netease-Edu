@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<form name="dateForm">
+		<select name="year" id="year">
+    	    <option value="0">--</option>
+    	    <option value="1999">1999</option>
+    	    <option value="2000">2000</option>
+    	    <option value="2001">2001</option>
+    	</select>年
+    	<select name="month" id="month">
+    	    <option value="0">--</option>
+    	    <option value="1">1</option>
+    	    <option value="2">2</option>
+    	    <option value="3">3</option>
+    	    <option value="4">4</option>
+    	    <option value="5">5</option>
+    	    <option value="6">6</option>
+    	    <option value="7">7</option>
+    	    <option value="8">8</option>
+    	    <option value="9">9</option>
+    	    <option value="10">10</option>
+    	    <option value="11">11</option>
+    	    <option value="12">12</option>
+    	</select>月
+    	<select name="date" id="date">
+    	    <option value="0">--</option>
+    	</select>日
+    </form>
+    <script type="text/javascript">
+    	var form = document.forms.dateForm;
+    	var addEvent = document.addEventListener ?
+    		 	function(ele,type,listener,useCapture){
+    		 		ele.addEventListener(type,listener,useCapture);
+    		 	}:
+    		 	function(ele,type,listener){
+    		 		ele.attachEvent('on'+type,listener);
+    		 	};
+    	var year = document.getElementById('year'),	 	
+    	    month = document.getElementById('month'),
+    	    date = document.getElementById('date');
+    	addEvent(year,'change',function(event){
+    		var value = year.value;
+    			month["value"] = value==0? 0 : month.value;
+    			date["value"] = value ==0? 0 : date.value;
+    			
+    	});
+    	addEvent(month,'change',function(event){
+    		var value = month.value;
+    			month["value"] = year.value==0? 0 : month.value;
+    			date["value"] = value==0? 0 : date.value;		
+    	});
+    	// addEvent(date,'change',function(event){
+    	// 	var value = date.value;
+    	// 		date["value"] = month.value==0? 0 : value;		
+    	// });
+    	addEvent(month,'click',function getDay(){
+    		var days = new Date(year.value,month.value,0).getDate();
+    			if(month.value!=0){
+    				for(var i = 1;i<=days;i++){
+    					var option = new Option();
+    						option.value = i;
+    						option.innerHTML = i;
+    						date.add(option);
+    				}
+    			}
+    	});
+    	addEvent(month,'click',function(){
+    		if(month.value==0)
+    		date.innerHTML = " <option value=\"0\">--</option>"
+    	});
+    </script>
+</body>
+</html>
