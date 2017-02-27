@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>仿有道云笔记全局布局</title>
+	<style type="text/css">
+		html,body,.parent{margin: 0;padding: 0;height: 100%;overflow: hidden;/*这个是为了防止主体滚动*/}
+		.top{position: absolute;top: 0;left: 0;right: 0px;height: 50px;background-color: rgb(43,138,237);}
+		.left{position: absolute;top: 50px;left: 0;bottom: 0px;width: 240px;background-color: rgb(245,245,245);}
+		.mid{position: absolute;top: 50px;left: 240px;bottom: 0px;width: 320px;border-left: solid 1px #E3E3E3;border-right: solid 1px #E3E3E3}
+		.right{position: absolute;top: 50px;left: 562px;bottom: 0px;right: 0px;overflow-y: auto}
+		/*.right .inner{min-height: 1000px;}*/
+	</style>
+</head>
+<body>
+	<div class="parent">
+		<div class="top"></div>
+		<div class="left"></div>
+		<div class="mid"></div>
+		<div class="right">
+			<div class="inner"></div>
+		</div>
+	</div>
+</body>
+</html>
+<!-- 老师的布局是一个head,一个body包含side1,side2,main  -->
+<!-- css的写法也值得学习,比如我这里就可以写成.top,.left,.mid,.right{position:absolute;}
+											 .left,.mid.right{top:50px;bottom:0px;}等等 -->
