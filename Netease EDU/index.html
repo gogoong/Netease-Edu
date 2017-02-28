@@ -4,67 +4,126 @@
 	<meta charset="UTF-8">
 	<title>EDU | 网易产品教育部</title>
 	<link rel="stylesheet" type="text/css" href="css/reset.css">
+	<!-- <link rel="stylesheet" type="text/css" href="css/edu.css"> -->
 	<style type="text/css">
 		body{font: 12px "宋体"}
 		h1{display:inline;font: 19px/1 "GillSansMT"}
 		h2{display: inline;font: 22px/1 "HiraginoSansGB"}
 		.g-flow{width: 1206px;margin: 0 auto;}
 		.icn{display: inline-block;background: url(images/sprit1.png) no-repeat;cursor: pointer;}
-		.g-top{}
-		.g-top .notification{height: 36px;font:12px/3 "Microsoft Yahei";background-color: #f3f3f3;}
-		.g-top .notification .micronote{position: relative;}
-		.g-top .notification span{color:#71bc8b;}
-		.g-top .notification .cancel{display: inline-block;position: absolute;right: 2px;cursor: pointer;}
-		.g-top .cancel .icn{width: 9px;height: 9px;margin-right: 6px;background-position: 0 -48px;}
-		.g-top .header{height: 82px;line-height: 82px;}
-		/*.g-top .header .content{height: 22px;line-height: 22px;margin: 30px auto 37px;}*/
-		.g-top .content .title{float: left;}
-		.g-top .content .follow{float: left;height: 21px;margin: 30px 0 31px 31px;font: 12px/21px "宋体";}
-		/*.g-top .content .follow{display:inline-block;height: 21px;margin: 31px 0 31px 31px;font: 12px/21px "宋体";}*/
-		.g-top .follow .icn{width: 46px;height: 21px;padding-left: 22px;;}
-		.g-top .content .links{float: right;font-size: 16px;}
-		.g-top .links .icn{width: 18px;height: 18px;margin: 0 14px 0 30px;background-position: 0 -66px;vertical-align: middle;}
-		.g-top .links .icn:hover{background: url(images/sprit1.png) 0 -93px no-repeat;}
-		.g-top .links .u-link{margin-left: 54px;color: #666666}
-		.g-top .links .u-link:first-child{margin-left: 0;}
-		.g-top .links .u-link:hover{color: #39a030;}
-		.m-slides {margin-top: 7px;}
-		.m-slides .slide{width: 100%;height: 460px;}
+		.f-cb:after{content: "";clear: both;display: block;height: 0;overflow: hidden;visibility: hidden;}
+		.f-cb{zoom: 1;}
+		.g-hd{width: 100%;}
+		.g-hd .g-wrap{height: 36px;font:12px/3 "Microsoft Yahei";background-color: #f3f3f3;}
+		.g-hd .m-tips{position: relative;}
+		.g-hd .m-tips span{color:#71bc8b;}
+		.g-hd .m-tips .cancel{display: inline-block;position: absolute;right: 2px;cursor: pointer;}
+		.g-hd .cancel .icn{width: 9px;height: 9px;margin-right: 6px;background-position: 0 -48px;}
+		.g-hd .m-hd{height: 82px;line-height: 82px;}
+		/*.g-hd .m-hd .content{height: 22px;line-height: 22px;margin: 30px auto 37px;}*/
+		.g-hd .m-ct .title{float: left;}
+		.g-hd .m-ct .u-follow{float: left;height: 21px;margin: 30px 0 31px 31px;font: 12px/21px "宋体";}
+		/*.g-hd .m-ct .u-follow{display:inline-block;height: 21px;margin: 31px 0 31px 31px;font: 12px/21px "宋体";}*/
+		.g-hd .icn{width: 46px;height: 21px;padding-left: 22px;;}
+		.g-hd .m-ct .links{float: right;font-size: 16px;}
+		.g-hd .links .icn{width: 18px;height: 18px;margin: 0 14px 0 30px;background-position: 0 -66px;vertical-align: middle;}
+		.g-hd .links .icn:hover{background: url(images/sprit1.png) 0 -93px no-repeat;}
+		.g-hd .links .u-link{margin-left: 54px;color: #666666}
+		.g-hd .links .u-link:first-child{margin-left: 0;}
+		.g-hd .links .u-link:hover{color: #39a030;}
+		.m-slides {position: relative; margin-top: 7px;}
+		.m-slides .u-slide{width: 100%;height: 460px;}
+		.m-slides .u-pointer{position: absolute;left: 50%;bottom: 20px;margin-left: -26px; width: 52px;font-size: 0}
+		.m-slides .u-pointer i{display: inline-block;width: 10px;height: 10px;margin-right: 11px; background-color: #fff; border-radius:5px; }
+		.m-slides .u-pointer i:last-child{margin-right: 0;}
+		.m-slides .u-pointer .z-crt{background-color: #000;}
+		.g-content .icn{float: left;width: 80px;height: 80px;margin-right: 20px;background: url(images/icon-sprit.png);cursor: default;}
+		.g-content .m-ct{float:left;width: 343px;/*height: 80px;*/}
+		/*.g-content .open*/
+		.g-content .open .icn{background-position: 0 0;}
+		.g-content {margin-top: 60px;}
+		.g-content .study .icn{background-position: 0 -118px;}
+		.g-content .icourse .icn{background-position: 0 -236px;}
+		.g-content .text{float: left;width: 243px;font: 14px/24px "Microsoft Yahei";color: #666666}
+		.g-content .text h1{font: 22px/20px "Microsoft Yahei";color: #333333}
+		.g-content .text p{margin: 20px 0 34px;}
+		.g-content .study{margin: 0 82px;}
+		.g-content .u-link{color: #39a030}
+		.g-content .u-link:hover{text-decoration: underline;}
 	</style>
 </head>
 <body>
-	<div class="g-top">
-		<div class="notification">
-			<div class="micronote g-flow">网易云课堂微专业，帮助你掌握专业技能，令你求职或加薪多一份独特优势！&nbsp;&nbsp;<a href=""><span>立即查看 ></span></a><div class="cancel"><span class="icn"></span>不再提醒</div></div>
-			
+	<div class="g-hd">
+		<div class="g-wrap">
+			<div class="m-tips g-flow">网易云课堂微专业，帮助你掌握专业技能，令你求职或加薪多一份独特优势！&nbsp;&nbsp;<a href="http://study.163.com/smartSpec/intro.htm#/smartSpecIntro" target="_blank"><span>立即查看 ></span></a><div class="cancel"><span class="icn"></span>不再提醒</div></div>
 		</div>
-		<div class="header">
-			<div class="g-flow content">
-				<div class="title"><h1>EDU&nbsp;</h1><h2>|&nbsp;网易教育产品部</h2></div>
-				<div class="follow"><div class="icn">关注</div><span>粉丝 45</span></div>
-				<div class="links"><a class="u-link" href="http://open.163.com" target="_blank">网易公开课</a>
-				<a class="u-link" href="http://study.163.com" target="_blank">网易云课堂</a>
-				<a class="u-link" href="http://www.icourse163.org" target="_blank">中国大学MOOC</a><div class="icn"></div></div>
+		<div class="m-hd">
+			<div class="g-flow">
+				<div class="m-ct f-cb">
+					<div class="title"><h1>EDU&nbsp;</h1><h2>|&nbsp;网易教育产品部</h2></div>
+					<div class="u-follow"><div class="icn">关注</div><span>粉丝 45</span></div>
+					<div class="links">
+						<a class="u-link" href="http://open.163.com" target="_blank">网易公开课</a>
+						<a class="u-link" href="http://study.163.com" target="_blank">网易云课堂</a>
+						<a class="u-link" href="http://www.icourse163.org" target="_blank">中国大学MOOC</a>
+						<div class="icn"></div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
 	<div class="m-slides">
-		<img class="slide" src="images/banner1.jpg" alt="网易教育部" data-index="1">
+		<img class="u-slide" src="images/banner1.jpg" alt="网易教育部" data-index="1">
+		<div class="u-pointer">
+			<i class="z-crt"></i>
+			<i></i>
+			<i></i>
+		</div>
 	</div>
-	<div class="m-content"></div>
-	<div class="ads"></div>
 	<div class="g-content">
-		<div class="g-main">
+		<div class="g-flow f-cb">
+			<div class="m-ct open f-cb">
+				<div class="icn"></div>
+				<div class="text">
+					<h1>网易公开课</h1>
+					<p>推出国内外名校公开课，涉及广泛的学科，名校老师认真讲解深度剖析，网易视频公开课频道搭建起强有力的网络视频教学平台。</p>
+					<a href="http://open.163.com" target="_blank" class="u-link">了解更多</a>
+				</div>
+				
+			</div>
+			<div class="m-ct study">
+				<div class="icn"></div>
+				<div class="text">
+					<h1>云课堂</h1>
+					<p>网易旗下大型在线学习平台，该平台面向学习者提供海量免费、优质课程，创新的个性化学习体验，自由开放的交流互动环境</p>
+					<a href="http://study.163.com" target="_blank" class="u-link">了解更多</a>
+				</div>
+				
+			</div>
+			<div class="m-ct icourse">
+				<div class="icn"></div>
+				<div class="text">
+					<h1>中国大学MOOC</h1>
+					<p>是爱课程网携手云课堂打造的在线学习平台,每一个有提升愿望的人,都可以在这里学习中国最好的大学课程，学完还能获得认证证书。</p>
+					<a href="http://www.icourse163.org"  target="_blank" class="u-link">了解更多</a>
+				</div>
+			
+			</div>
+		</div>
+	</div>
+	<div class="m-ads"></div>
+	<div class="g-bd">
+		<div class="g-mn">
 			<div class="u-tab"></div>
 			<div class="m-course"></div>
 			<div class="m-page"></div>
 		</div>
-		<div class="g-side">
+		<div class="g-sd">
 			<div class="m-intro"></div>
 			<div class="m-hotlist"></div>
 		</div>
 	</div>
-	<div class="g-footer"></div>
+	<div class="g-ft"></div>
 	<script type="text/javascript">
 		// var slide = document.getElementsByTagName("img")[0];
 		// function lunbo(){
@@ -83,7 +142,16 @@
 		// lunbo();
 		// slide.addEventListener("mouseout",lunbo());
 		window.onload = function(){
+			// 定义事件监听方法,兼容IE8
+			var addEvent = document.addEventListener ?
+    		 	function(ele,type,listener,useCapture){
+    		 		ele.addEventListener(type,listener,useCapture);
+    		 	}:
+    		 	function(ele,type,listener){
+    		 		ele.attachEvent('on'+type,listener);
+    		 	};
 			var slide = document.getElementsByTagName("img")[0];
+			var pointer = slide.parentNode.getElementsByClassName("u-pointer")[0].children;
 			var index = slide.getAttribute("data-index");
 			// 淡入动画,100ms执行一次,共5次500ms
 			function fadein(ele){
@@ -101,13 +169,32 @@
 				fadein(slide);
 				index++;
 				index>3?index=1:index=index;
+				for(var i = 0;i<3;i++){
+					pointer[i].className = "";
+				}
+				pointer[index-1].className += " z-crt";
 				slide.src = "images/banner" + index +".jpg";
 				slide.setAttribute("data-index",index);
 			}
-			var timer = setInterval(changeimg,5000);
+			// 开始轮播
+			function start(){
+				timer = setInterval(changeimg,5000);
+			}
+			// 停止轮播
+			function stop(){
+				clearInterval(timer);
+			}
+			start();
+			// var timer = setInterval(changeimg,1000);
+			// 注册事件,鼠标移动停止轮播
+			// slide.addEventListener("mouseenter",stop);
+			// slide.addEventListener("mouseout",start);
+			addEvent(slide,"mouseenter",stop);
+			addEvent(slide,"mouseout",start);
 		}
 	</script>
 </body>
 </html>
 <!-- 顶部通知条是否一直固定在顶部?即下拉后是否会消失 -->
 <!-- ​右侧导航区的搜索图标hover效果 -->
+<!-- 字体问题待解决 -->
