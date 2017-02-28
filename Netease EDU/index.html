@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
+	<meta width="device-width">
 	<title>EDU | 网易产品教育部</title>
 	<link rel="stylesheet" type="text/css" href="css/reset.css">
 	<!-- <link rel="stylesheet" type="text/css" href="css/edu.css"> -->
@@ -41,15 +42,23 @@
 		.g-content .m-ct{float:left;width: 343px;/*height: 80px;*/}
 		/*.g-content .open*/
 		.g-content .open .icn{background-position: 0 0;}
-		.g-content {margin-top: 60px;}
+		.g-content {margin: 60px 0;}
 		.g-content .study .icn{background-position: 0 -118px;}
 		.g-content .icourse .icn{background-position: 0 -236px;}
-		.g-content .text{float: left;width: 243px;font: 14px/24px "Microsoft Yahei";color: #666666}
-		.g-content .text h1{font: 22px/20px "Microsoft Yahei";color: #333333}
+		.g-content .text{float: left;width: 243px;font: 14px/24px "Microsoft Yahei";color: #666666;}
+		.g-content .text h1{font: 22px/20px "Microsoft Yahei";color: #333333};
 		.g-content .text p{margin: 20px 0 34px;}
 		.g-content .study{margin: 0 82px;}
-		.g-content .u-link{color: #39a030}
+		.g-content .u-link{color: #39a030;}
 		.g-content .u-link:hover{text-decoration: underline;}
+		.m-intro {margin-left: -4px;font-size: 0}
+		.m-intro .workcondition{float: left;width: 20%;padding-left: 4px;box-sizing: border-box;}
+		.m-intro .workcondition img{width: 100%;}
+		/*.m-intro .workcondition:first-child{margin-left: 0;}*/
+		.g-bd{padding-top: 80px;background-color:#f8f8f8 ;height: 1000px;}
+		.g-bd .g-mn{width: 960px;}
+		.g-bd .u-tab div{float: left;width: 200px;height: 50px;text-align: center;font: 20px/50px "Microsoft Yahei";color: #666666;background-color: #ffffff;}
+		.g-bd .u-tab .z-sel{color: #ffffff;background-color: #39a030;}
 	</style>
 </head>
 <body>
@@ -75,9 +84,9 @@
 	<div class="m-slides">
 		<img class="u-slide" src="images/banner1.jpg" alt="网易教育部" data-index="1">
 		<div class="u-pointer">
-			<i class="z-crt"></i>
-			<i></i>
-			<i></i>
+			<i class="z-crt" data-index="1"></i>
+			<i data-index="2"></i>
+			<i data-index="3"></i>
 		</div>
 	</div>
 	<div class="g-content">
@@ -111,16 +120,34 @@
 			</div>
 		</div>
 	</div>
-	<div class="m-ads"></div>
+	<div class="m-intro f-cb">
+		<div class="workcondition"><img src="images/1.jpg" alt="" ></div>
+		<div class="workcondition"><img src="images/2.jpg" alt="" ></div>
+		<div class="workcondition"><img src="images/3.jpg" alt="" ></div>
+		<div class="workcondition"><img src="images/4.jpg" alt="" ></div>
+		<div class="workcondition"><img src="images/5.jpg" alt="" ></div>
+	</div>
+<!-- 	<div class="m-intro">
+		<img src="images/1.jpg" alt="" class="haha">
+		<img src="images/1.jpg" alt="" class="haha">
+		<img src="images/1.jpg" alt="" class="haha">
+		<img src="images/1.jpg" alt="" class="haha">
+		<img src="images/1.jpg" alt="" class="haha">
+	</div> -->
 	<div class="g-bd">
-		<div class="g-mn">
-			<div class="u-tab"></div>
-			<div class="m-course"></div>
-			<div class="m-page"></div>
-		</div>
-		<div class="g-sd">
-			<div class="m-intro"></div>
-			<div class="m-hotlist"></div>
+		<div class="g-flow">
+			<div class="g-mn">
+				<div class="u-tab">
+					<div class="z-sel">产品设计</div>
+					<div>编程语言</div>
+				</div>
+				<div class="m-course"></div>
+				<div class="m-page"></div>
+			</div>
+			<div class="g-sd">
+				<div class="m-video"></div>
+				<div class="m-hotlist"></div>
+			</div>
 		</div>
 	</div>
 	<div class="g-ft"></div>
@@ -150,7 +177,7 @@
     		 	function(ele,type,listener){
     		 		ele.attachEvent('on'+type,listener);
     		 	};
-			var slide = document.getElementsByTagName("img")[0];
+			var slide = document.getElementsByClassName("u-slide")[0];
 			var pointer = slide.parentNode.getElementsByClassName("u-pointer")[0].children;
 			var index = slide.getAttribute("data-index");
 			// 淡入动画,100ms执行一次,共5次500ms
