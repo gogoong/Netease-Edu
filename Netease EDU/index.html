@@ -14,6 +14,8 @@
 		.icn{display: inline-block;background: url(images/sprit1.png) no-repeat;cursor: pointer;}
 		.f-cb:after{content: "";clear: both;display: block;height: 0;overflow: hidden;visibility: hidden;}
 		.f-cb{zoom: 1;}
+		.f-mask{position: fixed;left: 0;top: 0;height: 100%;width: 100%;background-color: #ffffff;opacity: 0.5;z-index: 99;}
+		.m-vct{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index: 1000;}
 		.g-hd{width: 100%;}
 		.g-hd .g-wrap{height: 36px;font:12px/3 "Microsoft Yahei";background-color: #f3f3f3;}
 		.g-hd .m-tips{position: relative;}
@@ -32,9 +34,9 @@
 		.g-hd .links .u-link{margin-left: 54px;color: #666666}
 		.g-hd .links .u-link:first-child{margin-left: 0;}
 		.g-hd .links .u-link:hover{color: #39a030;}
-		.m-slides {position: relative; margin-top: 7px;}
+		.m-slides {position: relative; margin-top: 7px;font-size: 0}
 		.m-slides .u-slide{width: 100%;height: 460px;}
-		.m-slides .u-pointer{position: absolute;left: 50%;bottom: 20px;margin-left: -26px; width: 52px;font-size: 0}
+		.m-slides .u-pointer{position: absolute;left: 50%;bottom: 20px;margin-left: -26px; width: 52px;}
 		.m-slides .u-pointer i{display: inline-block;width: 10px;height: 10px;margin-right: 11px; background-color: #fff; border-radius:5px; }
 		.m-slides .u-pointer i:last-child{margin-right: 0;}
 		.m-slides .u-pointer .z-crt{background-color: #000;}
@@ -56,9 +58,14 @@
 		.m-intro .workcondition img{width: 100%;}
 		/*.m-intro .workcondition:first-child{margin-left: 0;}*/
 		.g-bd{padding-top: 80px;background-color:#f8f8f8 ;height: 1000px;}
-		.g-bd .g-mn{width: 960px;}
+		.g-bd .g-mn{float:left;width: 960px;}
 		.g-bd .u-tab div{float: left;width: 200px;height: 50px;text-align: center;font: 20px/50px "Microsoft Yahei";color: #666666;background-color: #ffffff;}
 		.g-bd .u-tab .z-sel{color: #ffffff;background-color: #39a030;}
+		.g-bd .g-sd{float: right;width: 223px;}
+		.g-bd .m-video{box-shadow: 1px 0 #ecebeb,-1px 0 #ecebeb,0 2px #dddddd}
+		.g-bd .g-sd .intro{height: 55px;padding-left: 20px;font: 16px/55px "Microsoft Yahei";color: #333333;box-shadow: 0 1px #dddddd;}
+		.g-bd .video{height: 173px;padding-left: 22px;font: 14px/22px "Microsoft Yahei";color: #666666;box-shadow: 1px 1px #dddddd,}
+		.g-bd .g-sd .u-intro{cursor: pointer;}
 	</style>
 </head>
 <body>
@@ -84,11 +91,12 @@
 	<div class="m-slides">
 		<img class="u-slide" src="images/banner1.jpg" alt="网易教育部" data-index="1">
 		<div class="u-pointer">
-			<i class="z-crt" data-index="1"></i>
-			<i data-index="2"></i>
-			<i data-index="3"></i>
+			<i class="z-crt" data-index="1">1</i>
+			<i data-index="2">2</i>
+			<i data-index="3">3</i>
 		</div>
 	</div>
+
 	<div class="g-content">
 		<div class="g-flow f-cb">
 			<div class="m-ct open f-cb">
@@ -134,23 +142,43 @@
 		<img src="images/1.jpg" alt="" class="haha">
 		<img src="images/1.jpg" alt="" class="haha">
 	</div> -->
-	<div class="g-bd">
+	<div class="g-bd f-cb">
 		<div class="g-flow">
-			<div class="g-mn">
-				<div class="u-tab">
+			<div class="g-mn ">
+				<div class="u-tab f-cb">
 					<div class="z-sel">产品设计</div>
 					<div>编程语言</div>
 				</div>
-				<div class="m-course"></div>
+				<div class="m-course">1</div>
 				<div class="m-page"></div>
 			</div>
 			<div class="g-sd">
-				<div class="m-video"></div>
+				<div class="m-video">
+					<div class="intro">机构介绍</div>
+					<div class="video">观看下面的视频来了解吧:
+						<img class="u-intro" width="180px" height="110px" src="images/play.jpg">
+					</div>
+				</div>
 				<div class="m-hotlist"></div>
 			</div>
 		</div>
 	</div>
-	<div class="g-ft"></div>
+	<!-- <div class="f-mask"></div> -->
+
+	<div class="g-ft">
+		<div class="test"></div>
+		<div class="test"></div>
+		<div class="test"></div>
+		<div class="test"></div>
+		<div class="test"></div>
+		<div class="test"></div>
+		<div class="test"></div>
+		<div class="test"></div>
+		<div class="test"></div>
+		<div class="test"></div>
+	</div>
+		<!-- <div class="f-mask"></div>
+	<div class="m-vct"><video src="http://mov.bn.netease.com/open-movie/nos/mp4/2014/12/30/SADQ86F5S_shd.mp4" autoplay="autoplay" width="700px" height="500px"></video></div> -->
 	<script type="text/javascript">
 		// var slide = document.getElementsByTagName("img")[0];
 		// function lunbo(){
@@ -168,7 +196,7 @@
 		// }
 		// lunbo();
 		// slide.addEventListener("mouseout",lunbo());
-		window.onload = function(){
+		// window.onload = function(){
 			// 定义事件监听方法,兼容IE8
 			var addEvent = document.addEventListener ?
     		 	function(ele,type,listener,useCapture){
@@ -218,7 +246,57 @@
 			// slide.addEventListener("mouseout",start);
 			addEvent(slide,"mouseenter",stop);
 			addEvent(slide,"mouseout",start);
-		}
+			// 注册事件,点击圆点切换图片
+			// 利用for循环注册事件,出现问题,var改成let可以解决,但低版本IE不支持
+			// 笨方法是一个个手动注册
+			// 还有个思路是立即执行函数
+			for(var i = 0 ;i < 3 ; i++){
+				(function(i){
+				addEvent(pointer[i],"click",function(){
+					stop();
+					index = i
+					changeimg();
+					start();
+
+				});})(i)
+			}
+			// 视频播放事件
+			var vdo = document.getElementsByClassName("u-intro")[0];
+			// function addVEle(){
+			// 	var mask = document.createElement("div"),
+			// 		vct = document.createElement("div"),
+			// 		body = document.getElementsByTagName("body")[0];
+			// 	var mask = body.insertBefore(mask,slide.parentNode);
+			// 	var vct = body.insertBefore(vct,slide.parentNode);
+
+			// }
+			// 判断视频播放状态进行暂停或播放
+			function jugg(ele){
+				if(ele.paused){ele.play()}
+					else{ele.pause()}
+			}
+			// 注册事件,点击出现视频
+			addEvent(vdo,"click",function(){
+				// function addVEle(){
+				var mask = document.createElement("div"),
+					vct = document.createElement("div"),
+					body = document.getElementsByTagName("body")[0],
+				    mask = body.insertBefore(mask,slide.parentNode),
+				    vct = body.insertBefore(vct,slide.parentNode);
+
+			// }
+				// addVEle();
+				mask.className = "f-mask";
+				vct.className = "m-vct";
+				vct.innerHTML = "<video src='http://mov.bn.netease.com/open-movie/nos/mp4/2014/12/30/SADQ86F5S_shd.mp4' autoplay='autoplay' width='800px' onclick='jugg(this)'></video>"
+				// 注册事件,点击空白处,视频消失
+				addEvent(mask,"click",function(){
+					body.removeChild(vct);
+					body.removeChild(mask);
+				})
+			});
+			// }
+		// }
 	</script>
 </body>
 </html>
