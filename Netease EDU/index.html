@@ -62,7 +62,8 @@
 		.m-intro .workcondition img{width: 100%;}
 		/*.m-intro .workcondition:first-child{margin-left: 0;}*/
 		.g-bd{padding-top: 80px;background-color:#f8f8f8 ;height: 1000px;}
-		.g-bd .g-mn{float:left;width: 960px;}
+		.g-bd .g-mn{position: relative;float:left;width: 960px;}
+		.g-bd .u-tab{margin-bottom: 30px;}
 		.g-bd .u-tab div{float: left;width: 200px;height: 50px;text-align: center;font: 20px/50px "Microsoft Yahei";color: #666666;background-color: #ffffff;}
 		.g-bd .u-tab .z-sel{color: #ffffff;background-color: #39a030;}
 		.g-bd .g-sd{float: right;width: 223px;}
@@ -70,6 +71,8 @@
 		.g-bd .g-sd .intro{height: 55px;padding-left: 20px;font: 16px/55px "Microsoft Yahei";color: #333333;box-shadow: 0 1px #dddddd;}
 		.g-bd .video{height: 173px;padding-left: 22px;padding-top: 20px;font: 14px/22px "Microsoft Yahei";color: #666666;box-shadow: 1px 1px #dddddd,}
 		.g-bd .g-sd .u-intro{cursor: pointer;}
+		/*.g-bd .g-mn .m-courselist{position: relative;width: 960px;}*/
+		.g-bd .g-mn .u-course{display: inline-block;width: 225px;height: 228px;padding: 1px 1px auto;box-sizing: border-box;}
 	</style>
 </head>
 <body>
@@ -125,7 +128,7 @@
 				<div class="icn"></div>
 				<div class="text">
 					<h1>中国大学MOOC</h1>
-					<p>是爱课程网携手云课堂打造的在线学习平台,每一个有提升愿望的人,都可以在这里学习中国最好的大学课程，学完还能获得认证证书。</p>
+					<p>是爱课程网携手云课堂打造的在线学习平台，每一个有提升愿望的人，都可以在这里学习中国最好的大学课程，学完还能获得认证证书。</p>
 					<a href="http://www.icourse163.org"  target="_blank" class="u-link">了解更多</a>
 				</div>
 			
@@ -153,7 +156,15 @@
 					<div class="z-sel">产品设计</div>
 					<div>编程语言</div>
 				</div>
-				<div class="m-course">1</div>
+				<div class="m-courselist">
+					<!-- <div class="u-course">
+						<div class="img"></div>
+						<div class="ttl"></div>
+						<div class="prv"></div>
+						<div class="lcount"></div>
+						<div class="price"></div>
+					</div> -->
+				</div>
 				<div class="m-page"></div>
 			</div>
 			<div class="g-sd">
@@ -170,7 +181,7 @@
 	<!-- <div class="f-mask"></div> -->
 
 	<div class="g-ft">
-		<div class="test"></div>
+		<div class="test"><img src="" alt=""></div>
 		<div class="test"></div>
 		<div class="test"></div>
 		<div class="test"></div>
@@ -200,6 +211,54 @@
 		// }
 		// lunbo();
 		// slide.addEventListener("mouseout",lunbo());
+		// Ajax get封装
+			function get(url,options,callback){
+				function serialize(options){
+					if(!options) return '';
+					var pairs = [];
+					for(var name in options){
+						if(!options.hasOwnProperty(name)) continue;
+						if(typeof options[name] === 'function') continue;
+						var value = options[name].toString();
+						name = encodeURIComponent(name);
+						value = encodeURIComponent(value);
+						pairs.push(name + '=' + value);
+					}
+					return pairs.join('&');
+				}
+				var xhr = new XMLHttpRequest;
+				xhr.onreadystatechange = function(){
+					if(xhr.readyState == 4){
+						if((xhr.status >= 200 && xhr.status<300) || (xhr.status == 304 )){
+							callback(JSON.parse(xhr.responseText));
+						}
+					}
+				}
+			// options = serialize(options);
+			xhr.open('get',url + '?' + serialize(options),true);
+			xhr.send(null);
+		}
+		function fomdata(obj){
+			console.log(obj)
+			console.log(obj.list.length)
+			var courselist = document.querySelector(".m-courselist");
+			for(var i = 0,length=obj.list.length;i<length;i++){
+				var course = document.createElement("div");
+				course.className = "u-course";
+				course.innerHTML = "<a class='img'><img></a>\
+									<div class='ttl'></div>\
+									<div class='prv'></div>\
+									<div class='lcount'></div>\
+									<div class='price'></div>"
+				course.children[0].firstChild.src = obj.list[i].smallPhotoUrl;
+				courselist.appendChild(course);
+			}
+		}
+		var courseurl = "http://study.163.com/webDev/couresByCategory.htm",
+			data = {pageNo:2,psize:20,type:10},
+		    response1 = get(courseurl,data,fomdata);
+		// var resobj = JSON.parse(response);
+
 		// window.onload = function(){
 			// 定义事件监听方法,兼容IE8
 			var addEvent = document.addEventListener ?
@@ -280,9 +339,9 @@
 				// function addVEle(){
 				var mask = document.createElement("div"),
 					vct = document.createElement("div"),
-					body = document.getElementsByTagName("body")[0],
-				    mask = body.insertBefore(mask,slide.parentNode),
-				    vct = body.insertBefore(vct,slide.parentNode);
+					// body = document.getElementsByTagName("body")[0],
+				    mask = document.body.insertBefore(mask,slide.parentNode),
+				    vct = document.body.insertBefore(vct,slide.parentNode);
 			// }
 				// addVEle();
 				mask.className = "f-mask";
@@ -316,13 +375,13 @@
 				});
 				// 点击关闭,退出视频
 				addEvent(mask,"click",function(){
-					body.removeChild(vct);
-					body.removeChild(mask);
+					document.body.removeChild(vct);
+					document.body.removeChild(mask);
 				});
 				// 点击关闭,退出视频
 				addEvent(cls,"click",function(){
-					body.removeChild(vct);
-					body.removeChild(mask)
+					document.body.removeChild(vct);
+					document.body.removeChild(mask)
 				})
 			});
 			// }
