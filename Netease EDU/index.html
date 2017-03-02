@@ -14,8 +14,12 @@
 		.icn{display: inline-block;background: url(images/sprit1.png) no-repeat;cursor: pointer;}
 		.f-cb:after{content: "";clear: both;display: block;height: 0;overflow: hidden;visibility: hidden;}
 		.f-cb{zoom: 1;}
-		.f-mask{position: fixed;left: 0;top: 0;height: 100%;width: 100%;background-color: #ffffff;opacity: 0.5;z-index: 99;}
-		.m-vct{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index: 1000;}
+		.f-mask{position: fixed;left: 0;top: 0;height: 100%;width: 100%;background-color: #000000;opacity: 0.2;z-index: 99;}
+		.m-vct{position:fixed;left:50%;top:50%;width: 950px;height: 647px;padding: 40px 30px;box-sizing:border-box;background-color: #fff;transform:translate(-50%,-50%);z-index: 1000;}
+		.m-vct video{cursor: pointer;}
+		.m-vct .zttl{font: 18px/28px "Microsoft Yahei";}
+		.m-vct .zcls{position: absolute;top: 13px;right: 12px;width: 10px;height: 10px;background: url(images/closeicn.png);cursor: pointer;}
+		.m-vct .u-playbtn{display:none;position: absolute;left: 50px;bottom: 79px;width: 60px;height: 60px;background: url(images/play.png);cursor: pointer;}
 		.g-hd{width: 100%;}
 		.g-hd .g-wrap{height: 36px;font:12px/3 "Microsoft Yahei";background-color: #f3f3f3;}
 		.g-hd .m-tips{position: relative;}
@@ -62,9 +66,9 @@
 		.g-bd .u-tab div{float: left;width: 200px;height: 50px;text-align: center;font: 20px/50px "Microsoft Yahei";color: #666666;background-color: #ffffff;}
 		.g-bd .u-tab .z-sel{color: #ffffff;background-color: #39a030;}
 		.g-bd .g-sd{float: right;width: 223px;}
-		.g-bd .m-video{box-shadow: 1px 0 #ecebeb,-1px 0 #ecebeb,0 2px #dddddd}
+		.g-bd .m-video{background-color: #fff;box-shadow: 1px 0 #ecebeb,-1px 0 #ecebeb,0 2px #dddddd}
 		.g-bd .g-sd .intro{height: 55px;padding-left: 20px;font: 16px/55px "Microsoft Yahei";color: #333333;box-shadow: 0 1px #dddddd;}
-		.g-bd .video{height: 173px;padding-left: 22px;font: 14px/22px "Microsoft Yahei";color: #666666;box-shadow: 1px 1px #dddddd,}
+		.g-bd .video{height: 173px;padding-left: 22px;padding-top: 20px;font: 14px/22px "Microsoft Yahei";color: #666666;box-shadow: 1px 1px #dddddd,}
 		.g-bd .g-sd .u-intro{cursor: pointer;}
 	</style>
 </head>
@@ -270,11 +274,7 @@
 			// 	var vct = body.insertBefore(vct,slide.parentNode);
 
 			// }
-			// 判断视频播放状态进行暂停或播放
-			function jugg(ele){
-				if(ele.paused){ele.play()}
-					else{ele.pause()}
-			}
+
 			// 注册事件,点击出现视频
 			addEvent(vdo,"click",function(){
 				// function addVEle(){
@@ -283,16 +283,46 @@
 					body = document.getElementsByTagName("body")[0],
 				    mask = body.insertBefore(mask,slide.parentNode),
 				    vct = body.insertBefore(vct,slide.parentNode);
-
 			// }
 				// addVEle();
 				mask.className = "f-mask";
 				vct.className = "m-vct";
-				vct.innerHTML = "<video src='http://mov.bn.netease.com/open-movie/nos/mp4/2014/12/30/SADQ86F5S_shd.mp4' autoplay='autoplay' width='800px' onclick='jugg(this)'></video>"
-				// 注册事件,点击空白处,视频消失
+				vct.innerHTML = "<div class='zttl'>遇见更好的自己</div><div class='zcls'></div><div class='u-playbtn'></div><video src='http://mov.bn.netease.com/open-movie/nos/mp4/2014/12/30/SADQ86F5S_shd.mp4'  autoplay='autoplay' width='889' height='537'></video>";
+				var cls = vct.querySelector(".zcls"),
+					playbtn = vct.querySelector(".u-playbtn"),
+					video = vct.getElementsByTagName("video")[0];
+			// 判断视频播放状态进行暂停或播放
+			// 	function jugg(){
+			// 	if(!video.paused){
+			// 		video.pause();
+			// 		playbtn.style.display = "block"
+					
+			// 	}
+			// 		else{
+			// 			video.play();
+			// 			playbtn.style.display = "none"
+			// 		}
+			// }
+				//	点击视频内容进行播放/暂停
+				addEvent(video,"click",function(){
+					if(this.paused){
+						this.play();
+						playbtn.style.display = "none"
+				}
+					else{
+						this.pause();
+						playbtn.style.display = "block"
+					}
+				});
+				// 点击关闭,退出视频
 				addEvent(mask,"click",function(){
 					body.removeChild(vct);
 					body.removeChild(mask);
+				});
+				// 点击关闭,退出视频
+				addEvent(cls,"click",function(){
+					body.removeChild(vct);
+					body.removeChild(mask)
 				})
 			});
 			// }
