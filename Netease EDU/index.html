@@ -273,24 +273,51 @@
 			console.log(obj)
 			console.log(obj.list.length)
 			var courselist = document.querySelector(".m-courselist"),
-				page = document.querySelector(".m-page");
-			for(var i = 0,length=obj.list.length;i<length;i++){
-					var course = document.createElement("li");
-					course.className = "u-course";
-					course.innerHTML = "<a class='img'><img width = '223px' height = '124px'></a>\
+				page = document.querySelector(".m-page"),
+				coursecount = document.getElementsByClassName("u-course");
+				totalpage = obj.totalPage;
+			if(coursecount.length == 0){
+				for(var i = 0,length=obj.list.length;i<length;i++){
+					addcourse();
+				}
+			}else if(coursecount.length == obj.list.length){
+				for(var i = 0;i<coursecount.length;i++){
+					changestyle(coursecount[i])
+				}
+			}else if(coursecount.length>obj.list.length){
+				for(var i=0;i<obj.list.length;i++){
+					changestyle(coursecount[i])
+				}
+				for(var j=obj.list.length,length=coursecount.length;j<length;j++){
+					courselist.removeChild(courselist.lastElementChild)
+				}
+			}else{
+				for(var i = 0;i<coursecount.length;i++){
+					changestyle(coursecount[i])
+				}
+				for(var i=coursecount.length;i<obj.list.length;i++){
+					addcourse();
+				}
+			}
+					function changestyle(ele){
+						ele.children[0].firstChild.src = obj.list[i].middlePhotoUrl;
+						ele.children[1].textContent = obj.list[i].name
+						ele.children[2].innerHTML = obj.list[i].provider;
+						ele.children[3].innerHTML = obj.list[i].learnerCount;
+						ele.children[4].innerHTML = obj.list[i].price == 0? "免费" : '￥'+ obj.list[i].price;
+						
+					}
+					function addcourse(){
+						var course = document.createElement("li");
+						course.className = "u-course";
+						course.innerHTML = "<a class='img'><img width = '223px' height = '124px'></a>\
 									<div class='ttl'></div>\
 									<div class='prv'></div>\
 									<div class='lcount icn'></div>\
-									<div class='price'></div>"
-				
-				
-				
-					course.children[0].firstChild.src = obj.list[i].middlePhotoUrl;
-					course.children[1].textContent = obj.list[i].name
-					course.children[2].innerHTML = obj.list[i].provider;
-					course.children[3].innerHTML = obj.list[i].learnerCount;
-					course.children[4].innerHTML = obj.list[i].price == 0? "免费" : '￥'+ obj.list[i].price;
-					courselist.appendChild(course);
+									<div class='price'></div>" ;
+						changestyle(course);
+						courselist.appendChild(course);
+					}
 				
 				// var course = document.createElement("div");
 				// course.className = "u-course";
@@ -300,45 +327,47 @@
 				// 					<div class='lcount icn'></div>\
 				// 					<div class='price'></div>"
 				
-			}
-			if(!document.querySelector(".pageindex")){
-				for(var j = 0,count = obj.totalPage;j<count;j++){
+			var pagearr = document.getElementsByClassName("pageindex");
+			if(pagearr.length == 0){
+				for(var i = 0,count = obj.totalPage;i<count;i++){
 					var pageindex = document.createElement("div");
 					pageindex.className = "pageindex";
-					(j+1) == data.pageNo ? pageindex.className += " z-sel" : true;
-					pageindex.innerHTML = j+1 ;
+					(i+1) == data.pageNo ? pageindex.className += " z-sel" : pageindex.className = "pageindex";
+					pageindex.innerHTML = i+1 ;
 					page.insertBefore(pageindex,page.lastElementChild);
 				}
+				// 给页码注册事件,实现点击效果
+				var pages = document.querySelector(".m-page");
+				for(var i = 1,length=pages.children.length;i<length-1;i++){
+					(function(i){
+						addEvent(pages.children[i],"click",function(){
+							data.pageNo = i ;
+							// console.log(i);
+							get(courseurl,data,fomdata);
+						})
+					})(i)
+					}
+			}else{
+				for(i=0;i<obj.totalPage;i++){
+					(i+1) == data.pageNo ? pagearr[i].className = "pageindex z-sel" : pagearr[i].className = "pageindex";
+				}
 			}
-			// var pages = document.querySelector(".m-page");
-			// for(var i = 1,length=pages.length;i<length-1;i++){
-			// 	(function(i){
-			// 		addEvent(pages.children[i],"click",function(){
-			// 			data.pageNo = i ;
-			// 			console.log(i);
-			// 			// get(courseurl,data,fomdata);
-			// 		})
-			// 	})(i)
-			// }
-			// addEvent(pages.children[2],"click",function(){
-			// 	console.log(1);
-			// });
-			}
+		}
 		var courseurl = "http://study.163.com/webDev/couresByCategory.htm",
 			data = {pageNo:1,psize:20,type:10};
 		get(courseurl,data,fomdata);
-		// 给页码注册事件,实现点击效果
-		var pages = document.querySelector(".m-page");
-		for(var i = 0,length = pages.length;i<length;i++){
-			// function(){
-				addEvent(pages[i],"click",function(){
-					data.pageNo = i+1
-					console.log(i);
-					// get(courseurl,data,fomdata);
-				// });
-			})
-			// }
-		}
+		// 注册箭头翻页
+		var prevpage = document.getElementsByClassName("icn left")[0];
+			nextpage = document.getElementsByClassName("right icn")[0],
+		addEvent(prevpage,"click",function(){
+			if(data.pageNo > 1? data.pageNo -=1 : false)
+			get(courseurl,data,fomdata)
+		});
+		addEvent(nextpage,"click",function(){
+			if(data.pageNo < totalpage? data.pageNo +=1 : false)
+			get(courseurl,data,fomdata)
+		});
+	
 		
 		// var resobj = JSON.parse(response);
 
