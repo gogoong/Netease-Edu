@@ -75,14 +75,28 @@
 		.g-bd .g-sd .u-intro{cursor: pointer;}
 		/*.g-bd .g-mn .m-courselist{position: relative;width: 960px;}*/
 		/*.g-bd .g-mn{font-size: 0}*/
-		.g-bd .g-mn .m-courselist{width: 980px}
-		.g-bd .g-mn .u-course{display: inline-block;width: 225px;height: 228px;padding: 1px 1px 0 1px;margin:0 20px 20px 0;box-sizing: border-box;box-shadow: 1px 0 #f1f1f1,-1px 0 #f1f1f1,0 2px 1px #e6e6e6;background-color: #fff;}
+		.g-bd .g-mn .m-courselist{width: 980px;}
+		.g-bd .g-mn .u-course{position: relative;display: inline-block;width: 225px;height: 228px;padding: 1px 1px 0 1px;margin:0 20px 20px 0;box-sizing: border-box;box-shadow: 1px 0 #f1f1f1,-1px 0 #f1f1f1,0 2px 1px #e6e6e6;background-color: #fff;}
+		.g-bd .g-mn .u-course:hover{box-shadow: 1px 1px #e6e6e6,-1px -1px #e6e6e6}
+		.g-bd .g-mn .u-course:hover .ttl{color: #39a030}
+		/*.g-bd .u-course:hover .detail{display: block}*/
 		.g-bd .m-courselist .img{display: block;margin: 0 0 10px;}
+		.g-bd .m-courselist .img:hover .detail{display: block}
 		.g-bd .m-courselist .ttl{margin: 0 0 10px 5px;font: 12px/1 "Microsoft Yahei";color: #333333;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
 		.g-bd .m-courselist .prv{margin: 0 0 10px 5px;font: 12px/1 "Microsoft Yahei";color: #999999}
 		.g-bd .m-courselist .lcount{height: 18px;margin: 0 0 10px 5px;padding-left: 18px;padding-right: 3px;box-sizing: border-box;border: 1px solid #dddddd;font: 12px/16px "Microsoft Yahei";color: #999999}
 		.g-bd .m-courselist .icn{background-position: -62px -46px}
 		.g-bd .m-courselist .price{height: 14px;margin: 0 0 10px 5px;font: 12px/12px "Microsoft Yahei";color: #ff3f00}
+		.g-bd .m-courselist .detail{position: absolute;display:none;width: 479px;height: 238px;left: -10px;top: -10px;background-color: #fff;z-index: 200}
+		/*.g-bd .m-courselist .detail .top{height: 155px;font-size: 0}*/
+		.g-bd .detail .top .dimg{float: left;/*width: 223px;height: 124px;*/margin: 0 19px 20px 11px;}
+		.g-bd .detail .top .content{margin-top: 11px;}
+		.g-bd .detail .top .dttl{/*margin-top: 11px;*/margin-bottom: 13px;font: 18px "Microsoft Yahei";color: #333333;}
+		.g-bd .detail .top .dlcount{height: 12px;margin-bottom: 13px;padding-left: 18px;font: 12px/12px "Microsoft Yahei";color: #666666}
+		.g-bd .detail .top .dprv{height: 12px;margin-bottom: 8px;font: 12px/12px "Microsoft Yahei";color: #666666}
+		.g-bd .detail .top .dcategory{ font: 12px "Microsoft Yahei";color: #666666}
+		.g-bd .m-courselist .detail .descr{height:83px;padding:10px;box-sizing: border-box;overflow: hidden;text-overflow: ellipsis;/*white-space: nowrap;*/ font:14px/24px "Microsoft Yahei";color: #666666 ;background-color: #f8f8f8;cursor: default;}
+		/*.g-bd .m-courselist .detail:hover{display: block}*/
 		.g-bd .g-mn .m-page {float:right;text-align: center;background-color: #f8f8f8;}
 		.g-bd .m-page .icn{width: 30px;height: 20px;background-color: #9dd8b1;}
 		.g-bd .m-page .left{float:left;margin-right: 12px;background-position: -54px 4px;}
@@ -176,6 +190,7 @@
 				</div>
 				<ul class="m-courselist">
 					<!-- <div class="u-course">
+						<div class="detail"></div>
 						<div class="img"></div>
 						<div class="ttl"></div>
 						<div class="prv"></div>
@@ -300,7 +315,14 @@
 				}
 			}
 					function changestyle(ele){
-						ele.children[0].firstChild.src = obj.list[i].middlePhotoUrl;
+
+						ele.children[0].firstElementChild.src = obj.list[i].middlePhotoUrl;
+						ele.children[0].lastElementChild.firstElementChild.children[0].src = obj.list[i].middlePhotoUrl;
+						ele.children[0].lastElementChild.firstElementChild.lastElementChild.children[0].textContent = obj.list[i].name;
+						ele.children[0].lastElementChild.firstElementChild.lastElementChild.children[1].textContent = obj.list[i].learnerCount+ele.children[0].lastElementChild.firstElementChild.lastElementChild.children[1].textContent;
+						ele.children[0].lastElementChild.firstElementChild.lastElementChild.children[2].textContent += obj.list[i].provider;
+						ele.children[0].lastElementChild.firstElementChild.lastElementChild.children[3].textContent += obj.list[i].categoryName;
+						ele.children[0].lastElementChild.lastElementChild.textContent = obj.list[i].description;
 						ele.children[1].textContent = obj.list[i].name
 						ele.children[2].innerHTML = obj.list[i].provider;
 						ele.children[3].innerHTML = obj.list[i].learnerCount;
@@ -310,11 +332,22 @@
 					function addcourse(){
 						var course = document.createElement("li");
 						course.className = "u-course";
-						course.innerHTML = "<a class='img'><img width = '223px' height = '124px'></a>\
-									<div class='ttl'></div>\
-									<div class='prv'></div>\
-									<div class='lcount icn'></div>\
-									<div class='price'></div>" ;
+						course.innerHTML = "<a class='img'>\
+												<img width = '223px' height = '124px'>\
+												<div class='detail'>\
+													<div class='top f-cb'>\
+														<img class='dimg' width = '223px' height = '124px'>\
+														<div class='content'>\
+															<div class='dttl'></div><div class='dlcount icn'>人在学</div><div class='dprv'>发布者:</div><div class='dcategory'>分类:</div>\
+														</div>\
+													</div>\
+													<div class='descr'></div>\
+												</div>\
+											</a>\
+											<div class='ttl'></div>\
+											<div class='prv'></div>\
+											<div class='lcount icn'></div>\
+											<div class='price'></div> ";
 						changestyle(course);
 						courselist.appendChild(course);
 					}
@@ -500,3 +533,5 @@
 <!-- 待填的坑 -->
 <!-- 渐入效果用transition,IE兼容用JS -->
 <!-- 字体问题待解决 -->
+<!-- 课程详情弹窗到底是hover谁 字体变绿是hover谁 -->
+<!-- 课程描述中,多行文本超出用省略号显示 -->
