@@ -61,10 +61,10 @@
 		.m-intro .workcondition{float: left;width: 20%;padding-left: 4px;box-sizing: border-box;}
 		.m-intro .workcondition img{width: 100%;}
 		/*.m-intro .workcondition:first-child{margin-left: 0;}*/
-		.g-bd{padding-top: 80px;background-color: #f8f8f8;}
+		.g-bd{padding-top: 80px;padding-bottom: 120px;background-color: #f8f8f8;}
 		.g-bd .g-mn{position: relative;float:left;width: 960px;}
 		.g-bd .u-tab{margin-bottom: 30px;}
-		.g-bd .u-tab div{float: left;width: 200px;height: 50px;text-align: center;font: 20px/50px "Microsoft Yahei";color: #666666;background-color: #ffffff;}
+		.g-bd .u-tab div{float: left;width: 200px;height: 50px;text-align: center;font: 20px/50px "Microsoft Yahei";color: #666666;background-color: #ffffff;cursor: pointer;}
 		.g-bd .u-tab div:first-child{box-shadow: -1px 0 #ecebeb,0 2px 1px #d4d3d3}
 		.g-bd .u-tab div:last-child{box-shadow: 1px 0 #ecebeb,0 2px 1px #d4d3d3}
 		.g-bd .u-tab .z-sel{color: #ffffff;background-color: #39a030;}
@@ -73,8 +73,16 @@
 		.g-bd .g-sd .intro{height: 55px;padding-left: 20px;font: 16px/55px "Microsoft Yahei";color: #333333;box-shadow: 0 1px #dddddd;}
 		.g-bd .video{height: 173px;padding-left: 22px;padding-top: 20px;font: 14px/22px "Microsoft Yahei";color: #666666;box-shadow: 1px 1px #dddddd,}
 		.g-bd .g-sd .u-intro{cursor: pointer;}
+		.g-bd .g-sd .m-hotlist{margin-top: 21px;background-color: #fff;box-shadow: 1px 0px #ecebeb,-1px 0 #ecebeb}
+		.g-bd .g-sd .m-hotlist .ttl{height: 56px;padding-left: 20px;font: 16px/56px "Microsoft Yahei"; box-shadow: 0 1px #eeeeee;}
+		.g-bd .g-sd .m-hotlist .hot{height: 700px;padding: 20px 0 0 20px;overflow: hidden;}
+		.g-bd .g-sd .m-hotlist .hot .u-hot{margin-bottom: 20px;}
+		.g-bd .hot .u-hot img{float: left;margin-right: 12px;}
 		/*.g-bd .g-mn .m-courselist{position: relative;width: 960px;}*/
 		/*.g-bd .g-mn{font-size: 0}*/
+		.g-bd .hot .u-hot .cttl{font: 14px "Microsoft Yahei";overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
+		.g-bd .hot .u-hot .lcount{padding-left: 15px;margin-top: 12px;font: 14px "Microsoft Yahei";}
+		.g-bd .u-hot .icn{background-position: -62px -44px}
 		.g-bd .g-mn .m-courselist{width: 980px;}
 		.g-bd .g-mn .u-course{position: relative;display: inline-block;width: 225px;height: 228px;padding: 1px 1px 0 1px;margin:0 20px 20px 0;box-sizing: border-box;box-shadow: 1px 0 #f1f1f1,-1px 0 #f1f1f1,0 2px 1px #e6e6e6;background-color: #fff;}
 		.g-bd .g-mn .u-course:hover{box-shadow: 1px 1px #e6e6e6,-1px -1px #e6e6e6}
@@ -105,6 +113,7 @@
 		.g-bd .m-page .pageindex:hover{color: #fff;background-color: #9dd8b1;}
 		.g-bd .pageindex:last-child{margin-right: 0;}
 		.g-bd .m-page .z-sel{color: #39a030}
+		.g-ft{height: 262px;background-color: #2c3339;}
 	</style>
 </head>
 <body>
@@ -210,23 +219,166 @@
 						<img class="u-intro" width="180px" height="110px" src="images/play.jpg">
 					</div>
 				</div>
-				<div class="m-hotlist"></div>
+				<div class="m-hotlist">
+					<div class="ttl">最热排行</div>
+						<ul class="hot">
+							<ul>
+							<li class="u-hot f-cb">
+								<img width="50px" height="50px" src="" alt="">
+								<div>
+									<div class="cttl"></div>
+									<div class="lcount icn"></div>
+								</div>
+							</li>
+							<li class="u-hot f-cb">
+								<img width="50px" height="50px" src="" alt="">
+								<div>
+									<div class="cttl"></div>
+									<div class="lcount icn"></div>
+								</div>
+							</li>
+							<li class="u-hot f-cb">
+								<img width="50px" height="50px" src="" alt="">
+								<div>
+									<div class="cttl"></div>
+									<div class="lcount icn"></div>
+								</div>
+							</li>
+							<li class="u-hot f-cb">
+								<img width="50px" height="50px" src="" alt="">
+								<div>
+									<div class="cttl"></div>
+									<div class="lcount icn"></div>
+								</div>
+							</li>
+							<li class="u-hot f-cb">
+								<img width="50px" height="50px" src="" alt="">
+								<div>
+									<div class="cttl"></div>
+									<div class="lcount icn"></div>
+								</div>
+							</li>
+							<li class="u-hot f-cb">
+								<img width="50px" height="50px" src="" alt="">
+								<div>
+									<div class="cttl"></div>
+									<div class="lcount icn"></div>
+								</div>
+							</li>
+							<li class="u-hot f-cb">
+								<img width="50px" height="50px" src="" alt="">
+								<div>
+									<div class="cttl"></div>
+									<div class="lcount icn"></div>
+								</div>
+							</li>
+							<li class="u-hot f-cb">
+								<img width="50px" height="50px" src="" alt="">
+								<div>
+									<div class="cttl"></div>
+									<div class="lcount icn"></div>
+								</div>
+							</li>
+							<li class="u-hot f-cb">
+								<img width="50px" height="50px" src="" alt="">
+								<div>
+									<div class="cttl"></div>
+									<div class="lcount icn"></div>
+								</div>
+							</li>
+							<li class="u-hot f-cb">
+								<img width="50px" height="50px" src="" alt="">
+								<div>
+									<div class="cttl"></div>
+									<div class="lcount icn"></div>
+								</div>
+							</li>
+							<li class="u-hot f-cb">
+								<img width="50px" height="50px" src="" alt="">
+								<div>
+									<div class="cttl"></div>
+									<div class="lcount icn"></div>
+								</div>
+							</li>
+							<li class="u-hot f-cb">
+								<img width="50px" height="50px" src="" alt="">
+								<div>
+									<div class="cttl"></div>
+									<div class="lcount icn"></div>
+								</div>
+							</li>
+							<li class="u-hot f-cb">
+								<img width="50px" height="50px" src="" alt="">
+								<div>
+									<div class="cttl"></div>
+									<div class="lcount icn"></div>
+								</div>
+							</li>
+							<li class="u-hot f-cb">
+								<img width="50px" height="50px" src="" alt="">
+								<div>
+									<div class="cttl"></div>
+									<div class="lcount icn"></div>
+								</div>
+							</li>
+							<li class="u-hot f-cb">
+								<img width="50px" height="50px" src="" alt="">
+								<div>
+									<div class="cttl"></div>
+									<div class="lcount icn"></div>
+								</div>
+							</li>
+							<li class="u-hot f-cb">
+								<img width="50px" height="50px" src="" alt="">
+								<div>
+									<div class="cttl"></div>
+									<div class="lcount icn"></div>
+								</div>
+							</li>
+							<li class="u-hot f-cb">
+								<img width="50px" height="50px" src="" alt="">
+								<div>
+									<div class="cttl"></div>
+									<div class="lcount icn"></div>
+								</div>
+							</li>
+							<li class="u-hot f-cb">
+								<img width="50px" height="50px" src="" alt="">
+								<div>
+									<div class="cttl"></div>
+									<div class="lcount icn"></div>
+								</div>
+							</li>
+							<li class="u-hot f-cb">
+								<img width="50px" height="50px" src="" alt="">
+								<div>
+									<div class="cttl"></div>
+									<div class="lcount icn"></div>
+								</div>
+							</li>
+							<li class="u-hot f-cb">
+								<img width="50px" height="50px" src="" alt="">
+								<div>
+									<div class="cttl"></div>
+									<div class="lcount icn"></div>
+								</div>
+							</li>
+							</ul>
+						</ul>
+				</div>
 			</div>
 		</div>
 	</div>
 	<!-- <div class="f-mask"></div> -->
 
 	<div class="g-ft">
-		<div class="test"><img src="" alt=""></div>
-		<div class="test"></div>
-		<div class="test"></div>
-		<div class="test"></div>
-		<div class="test"></div>
-		<div class="test"></div>
-		<div class="test"></div>
-		<div class="test"></div>
-		<div class="test"></div>
-		<div class="test"></div>
+		<div class="g-flow">
+			<div class="m-logo">
+				<div class="u-title">EDU|网易产品教育部</div>
+				<div class="u-cprt-1"></div>
+				<div class="u-cprt-2"></div>
+			</div>
+		</div>
 	</div>
 		<!-- <div class="f-mask"></div>
 	<div class="m-vct"><video src="http://mov.bn.netease.com/open-movie/nos/mp4/2014/12/30/SADQ86F5S_shd.mp4" autoplay="autoplay" width="700px" height="500px"></video></div> -->
@@ -319,9 +471,9 @@
 						ele.children[0].firstElementChild.src = obj.list[i].middlePhotoUrl;
 						ele.children[0].lastElementChild.firstElementChild.children[0].src = obj.list[i].middlePhotoUrl;
 						ele.children[0].lastElementChild.firstElementChild.lastElementChild.children[0].textContent = obj.list[i].name;
-						ele.children[0].lastElementChild.firstElementChild.lastElementChild.children[1].textContent = obj.list[i].learnerCount+ele.children[0].lastElementChild.firstElementChild.lastElementChild.children[1].textContent;
-						ele.children[0].lastElementChild.firstElementChild.lastElementChild.children[2].textContent += obj.list[i].provider;
-						ele.children[0].lastElementChild.firstElementChild.lastElementChild.children[3].textContent += obj.list[i].categoryName;
+						ele.children[0].lastElementChild.firstElementChild.lastElementChild.children[1].textContent = obj.list[i].learnerCount + "人在学"
+						ele.children[0].lastElementChild.firstElementChild.lastElementChild.children[2].textContent = "发布者:" + obj.list[i].provider;
+						ele.children[0].lastElementChild.firstElementChild.lastElementChild.children[3].textContent = "分类:" + obj.list[i].categoryName;
 						ele.children[0].lastElementChild.lastElementChild.textContent = obj.list[i].description;
 						ele.children[1].textContent = obj.list[i].name
 						ele.children[2].innerHTML = obj.list[i].provider;
@@ -338,7 +490,7 @@
 													<div class='top f-cb'>\
 														<img class='dimg' width = '223px' height = '124px'>\
 														<div class='content'>\
-															<div class='dttl'></div><div class='dlcount icn'>人在学</div><div class='dprv'>发布者:</div><div class='dcategory'>分类:</div>\
+															<div class='dttl'></div><div class='dlcount icn'></div><div class='dprv'></div><div class='dcategory'></div>\
 														</div>\
 													</div>\
 													<div class='descr'></div>\
@@ -386,9 +538,35 @@
 				}
 			}
 		}
+		function fomdata1(obj){
+			console.log(obj);
+			var list = document.getElementsByClassName("u-hot");
+			for(var i =0,length = list.length;i<length;i++){
+				list[i].firstElementChild.src = obj[i].smallPhotoUrl;
+				list[i].children[1].firstElementChild.textContent = obj[i].name;
+				list[i].lastElementChild.lastElementChild.textContent = obj[i].learnerCount;
+			}
+			var ul = list[0].parentNode.cloneNode(true);
+			document.querySelector(".hot").appendChild(ul);
+			function move(){
+				var mtop = window.getComputedStyle(list[0].parentNode).marginTop;
+				mtop = parseInt(mtop);
+				mtop <= -1400? mtop=0:mtop=mtop;
+				function setp(){
+					mtop = mtop - 7;
+					mt = mtop + "px"
+					list[0].parentNode.style.marginTop = mt;
+					if(mtop % -70 == 0){clearInterval(timer);}
+				}
+				var timer = setInterval(setp,100);
+			}
+			setInterval(move,5000)
+		}
 		var courseurl = "http://study.163.com/webDev/couresByCategory.htm",
 			data = {pageNo:1,psize:20,type:10};
 		get(courseurl,data,fomdata);
+		var hotlisturl = "http://study.163.com/webDev/hotcouresByCategory.htm"
+		get(hotlisturl,"",fomdata1);
 		// 注册箭头翻页
 		var prevpage = document.getElementsByClassName("icn left")[0];
 			nextpage = document.getElementsByClassName("right icn")[0],
@@ -400,6 +578,23 @@
 			if(data.pageNo < totalpage? data.pageNo +=1 : false)
 			get(courseurl,data,fomdata)
 		});
+
+		// 注册tab
+		var coursetab = document.getElementsByClassName("u-tab");
+		addEvent(coursetab[0].firstElementChild,"click",function(){
+			data.type = 10;
+			data.pageNo = 1;
+			coursetab[0].firstElementChild.className = "z-sel";
+			coursetab[0].lastElementChild.className = "";
+			get(courseurl,data,fomdata);
+		});
+		addEvent(coursetab[0].lastElementChild,"click",function(){
+			data.type = 20;
+			data.pageNo = 1;
+			coursetab[0].lastElementChild.className = "z-sel";
+			coursetab[0].firstElementChild.className = "";
+			get(courseurl,data,fomdata);
+		})
 	
 		
 		// var resobj = JSON.parse(response);
