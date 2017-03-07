@@ -548,19 +548,19 @@
 			}
 			var ul = list[0].parentNode.cloneNode(true);
 			document.querySelector(".hot").appendChild(ul);
-			function move(){
-				var mtop = window.getComputedStyle(list[0].parentNode).marginTop;
-				mtop = parseInt(mtop);
-				mtop <= -1400? mtop=0:mtop=mtop;
-				function setp(){
-					mtop = mtop - 7;
-					mt = mtop + "px"
-					list[0].parentNode.style.marginTop = mt;
-					if(mtop % -70 == 0){clearInterval(timer);}
-				}
-				var timer = setInterval(setp,100);
-			}
-			setInterval(move,5000)
+			// function move(){
+			// 	var mtop = window.getComputedStyle(list[0].parentNode).marginTop;
+			// 	mtop = parseInt(mtop);
+			// 	mtop <= -1400? mtop=0:mtop=mtop;
+			// 	function setp(){
+			// 		mtop = mtop - 3.5;
+			// 		mt = mtop + "px"
+			// 		list[0].parentNode.style.marginTop = mt;
+			// 		if(parseInt(mtop) % 70 == 0){clearInterval(timer);}
+			// 	}
+			// 	var timer = setInterval(setp,50);
+			// }
+			// setInterval(move,1500)
 		}
 		var courseurl = "http://study.163.com/webDev/couresByCategory.htm",
 			data = {pageNo:1,psize:20,type:10};
@@ -579,6 +579,52 @@
 			get(courseurl,data,fomdata)
 		});
 
+		// 滚动列表
+		var list = document.getElementsByClassName("u-hot");
+		var mtop = window.getComputedStyle(list[0].parentNode).marginTop;
+		mtop = parseInt(mtop);
+		// var _count = 0;
+		// document.addEventListener('visibilitychange',function(){
+ 	// 		 if(document.visibilityState==‘hidden’) {
+		// 		console.log(1）
+		// 	} else {
+		// 		console.log(2)
+  // }
+  // });
+		addEvent(document,"visibilitychange",function(){
+			if(document.visibilityState == "hidden"){
+				hotstop();
+			}else{
+				hotstart();
+			}
+		});
+		function move(){
+				var _count = 0;
+				var doing ;
+				// var list = document.getElementsByClassName("u-hot");
+				// var mtop = window.getComputedStyle(list[0].parentNode).marginTop;
+				// mtop = parseInt(mtop);
+				mtop <= -1400? mtop=0:mtop=mtop;
+				function setp(){
+					doing =1;
+					// _count ++
+					mtop = mtop - 3.5;
+					mtop = mtop.toFixed(1);
+					mt = mtop + "px"
+					list[0].parentNode.style.marginTop = mt;
+					// list[0].parentNode.style.transform = "translateY(mtop + 'px')";
+					if(mtop % 70 ==0){clearInterval(timer);doing = 0}
+				}
+				if(!doing){
+					var timer = setInterval(setp,50);
+				}
+			}
+		function hotstart(){hottimer = setInterval(move,5000);}
+		function hotstop(){clearInterval(hottimer)}
+		hotstart();
+		var hotul = document.querySelector(".hot");
+		addEvent(hotul,"mouseout",hotstart);
+		addEvent(hotul,"mouseover",hotstop);
 		// 注册tab
 		var coursetab = document.getElementsByClassName("u-tab");
 		addEvent(coursetab[0].firstElementChild,"click",function(){
@@ -730,3 +776,4 @@
 <!-- 字体问题待解决 -->
 <!-- 课程详情弹窗到底是hover谁 字体变绿是hover谁 -->
 <!-- 课程描述中,多行文本超出用省略号显示 -->
+<!-- 一个奇怪的现象,热门列表滚动时,不动页面就没问题,一动页面就出BUG,奇怪 -->
