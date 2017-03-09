@@ -38,8 +38,14 @@
 		/*.g-hd .m-hd .content{height: 22px;line-height: 22px;margin: 30px auto 37px;}*/
 		.g-hd .m-ct .title{float: left;}
 		.g-hd .m-ct .u-follow{float: left;height: 21px;margin: 30px 0 31px 31px;font: 12px/21px "宋体";}
+		/*.g-hd .m-ct #follow{display: none;}*/
+		.g-hd .m-ct .followed{display: none;float: left;width: 104px;height: 19px;padding-left: 6px;margin-right: 14px;border: 1px solid #f1f1f1;box-sizing: border-box;line-height: 19px;background-color: #f8f8f8 /*font: 12px/19px "宋体";color: #333333;*/}
+		.g-hd .followed .cancel{font-color: #999999;}
+		.g-hd .m-ct .followed:hover{background-color: #fff}
+		.g-hd .followed .cancel span:hover{text-decoration: underline;color: #21a557;cursor: pointer;}
+		.g-hd .m-ct .followed .icn{width: 11px;height: 9px;margin-right: 5px;background-position: 0 -30px;}
 		/*.g-hd .m-ct .u-follow{display:inline-block;height: 21px;margin: 31px 0 31px 31px;font: 12px/21px "宋体";}*/
-		.g-hd .icn{width: 46px;height: 21px;padding-left: 22px;;}
+		.g-hd #follow.icn{width: 54px;height: 21px;padding-left: 22px;margin-right: 14px;box-sizing: border-box;}
 		.g-hd .m-ct .links{float: right;font-size: 16px;}
 		.g-hd .links .icn{width: 18px;height: 18px;margin: 0 14px 0 30px;background-position: 0 -66px;vertical-align: middle;}
 		.g-hd .links .icn:hover{background: url(images/sprit1.png) 0 -93px no-repeat;}
@@ -144,7 +150,7 @@
 			<div class="g-flow">
 				<div class="m-ct f-cb">
 					<div class="title"><h1>EDU&nbsp;</h1><h2>|&nbsp;网易教育产品部</h2></div>
-					<div class="u-follow"><div id="follow" class="icn">关注</div><span>粉丝 45</span></div>
+					<div class="u-follow"><div id="follow" class="icn">关注</div><div class="followed"><div class="icn"></div>已关注<span class="cancel">| <span id="unfollow">取消</span></span></div><span>粉丝 45</span></div>
 					<div class="links">
 						<a class="u-link" href="http://open.163.com" target="_blank">网易公开课</a>
 						<a class="u-link" href="http://study.163.com" target="_blank">网易云课堂</a>
@@ -407,18 +413,20 @@
 			</div>
 		</div>
 	</div>
-	<div class="m-login">
+<!-- 	<div class="m-login">
 	<form name="loginForm">
 	<div class='u-ttl'>登录网易云课堂</div>
 	<div class='icn'></div>
-	<input type='text' placeholder="账号">
-	<input type='password' placeholder="密码">
+	<input id="account" name="name" type='text' placeholder="账号">
+	<input id = "password" name="password" type='password' placeholder="密码">
 	<button class='loginbtn'>登录</button>
 	</form>
-	</div>
+	</div> -->
+	<script type="text/javascript" src=js/md5.js></script>
 		<!-- <div class="f-mask"></div>
 	<div class="m-vct"><video src="http://mov.bn.netease.com/open-movie/nos/mp4/2014/12/30/SADQ86F5S_shd.mp4" autoplay="autoplay" width="700px" height="500px"></video></div> -->
 	<script type="text/javascript">
+		console.log(navigator.userAgent);
 		// var slide = document.getElementsByTagName("img")[0];
 		// function lunbo(){
 			
@@ -661,13 +669,92 @@
 		var hotul = document.querySelector(".hot");
 		addEvent(hotul,"mouseout",hotstart);
 		addEvent(hotul,"mouseover",hotstop);
+
 		// 登录
-		var follow = document.getElementById("follow");
+		var follow = document.getElementById("follow"),
+			followed = document.querySelector(".followed"),
+			tips = document.getElementsByClassName("g-wrap")[0];
+		function iffollow(){
+			if(document.cookie.indexOf("loginSuc=1") != -1){
+				if(document.cookie.indexOf("followSuc=1") != -1){
+					follow.style.display = "none"
+					followed.style.display = "block";
+				}
+			}
+			if(document.cookie.indexOf("tipstatus=0") != -1){
+				tips.style.display = "none";
+			}
+		}
+		iffollow();
 		addEvent(follow,"click",function(){
-			var login = document.createElement("div");
-			login.innerHTML = 
+			if(document.cookie.indexOf("loginSuc=1") != -1){
+				document.cookie = "followSuc=1";
+				follow.style.display = "none"
+				followed.style.display = "block";
+			}else{
+			var login = document.createElement("div"),
+				mask = document.createElement("div");
+
+			login.innerHTML = "<form name='loginForm'>\
+								<div class='u-ttl'>登录网易云课堂</div>\
+								<div class='icn'></div>\
+								<input id='account' name='name' type='text' placeholder='账号''>\
+								<input id = 'password' name='password' type='password' placeholder='密码'>\
+								<button class='loginbtn'>登录</button>\
+							   </form>"
 			login.className = "m-login";
+			mask.className = "f-mask"
+			login = document.body.appendChild(login);
+			mask = document.body.appendChild(mask);
+			// 表单事件
+			var form = document.forms.loginForm,
+				close = login.getElementsByClassName("icn")[0];
+			addEvent(close,"click",function(){
+				document.body.removeChild(login);
+				document.body.removeChild(mask)
+			});
+			addEvent(form,"submit",function(e){
+				e.preventDefault();
+				var account = form.account.value,
+					pswd = form.password.value;
+					url = "http://study.163.com/webDev/login.htm";
+				account = hex_md5(account);
+				pswd = hex_md5(pswd);
+				data = {userName:account,password:pswd,}
+				// var accountV = account.value,
+				// 	pswdV = pswd.value;
+				// account.value = hex_md5(accountV);
+				// pswd.value = hex_md5(pswdV);
+				get(url,data,function(num){
+					if(num == 1){
+						document.body.removeChild(login);
+						document.body.removeChild(mask);
+						document.cookie = "loginSuc=1";
+						document.cookie = "followSuc=1";
+						follow.style.display = "none"
+						followed.style.display = "block";
+					}else{
+						alert("hah")
+					}
+				});
+			});
+		}
 		});
+		// 取消关注
+
+		var unfollow = document.getElementById("unfollow");
+		addEvent(unfollow,"click",function(){
+			document.cookie = "followSuc=1; max-age=0";
+			follow.style.display = "inline-block";
+			followed.style.display = "none";
+		});
+		// 不再提醒
+		var canceltip = document.getElementsByClassName("cancel")[0];
+		addEvent(canceltip,"click",function(){
+			document.cookie = "tipstatus=0";
+			iffollow();
+		})
+
 		// 注册tab
 		var coursetab = document.getElementsByClassName("u-tab");
 		addEvent(coursetab[0].firstElementChild,"click",function(){
@@ -692,7 +779,8 @@
 
 			var slide = document.getElementsByClassName("u-slide")[0];
 			var pointer = slide.parentNode.getElementsByClassName("u-pointer")[0].children;
-			var index = slide.getAttribute("data-index");
+			// var index = slide.getAttribute("data-index");
+			var index = 1;
 			// 淡入动画,100ms执行一次,共5次500ms
 			function fadein(ele){
 				ele.style.opacity = 0;
@@ -714,7 +802,7 @@
 				}
 				pointer[index-1].className += " z-crt";
 				slide.src = "images/banner" + index +".jpg";
-				slide.setAttribute("data-index",index);
+				// slide.setAttribute("data-index",index);
 			}
 			// 开始轮播
 			function start(){
@@ -731,20 +819,34 @@
 			// slide.addEventListener("mouseout",start);
 			addEvent(slide,"mouseenter",stop);
 			addEvent(slide,"mouseout",start);
+
 			// 注册事件,点击圆点切换图片
 			// 利用for循环注册事件,出现问题,var改成let可以解决,但低版本IE不支持
 			// 笨方法是一个个手动注册
 			// 还有个思路是立即执行函数
-			for(var i = 0 ;i < 3 ; i++){
-				(function(i){
-				addEvent(pointer[i],"click",function(){
+			// for(var i = 0 ;i < 3 ; i++){
+			// 	(function(i){
+			// 	addEvent(pointer[i],"click",function(){
+			// 		stop();
+			// 		index = i
+			// 		changeimg();
+			// 		start();
+
+			// 	});})(i)
+			// }
+
+			// 利用事件委托实现点击圆点换图
+			var pointer1 = document.querySelector(".u-pointer");
+			addEvent(pointer1,"click",function(e){
+				if(e.target.tagName == "I"){
 					stop();
-					index = i
+					index = e.target.dataset.index-1;
+					// console.log(e.target.dataset.index)
 					changeimg();
 					start();
+				}
+			})
 
-				});})(i)
-			}
 			// 视频播放事件
 			var vdo = document.getElementsByClassName("u-intro")[0];
 			// function addVEle(){
@@ -795,7 +897,7 @@
 						playbtn.style.display = "block"
 					}
 				});
-				// 点击关闭,退出视频
+				// 点击空白处,退出视频
 				addEvent(mask,"click",function(){
 					document.body.removeChild(vct);
 					document.body.removeChild(mask);
@@ -806,13 +908,11 @@
 					document.body.removeChild(mask)
 				})
 			});
-			// 表单事件
-			var form = document.forms.loginForm;
-			addEvent(form,"submit",function(){
-
-			})
+			
 			// }
 		// }
+		// 关注按钮
+		// var follow
 	</script>
 </body>
 </html>
@@ -825,3 +925,4 @@
 <!-- 课程详情弹窗到底是hover谁 字体变绿是hover谁 -->
 <!-- 课程描述中,多行文本超出用省略号显示 -->
 <!-- 一个奇怪的现象,热门列表滚动时,不动页面就没问题,一动页面就出BUG,奇怪 -->
+<!-- getElementsByclassName querySelector dataset 不支持IE8 -->
