@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript" src="haha.js"></script>
+	<script type="text/javascript">
+		var courselist = new Courselist({
+			url:"https://study.163.com/webDev/couresByCategory.htm",
+			data:{pageNo:1,psize:20,type:10},
+			getc:function(){
+				get(this.url,this.data,function(obj){
+					var hehe = obj
+				})
+			},
+
+		})
+		var ha = courselist.getc();
+	</script>
+</body>
+</html>
