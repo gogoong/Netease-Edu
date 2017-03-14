@@ -44,12 +44,12 @@ function get(url,options,callback){
   xhr.onreadystatechange = function(){
     if(xhr.readyState == 4){
       if((xhr.status >= 200 && xhr.status<300) || (xhr.status == 304 )){
-        // callback(JSON.parse(xhr.responseText));
-        haha = JSON.parse(xhr.responseText);
+        callback(JSON.parse(xhr.responseText));
+        // list = JSON.parse(xhr.responseText);
       }
     }
   }
-  xhr.open('get',url + '?' + serialize(options),false);
+  xhr.open('get',url + '?' + serialize(options),true);
   xhr.send(null);
 }
 
@@ -88,32 +88,26 @@ function Course(options){
 
   this.coursecount = this.container.getElementsByClassName("u-course");
 
-  this.data = {pageNo:1,psize:20,type:10};
+  // this.url = "https://study.163.com/webDev/couresByCategory.htm";
+
+  // this.data = {pageNo:1,psize:20,type:10};
 
   this.page = document.querySelector(".m-page"),
 
   this.pagecount = document.getElementsByClassName("pageindex");
 
-  extend(this,options)
+  extend(this,options);
 
   this._initEvent();
+  // this.say();
 
 }
 
-Course.prototype = { addEvent:function(ele,type,listener,useCapture){
-  if(ele.addEventListener){
-    ele.addEventListener(type,listener,useCapture);
-  }else{
-    ele.attachEvent('on'+type,listener);
-  }
-}}
+
 
 extend(Course.prototype,{
-
-  bindFunction : function(obj, func){
-    return function(){
-      func.apply(obj, arguments);
-    }
+  say:function(){
+    console.log(this)
   },
 
   _layout: html2node(template),
@@ -127,85 +121,154 @@ extend(Course.prototype,{
 
   changecourse:function(i){
 
-     this.container.children[i].children[0].firstElementChild.src = haha.list[i].middlePhotoUrl;
-     this.container.children[i].children[0].lastElementChild.firstElementChild.children[0].src = haha.list[i].middlePhotoUrl;
-     this.container.children[i].children[0].lastElementChild.firstElementChild.lastElementChild.children[0].textContent = haha.list[i].name;
-     this.container.children[i].children[0].lastElementChild.firstElementChild.lastElementChild.children[1].textContent = haha.list[i].learnerCount + "人在学"
-     this.container.children[i].children[0].lastElementChild.firstElementChild.lastElementChild.children[2].textContent = "发布者:" + haha.list[i].provider;
-     this.container.children[i].children[0].lastElementChild.firstElementChild.lastElementChild.children[3].textContent = "分类:" + haha.list[i].categoryName;
-     this.container.children[i].children[0].lastElementChild.lastElementChild.textContent = haha.list[i].description;
-     this.container.children[i].children[1].textContent = haha.list[i].name
-     this.container.children[i].children[2].innerHTML = haha.list[i].provider;
-     this.container.children[i].children[3].innerHTML = haha.list[i].learnerCount;
-     this.container.children[i].children[4].innerHTML = haha.list[i].price == 0? "免费" : '￥'+ haha.list[i].price;
+     this.container.children[i].children[0].firstElementChild.src = this.list[i].middlePhotoUrl;
+     this.container.children[i].children[0].lastElementChild.firstElementChild.children[0].src = this.list[i].middlePhotoUrl;
+     this.container.children[i].children[0].lastElementChild.firstElementChild.lastElementChild.children[0].textContent = this.list[i].name;
+     this.container.children[i].children[0].lastElementChild.firstElementChild.lastElementChild.children[1].textContent = this.list[i].learnerCount + "人在学"
+     this.container.children[i].children[0].lastElementChild.firstElementChild.lastElementChild.children[2].textContent = "发布者:" + this.list[i].provider;
+     this.container.children[i].children[0].lastElementChild.firstElementChild.lastElementChild.children[3].textContent = "分类:" + (this.list[i].categoryName?this.list[i].categoryName:"无");
+     this.container.children[i].children[0].lastElementChild.lastElementChild.textContent = this.list[i].description;
+     this.container.children[i].children[1].textContent = this.list[i].name
+     this.container.children[i].children[2].innerHTML = this.list[i].provider;
+     this.container.children[i].children[3].innerHTML = this.list[i].learnerCount;
+     this.container.children[i].children[4].innerHTML = this.list[i].price == 0? "免费" : '￥'+ this.list[i].price;
   },
 
-  pager:function(e){
-    var index = e.target.dataset.index,
-        pageNo = this.data.pageNo;
-    if(index<0 && (pageNo > 1? this.data.pageNo -=1 : false)){
+  pager:function(event){
+    if(event.target.tagName == "LI"){
+    var index = event.target.dataset.index,
+        pageNo = data.pageNo;
+    if(index == -1){
+      if(pageNo>1){
+      data.pageNo = data.pageNo - 1;
+      get(url,data,function(obj){
+        extend(obj,data)
+        list = new Course(obj)
+      })
 
-      this._initEvent();
-
+      // this._initEvent();
+      }
     }
     
-    else if(index == 0 && (pageNo <haha.totalPage?this.data.pageNo +=1 : false)){
-      this._initEvent();
+    else if(index == 0 ){
+      if(pageNo <list.totalPage){
+        data.pageNo = data.pageNo+1
+      get(url,data,function(obj){
+        extend(obj,data)
+        list = new Course(obj)
+      })
+      // this._initEvent();
     }
+  }
     else if(index>0 && index != pageNo){
-      this.data.pageNo = index;
-      this._initEvent();
+      data.pageNo = Number(index);
+      get(url,data,function(obj){
+        extend(obj,data)
+        list = new Course(obj)
+      })
+      // this._initEvent();
     }else{
       //
     }
     // console.log(this.data)
-    
+    }
   },
 
   _initEvent:function(){
-    get(this.url,this.data);
+    // get(this.url,this.data,function(obj){
+    //   list = new Course;
+    // })
     if(this.coursecount.length == 0){
-      for(var i = 0,length=haha.list.length;i<length;i++){
+      for(var i = 0,length=this.list.length;i<length;i++){
         this.addcourse(i);
       }
-    }else if(this.coursecount.length == haha.list.length){
-      for(var i = 0,length=haha.list.length;i<length;i++){
+    }else if(this.coursecount.length == this.list.length){
+      for(var i = 0,length=this.list.length;i<length;i++){
         this.changecourse(i)
       }
-    }else if(this.coursecount.length>haha.list.length){
-      for(var i = 0,length=haha.list.length;i<length;i++){
+    }else if(this.coursecount.length>this.list.length){
+      for(var i = 0,length=this.list.length;i<length;i++){
         this.changecourse(i)
       }
-      for(var i=haha.list.length,length=this.coursecount.length;i<length;i++){
+      for(var i=this.list.length,length=this.coursecount.length;i<length;i++){
         this.container.removeChild(this.container.lastElementChild)
       }
     }else{
       for(var i = 0;i<this.coursecount.length;i++){
         this.changecourse(i)
       }
-      for(var i=this.coursecount.length;i<haha.list.length;i++){
+      for(var i=this.coursecount.length;i<this.list.length;i++){
         this.addcourse(i);
       }
     }
     if(this.pagecount.length == 0){
-      for(var i=0 ,length = haha.totalPage;i<length;i++){
-        var pageindex = document.createElement("div");
+      for(var i=0 ,length = this.totalPage;i<length;i++){
+        var pageindex = document.createElement("li");
         // pageindex.className = "pageindex";
-        (i+1) == this.data.pageNo ? pageindex.className = "pageindex z-sel" : pageindex.className = "pageindex";
+        (i+1) == data.pageNo ? pageindex.className = "pageindex z-sel" : pageindex.className = "pageindex";
         pageindex.setAttribute("data-index",i+1);
         pageindex.innerHTML = i+1 ;
         this.page.insertBefore(pageindex,this.page.lastElementChild);
         // this.addEvent(pageindex,"click",this.bindFunction(this,this.pager(i)));
         // this.addEvent(pageindex,"click",this.pager)
         // this.addEvent(pageindex,"click",this.bindFunction(this,this.pager));
-      }
-      this.addEvent(this.page,"click",this.bindFunction(this,this.pager));
+      // }
+      // this.addEvent(this.page,"click",this.bindFunction(this,this.pager));
+        // this.pager.bind(this);
+        addEvent(this.page,"click",this.pager);
+        var coursetab = document.getElementsByClassName("u-tab");
+  addEvent(coursetab[0].firstElementChild,"click",function(){
+  data.type = 10;
+  data.pageNo = 1;
+  coursetab[0].firstElementChild.className = "z-sel";
+  coursetab[0].lastElementChild.className = "";
+  get(url,data,function(obj){
+    extend(obj,data)
+    list = new Course(obj)
+  });
+});
+  addEvent(coursetab[0].lastElementChild,"click",function(){
+  data.type = 20;
+  data.pageNo = 1;
+  coursetab[0].lastElementChild.className = "z-sel";
+  coursetab[0].firstElementChild.className = "";
+  get(url,data,function(obj){
+    extend(obj,data)
+    list = new Course(obj);
+  });
+})
+  
+    }
     }
     // this.addEvent(this.page,"click",this.bindFunction(this,this.pager));
-    for(i=0;i<haha.totalPage;i++){
-      (i+1) == this.data.pageNo ? this.pagecount[i].className = "pageindex z-sel" : this.pagecount[i].className = "pageindex";
+    for(i=0;i<this.totalPage;i++){
+      (i+1) == this.pageNo ? this.pagecount[i].className = "pageindex z-sel" : this.pagecount[i].className = "pageindex";
     }
-  },
-
+    
+}
+  // later:function(){
+  //   var data = {pageNo:this.pageNo,psize:this.psize,type:this.type};
+  //   get(this.url,data,function(obj){
+  //     list = new Course(obj);
+  //   })
+  //    if(this.coursecount.length == this.list.length){
+  //     for(var i = 0,length=this.list.length;i<length;i++){
+  //       this.changecourse(i)
+  //     }
+  //   }else if(this.coursecount.length>this.list.length){
+  //     for(var i = 0,length=this.list.length;i<length;i++){
+  //       this.changecourse(i)
+  //     }
+  //     for(var i=this.list.length,length=this.coursecount.length;i<length;i++){
+  //       this.container.removeChild(this.container.lastElementChild)
+  //     }
+  //   }else{
+  //     for(var i = 0;i<this.coursecount.length;i++){
+  //       this.changecourse(i)
+  //     }
+  //     for(var i=this.coursecount.length;i<this.list.length;i++){
+  //       this.addcourse(i);
+  //     }
+  //   }
+  // },
 })
-

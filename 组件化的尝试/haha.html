@@ -86,10 +86,10 @@
 				<ul class="m-courselist">
 					
 				</ul>
-				<div class="m-page">
-					<div class="icn left" data-index="-1"></div>
-					<div class="icn right" data-index="0"></div>
-				</div>
+				<ul class="m-page">
+					<li class="icn left" data-index="-1"></li>
+					<li class="icn right" data-index="0"></li>
+				</ul>
 			</div>
 			<div class="g-sd">
 				<div class="m-video">
@@ -269,11 +269,14 @@
 	</div>
 	<script type="text/javascript" src="haha.js"></script>
 	<script type="text/javascript">
-		var list = new Course({
-			url:"https://study.163.com/webDev/couresByCategory.htm",
-			data:{pageNo:1,psize:20,type:10},
-		});
-		// get(list.url,list.data);
+	var url = "https://study.163.com/webDev/couresByCategory.htm",
+			data = {pageNo:1,psize:20,type:10};
+	get(url,data,function(obj){
+		extend(obj,data)
+    list = new Course(obj);
+   });
+
 	</script>
+	
 </body>
 </html>
