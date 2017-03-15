@@ -102,146 +102,6 @@
 					<div class="ttl">最热排行</div>
 						<ul class="hot">
 							<ul>
-							<li class="u-hot f-cb">
-								<img width="50px" height="50px" src="" alt="">
-								<div>
-									<div class="cttl"></div>
-									<div class="lcount icn"></div>
-								</div>
-							</li>
-							<li class="u-hot f-cb">
-								<img width="50px" height="50px" src="" alt="">
-								<div>
-									<div class="cttl"></div>
-									<div class="lcount icn"></div>
-								</div>
-							</li>
-							<li class="u-hot f-cb">
-								<img width="50px" height="50px" src="" alt="">
-								<div>
-									<div class="cttl"></div>
-									<div class="lcount icn"></div>
-								</div>
-							</li>
-							<li class="u-hot f-cb">
-								<img width="50px" height="50px" src="" alt="">
-								<div>
-									<div class="cttl"></div>
-									<div class="lcount icn"></div>
-								</div>
-							</li>
-							<li class="u-hot f-cb">
-								<img width="50px" height="50px" src="" alt="">
-								<div>
-									<div class="cttl"></div>
-									<div class="lcount icn"></div>
-								</div>
-							</li>
-							<li class="u-hot f-cb">
-								<img width="50px" height="50px" src="" alt="">
-								<div>
-									<div class="cttl"></div>
-									<div class="lcount icn"></div>
-								</div>
-							</li>
-							<li class="u-hot f-cb">
-								<img width="50px" height="50px" src="" alt="">
-								<div>
-									<div class="cttl"></div>
-									<div class="lcount icn"></div>
-								</div>
-							</li>
-							<li class="u-hot f-cb">
-								<img width="50px" height="50px" src="" alt="">
-								<div>
-									<div class="cttl"></div>
-									<div class="lcount icn"></div>
-								</div>
-							</li>
-							<li class="u-hot f-cb">
-								<img width="50px" height="50px" src="" alt="">
-								<div>
-									<div class="cttl"></div>
-									<div class="lcount icn"></div>
-								</div>
-							</li>
-							<li class="u-hot f-cb">
-								<img width="50px" height="50px" src="" alt="">
-								<div>
-									<div class="cttl"></div>
-									<div class="lcount icn"></div>
-								</div>
-							</li>
-							<li class="u-hot f-cb">
-								<img width="50px" height="50px" src="" alt="">
-								<div>
-									<div class="cttl"></div>
-									<div class="lcount icn"></div>
-								</div>
-							</li>
-							<li class="u-hot f-cb">
-								<img width="50px" height="50px" src="" alt="">
-								<div>
-									<div class="cttl"></div>
-									<div class="lcount icn"></div>
-								</div>
-							</li>
-							<li class="u-hot f-cb">
-								<img width="50px" height="50px" src="" alt="">
-								<div>
-									<div class="cttl"></div>
-									<div class="lcount icn"></div>
-								</div>
-							</li>
-							<li class="u-hot f-cb">
-								<img width="50px" height="50px" src="" alt="">
-								<div>
-									<div class="cttl"></div>
-									<div class="lcount icn"></div>
-								</div>
-							</li>
-							<li class="u-hot f-cb">
-								<img width="50px" height="50px" src="" alt="">
-								<div>
-									<div class="cttl"></div>
-									<div class="lcount icn"></div>
-								</div>
-							</li>
-							<li class="u-hot f-cb">
-								<img width="50px" height="50px" src="" alt="">
-								<div>
-									<div class="cttl"></div>
-									<div class="lcount icn"></div>
-								</div>
-							</li>
-							<li class="u-hot f-cb">
-								<img width="50px" height="50px" src="" alt="">
-								<div>
-									<div class="cttl"></div>
-									<div class="lcount icn"></div>
-								</div>
-							</li>
-							<li class="u-hot f-cb">
-								<img width="50px" height="50px" src="" alt="">
-								<div>
-									<div class="cttl"></div>
-									<div class="lcount icn"></div>
-								</div>
-							</li>
-							<li class="u-hot f-cb">
-								<img width="50px" height="50px" src="" alt="">
-								<div>
-									<div class="cttl"></div>
-									<div class="lcount icn"></div>
-								</div>
-							</li>
-							<li class="u-hot f-cb">
-								<img width="50px" height="50px" src="" alt="">
-								<div>
-									<div class="cttl"></div>
-									<div class="lcount icn"></div>
-								</div>
-							</li>
 							</ul>
 						</ul>
 				</div>
@@ -270,12 +130,17 @@
 	<script type="text/javascript" src="haha.js"></script>
 	<script type="text/javascript">
 	var url = "https://study.163.com/webDev/couresByCategory.htm",
-			data = {pageNo:1,psize:20,type:10};
+			data = {pageNo:1,psize:20,type:10},
+			hoturl = "https://study.163.com/webDev/hotcouresByCategory.htm"
 	get(url,data,function(obj){
 		extend(obj,data)
     list = new Course(obj);
    });
 
+	get(hoturl,"",function(arr){
+		hotcourse = new Hotcourse(arr);
+	})
+	
 	</script>
 	
 </body>
