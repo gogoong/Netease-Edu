@@ -298,18 +298,21 @@ extend(Hotcourse.prototype,{
   // 滚动排行榜
   scroll:function(){
 
+    if(this._mt == -1400){
+      this._mt = 0;
+
+      this.container.style.cssText = "";
+      // 通过获取位置属性来清除浏览器对样式的缓存
+      // 代码来源:https://segmentfault.com/q/1010000008720117,我自己的提问.
+      this.container.offsetHeight;
+    }
+
     this._mt += -70;
 
     var str = "margin-top:"+this._mt +"px;" + "transition-property:margin-top;transition-duration:1s;transition-timing-function:linear";
     
     this.container.style.cssText = str;
-    //  这个写法不行,why? 和下面的轮播图几乎一样的思路代码,就是多了个if判断?
-    // if(this._mt == -140){
-    //   setTimeout.call(this,(function(){
-    //     this._mt =0;
-    //     this.container.style.cssText = "";
-    //   }),0)
-    // }
+
   },
   // 开始滚动
   start:function(){
@@ -384,12 +387,10 @@ extend(Slider.prototype,{
     this.slides.src = this.images[index-1];
     // 淡入效果
     this.slides.style.cssText = "opacity:0;";
-    // 直接写this.slides...,而不用setTimeout会没有淡入效果
-    // 原因:出于性能，浏览器会尽可能的把最近的需要渲染的动作整合到一起执行
-    // 代码来源:segmentfault.com/q/1010000008704894 我自己的提问^ ^
-    setTimeout.call(this,(function(){
-      this.slides.style.cssText = "opacity:1;transition-property:opacity;transition-duration:0.5s;transition-timing-function:ease-in;"
-    }),0)
+
+    this.slides.offsetHeight;
+
+    this.slides.style.cssText = "opacity:1;transition-property:opacity;transition-duration:0.5s;transition-timing-function:ease-in;"
 
     this.pageindex = index;
   },
@@ -406,5 +407,145 @@ extend(Slider.prototype,{
     this.slides.src = this.images[this.pageindex-1];
     this.pointes[this.pageindex-1].className+=" z-crt";
     this.start();
+  }
+})
+
+// 登录Modal
+// 
+var templateL = 
+  "<div class='m-login'>\
+    <div class='align'></div>\
+    <div class='wrap'>\
+      <form class='form' name='loginForm'>\
+        <div class='u-ttl'>登录网易云课堂</div>\
+        <div class='icn'></div>\
+        <input id='account' name='name' type='text' value='账号''>\
+        <input id = 'password' name='password' type='password' placeholder='密码'>\
+        <div class='msg'>111</div>\
+        <button class='loginbtn'>登录</button>\
+       </form>\
+     </div>\
+   </div>";
+
+function Login(){
+  this.container = this._layout.cloneNode(true)
+
+  this.form = this.container.querySelector(".form");
+
+  this.cls = this.form.children[1];
+
+  this._initEvent();
+}
+
+extend(Login.prototype,{
+  _layout:html2node(templateL),
+
+
+  show:function(){
+    document.body.appendChild(this.container);
+  },
+
+  hide:function(){
+    document.body.removeChild(this.container);
+  },
+
+  _initEvent:function(){
+    addEvent(this.form,"submit",function(e){
+      e.preventDefault();
+      var account = hex_md5(this.account.value),
+          pswd = hex_md5(this.password.value),
+          url = "http://study.163.com/webDev/login.htm",
+          data = {userName:account,password:pswd};
+
+      get(url,data,function(num){
+        try{
+          if(num==1){
+            this.hide();
+            document.cookie = "loginSuc=1";
+            document.cookie = "followSuc=1";
+            // follow.style.display = "none";
+            // followed.style.display = "block";
+            follow.status_un();
+          }else if(num==0){
+            alert("账号/密码错误")
+          }
+        }catch(ex){
+          //
+        }
+      }.bind(this))
+    });
+
+    addEvent(this.cls,"click",this.hide.bind(this));
+  },
+
+})
+
+
+// 关注模块
+// 
+var templateFo = 
+"<div class='u-follow'>\
+  <div id='follow' class='icn'>关注</div>\
+  <div class='followed'>\
+    <div class='icn'></div>已关注<span class='cancel'>| <span class='unfollow'>取消</span></span>\
+  </div>\
+  <span>粉丝 45</span>\
+</div>"
+
+function Follow(){
+  this.container = this._layout.cloneNode(true);
+
+  this.follow = this.container.firstElementChild;
+
+  this.followed = this.container.children[1];
+
+  this.unfollow = this.followed.querySelector(".unfollow");
+
+  this._initEvent();
+
+  document.getElementsByClassName("m-ct f-cb")[0].insertBefore(this.container,document.querySelector(".links"))
+}
+
+extend(Follow.prototype,{
+  _layout:html2node(templateFo),
+
+  status_ava:function(){
+    this.follow.style.display = "inline-block";
+    this.followed.style.display = "none";
+  },
+
+  status_un:function(){
+    this.follow.style.display = "none";
+    this.followed.style.display = "block";
+  },
+
+  _initEvent:function(){
+    if(document.cookie.indexOf("loginSuc=") != -1){
+      if(document.cookie.indexOf("followSuc=") != -1){
+        this.status_un();
+      }
+    }
+    addEvent(this.unfollow,"click",function(){
+    document.cookie = "followSuc=1; max-age=0;"
+    this.status_ava();
+    }.bind(this));
+
+    addEvent(this.follow,"click",function(){
+      if(document.cookie.indexOf("loginSuc=")==-1){
+        login.show();
+      }else{
+        var url = "http://study.163.com/webDev/attention.htm";
+        get(url,"",function(num){
+          try{
+            if(num==1){
+              document.cookie = "followSuc=1";
+              this.status_un();
+            }
+          }catch(ex){
+            //
+          }
+        }.bind(this));
+      }
+    }.bind(this));
   }
 })

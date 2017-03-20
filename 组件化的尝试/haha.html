@@ -18,7 +18,7 @@
 			<div class="g-flow">
 				<div class="m-ct f-cb">
 					<div class="title"><h1>EDU&nbsp;</h1><h2>|&nbsp;网易教育产品部</h2></div>
-					<div class="u-follow"><div id="follow" class="icn">关注</div><div class="followed"><div class="icn"></div>已关注<span class="cancel">| <span id="unfollow">取消</span></span></div><span>粉丝 45</span></div>
+					<!-- <div class="u-follow"><div id="follow" class="icn">关注</div><div class="followed"><div class="icn"></div>已关注<span class="cancel">| <span id="unfollow">取消</span></span></div><span>粉丝 45</span></div> -->
 					<div class="links">
 						<a class="u-link" href="http://open.163.com" target="_blank">网易公开课</a>
 						<a class="u-link" href="http://study.163.com" target="_blank">网易云课堂</a>
@@ -129,8 +129,35 @@
 			</div>
 		</div>
 	</div>
+
+<!-- 	<div class='m-login'>
+		<div class='align'></div>
+		<div class="wrap">
+			<form class="loginf" name='loginForm'>
+				<div class='u-ttl'>登录网易云课堂</div>
+				<div class='icn'></div>
+				<input id='account' name='name' type='text' placeholder='账号''>
+				<input id = 'password' name='password' type='password' placeholder='密码'>
+				<button class='loginbtn'>登录</button>
+		   </form>
+	   </div>
+	 </div> -->
+
+	
+	<script type="text/javascript" src="js/md5.js"></script>
 	<script type="text/javascript" src="haha.js"></script>
 	<script type="text/javascript">
+	addEvent(document.querySelector(".cancel"),"click",function(){
+  	document.cookie = "tipcancel=1";
+  	iftip();
+  });
+	function iftip(){
+	  if(document.cookie.indexOf("tipcancel=1") != -1){
+	  	document.querySelector(".g-wrap").style.display = "none";
+	  }
+	}
+	iftip();
+	var follow = new Follow();
 	var url = "https://study.163.com/webDev/couresByCategory.htm",
 			data = {pageNo:1,psize:20,type:10},
 			hoturl = "https://study.163.com/webDev/hotcouresByCategory.htm"
@@ -142,7 +169,7 @@
 	get(hoturl,"",function(arr){
 		hotcourse = new Hotcourse(arr);
 	})
-	
+
 	var slider = new Slider({
 		container:document.getElementById("m-slider-container"),
 
@@ -167,7 +194,11 @@
   // 鼠标移出,重新开始轮播
   addEvent(slider.slides,"mouseout",function(){
   	slider.start();
-  })
+  });
+
+  var login = new Login();
+
+
 	</script>
 	
 </body>
