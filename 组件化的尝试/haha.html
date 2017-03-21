@@ -164,8 +164,8 @@
 			data = {pageNo:1,psize:20,type:10},
 			hoturl = "https://study.163.com/webDev/hotcouresByCategory.htm"
 	get(url,data,function(obj){
-	extend(obj,data)
-  	list = new Course(obj);
+	// extend(obj,data)
+  	course = new Course(obj);
   });
 
 	get(hoturl,"",function(arr){
@@ -202,6 +202,7 @@
 
   addEvent(document.querySelector(".u-intro"),"click",function(){
   	var mvideo = new VModal();
+  	mvideo.play();
   })
 	</script>
 	
