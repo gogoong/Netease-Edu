@@ -16,21 +16,21 @@ function html2node(str){
 // 直接setInterval.call(this,this.func,1000)会报错,setInterval运行环境中的this还是指向window
 // MDN给出了解决方案
 // 代码来源:https://developer.mozilla.org/zh-CN/docs/Web/API/Window/setInterval
-var __nativeST__ = window.setTimeout, __nativeSI__ = window.setInterval;
+// var __nativeST__ = window.setTimeout, __nativeSI__ = window.setInterval;
 
-window.setTimeout = function (vCallback, nDelay /*, argumentToPass1, argumentToPass2, etc. */) {
-  var oThis = this, aArgs = Array.prototype.slice.call(arguments, 2);
-  return __nativeST__(vCallback instanceof Function ? function () {
-    vCallback.apply(oThis, aArgs);
-  } : vCallback, nDelay);
-};
+// window.setTimeout = function (vCallback, nDelay /*, argumentToPass1, argumentToPass2, etc. */) {
+//   var oThis = this, aArgs = Array.prototype.slice.call(arguments, 2);
+//   return __nativeST__(vCallback instanceof Function ? function () {
+//     vCallback.apply(oThis, aArgs);
+//   } : vCallback, nDelay);
+// };
 
-window.setInterval = function (vCallback, nDelay /*, argumentToPass1, argumentToPass2, etc. */) {
-  var oThis = this, aArgs = Array.prototype.slice.call(arguments, 2);
-  return __nativeSI__(vCallback instanceof Function ? function () {
-    vCallback.apply(oThis, aArgs);
-  } : vCallback, nDelay);
-};
+// window.setInterval = function (vCallback, nDelay /*, argumentToPass1, argumentToPass2, etc. */) {
+//   var oThis = this, aArgs = Array.prototype.slice.call(arguments, 2);
+//   return __nativeSI__(vCallback instanceof Function ? function () {
+//     vCallback.apply(oThis, aArgs);
+//   } : vCallback, nDelay);
+// };
 
 // 赋值属性
 // extend({a:1}, {b:1, a:2}) -> {a:1, b:1}
@@ -316,7 +316,7 @@ extend(Hotcourse.prototype,{
   },
   // 开始滚动
   start:function(){
-    this.timer = setInterval.call(this,this.scroll,5000)
+    this.timer = setInterval(this.scroll.bind(this),5000)
   },
   // 停止
   stop:function(){
@@ -332,6 +332,8 @@ extend(Hotcourse.prototype,{
     this.supcontainer.appendChild(this.container.cloneNode(true));
 
     this.start();
+
+    addEvent(this.supcontainer,"mouseover",this.stop.bind(this))
   }
 
 })
@@ -396,7 +398,7 @@ extend(Slider.prototype,{
   },
   // 开始轮播
   start:function(){
-    this.timer = setInterval.call(this,this.change,5000);
+    this.timer = setInterval(this.change.bind(this),5000)
   },
   // 停止轮播
   stop:function(){
@@ -419,7 +421,7 @@ var templateL =
       <form class='form' name='loginForm'>\
         <div class='u-ttl'>登录网易云课堂</div>\
         <div class='icn'></div>\
-        <input id='account' name='name' type='text' value='账号''>\
+        <input id='account' name='name' type='text' placeholder='账号''>\
         <input id = 'password' name='password' type='password' placeholder='密码'>\
         <div class='msg'>111</div>\
         <button class='loginbtn'>登录</button>\
@@ -439,7 +441,6 @@ function Login(){
 
 extend(Login.prototype,{
   _layout:html2node(templateL),
-
 
   show:function(){
     document.body.appendChild(this.container);
@@ -547,5 +548,77 @@ extend(Follow.prototype,{
         }.bind(this));
       }
     }.bind(this));
+  }
+})
+
+var templateVModal = 
+"<div class='m-vct'>\
+  <div class='zttl'>遇见更好的自己</div>\
+  <div class='zcls'></div>\
+  <div class='u-playbtn'></div>\
+  <video src='http://mov.bn.netease.com/open-movie/nos/mp4/2014/12/30/SADQ86F5S_shd.mp4'  autoplay='autoplay' width='889' height='537'></video>\
+</div>"
+
+function VModal(options){
+  extend(this,options);
+
+  // this.container = document.body;
+
+  this.container = this._layout.cloneNode(true);
+
+  this.mask = document.createElement("div");
+
+  this.mask.className = "f-mask";
+
+  this.cls = this.container.querySelector(".zcls");
+
+  this.playbtn = this.container.querySelector(".u-playbtn");
+
+  this.vcontent = this.container.getElementsByTagName("video")[0];
+
+  this._initEvent();
+}
+
+extend(VModal.prototype,{
+  _layout:html2node(templateVModal),
+
+  show:function(){
+    document.body.appendChild(this.container);
+
+    document.body.appendChild(this.mask);
+  },
+
+  hide:function(){
+    document.body.removeChild(this.container);
+
+
+    document.body.removeChild(this.mask);
+  },
+
+  play:function(){
+    this.vcontent.play();
+    this.playbtn.style.display = "none";
+  },
+
+  pause:function(){
+    this.vcontent.pause();
+    this.playbtn.style.display = "block";
+  },
+
+  judge:function(){
+    if(this.vcontent.paused){
+      this.play()
+    }else {this.pause()}
+  },
+
+  _initEvent:function(){
+
+    addEvent(this.cls,"click",this.hide.bind(this));
+
+    addEvent(this.mask,"click",this.hide.bind(this));
+
+    addEvent(this.vcontent,"click",this.judge.bind(this));
+
+    this.show();
   }
 })

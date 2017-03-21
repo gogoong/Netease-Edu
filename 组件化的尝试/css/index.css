@@ -3,8 +3,10 @@ body{font: 12px "宋体";}
 .icn{display: inline-block;background: url(../images/sprit1.png) no-repeat;cursor: pointer;}
 .f-cb:after{content: "";clear: both;display: block;height: 0;overflow: hidden;visibility: hidden;}
 .f-cb{zoom: 1;}
-.f-mask{position: fixed;left: 0;top: 0;height: 100%;width: 100%;background-color: #000000;opacity: 0.2;z-index: 99;}
-.m-login{position: fixed;top: 50%;left: 50%;transform: translate(-50%,-50%);width: 387px;height: 288px;padding-left: 39px;box-sizing: border-box;z-index: 299;background-color: #ffffff}
+.f-mask{position: fixed;left: 0;top: 0;height: 100%;width: 100%;background-color: #000000;opacity: 0.8;z-index: 99;}
+/*.align{display: inline-block;vertical-align: middle;height: 100%;line-height: 100%;width: 1px;}
+.m-login{position: fixed;top: 0;left: 0;height: 100%;width: 100%;text-align: center;background-color: rgba(0,0,0,0.5);}
+.warp{vertical-align: middle; display: inline-block;width: 387px;height: 288px;padding-left: 39px;box-sizing: border-box;z-index: 299;background-color: #ffffff}*/
 .m-login input{display: block;width: 282px;height: 43px;padding-left: 11px;border: solid 1px #dfdfdf;box-shadow: 2px 2px #f1f1f1 inset;font: 16px/43px "Microsoft Yahei";}
 .m-login input:nth-child(4){margin: 15px 0 29px;}
 .m-login .u-ttl{height: 18px;margin-top: 30px;margin-bottom: 20px;font: 18px/18px "Microsoft Yahei";color: #444444;}
@@ -18,8 +20,8 @@ body{font: 12px "宋体";}
 .g-hd .cancel .icn{width: 9px;height: 9px;margin-right: 6px;background-position: 0 -48px;}
 .g-hd .m-hd{height: 82px;line-height: 82px;}
 .g-hd .m-ct .title{float: left;}
-.g-hd .m-ct .title h1{display:inline;font: 19px/1 "GillSansMT";}
-.g-hd .m-ct .title h2{display: inline;font: 22px/1 "HiraginoSansGB";}
+.g-hd .m-ct .title h1:first-child{display:inline;vertical-align: middle;font: bold 28px "GillSansMT";color: #39a030;}
+.g-hd .m-ct .title h1:nth-child(2){display: inline;vertical-align: middle;font: 22px "HiraginoSansGB";}
 .g-hd .m-ct .u-follow{float: left;height: 21px;margin: 30px 0 31px 31px;font: 12px/21px "宋体";}
 .g-hd .m-ct .followed{display: none;float: left;width: 104px;height: 19px;padding-left: 6px;margin-right: 14px;border: 1px solid #f1f1f1;box-sizing: border-box;line-height: 19px;background-color: #f8f8f8;}
 .g-hd .followed .cancel{font-color: #999999;}
@@ -30,9 +32,9 @@ body{font: 12px "宋体";}
 .g-hd .m-ct .links{float: right;font-size: 16px;}
 .g-hd .links .icn{width: 18px;height: 18px;margin: 0 14px 0 30px;background-position: 0 -66px;vertical-align: middle;}
 .g-hd .links .icn:hover{background: url(../images/sprit1.png) 0 -93px no-repeat;}
-.g-hd .links .u-link{margin-left: 54px;color: #666666}
+.g-hd .links .u-link{float: left;margin-left: 54px;color: #666666}
 .g-hd .links .u-link:first-child{margin-left: 0;}
-.g-hd .links .u-link:hover{color: #39a030;}
+.g-hd .links .u-link a:hover{color: #39a030;}
 .m-slider {position: relative; margin-top: 7px;font-size: 0}
 .m-slider .slide{width: 100%;height: 460px;}
 .m-slider .pointer{position: absolute;left: 50%;bottom: 20px;margin-left: -26px; width: 52px;}
@@ -46,7 +48,7 @@ body{font: 12px "宋体";}
 .g-content .study .logo{background-position: 0 -118px;}
 .g-content .icourse .logo{background-position: 0 -236px;}
 .g-content .text{float: left;width: 243px;font: 14px/24px "Microsoft Yahei";color: #666666;}
-.g-content .text h1{font: 22px/20px "Microsoft Yahei";color: #333333};
+.g-content .text h1{font: 22px/20px "Microsoft Yahei";color: #333333;}
 .g-content .text p{margin: 20px 0 34px;}
 .g-content .study{margin: 0 82px;}
 .g-content .u-link{color: #39a030;}
@@ -59,7 +61,7 @@ body{font: 12px "宋体";}
 .g-bd .g-sd{float: right;width: 223px;}
 .g-bd .g-sd .m-video{background-color: #fff;box-shadow: 1px 0 #ecebeb,-1px 0 #ecebeb,0 2px #dddddd}
 .g-bd .g-sd .intro{height: 55px;padding-left: 20px;font: 16px/55px "Microsoft Yahei";color: #333333;box-shadow: 0 1px #dddddd;}
-.g-bd .m-video .video{height: 173px;padding-left: 22px;padding-top: 20px;font: 14px/22px "Microsoft Yahei";color: #666666;box-shadow: 1px 1px #dddddd,}
+.g-bd .m-video .video{height: 173px;padding-left: 22px;padding-top: 20px;font: 14px/22px "Microsoft Yahei";color: #666666;box-shadow: 1px 1px #dddddd}
 .g-bd .video .u-intro{cursor: pointer;}
 .m-vct{position:fixed;left:50%;top:50%;width: 950px;height: 647px;padding: 40px 30px;box-sizing:border-box;background-color: #fff;transform:translate(-50%,-50%);z-index: 199;}
 .m-vct video{cursor: pointer;}
@@ -71,7 +73,7 @@ body{font: 12px "宋体";}
 .g-bd .g-sd .m-hotlist .hot{height: 700px;padding: 20px 0 0 20px;overflow: hidden;}
 .g-bd .hot .u-hot{margin-bottom: 20px;}
 .g-bd .hot .u-hot img{float: left;margin-right: 12px;}
-.g-bd .hot .u-hot .cttl{font: 14px "Microsoft Yahei";overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
+.g-bd .hot .u-hot .cttl{margin-right: 20px;font: 14px "Microsoft Yahei";overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
 .g-bd .hot .u-hot .lcount{padding-left: 15px;margin-top: 12px;font: 14px "Microsoft Yahei";}
 .g-bd .u-hot .icn{background-position: -62px -44px}
 .g-bd .g-mn{position: relative;float:left;width: 960px;}
@@ -120,3 +122,9 @@ body{font: 12px "宋体";}
 .g-ft .ftrt .ours{float: left;margin-right: 70px;}
 .g-ft .ftrt .more{float: left}
 .g-ft .ftrt .icn{width: 66px;background-position: -25px -59px;}
+
+.m-login{position: fixed;top: 0;left: 0;width: 100%;height: 100%;background-color: rgba(0,0,0,0.8);text-align: center;}
+.m-login .wrap,.align{display: inline-block;vertical-align: middle;}
+.m-login .align{width: 1px;height: 100%;line-height: 100%;zoom:1;}
+.m-login .wrap{position: relative; background-color: #fff;padding: 20px;}
+.m-login .form{display: inline-block;}

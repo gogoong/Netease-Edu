@@ -17,14 +17,14 @@
 		<div class="m-hd">
 			<div class="g-flow">
 				<div class="m-ct f-cb">
-					<div class="title"><h1>EDU&nbsp;</h1><h2>|&nbsp;网易教育产品部</h2></div>
+					<div class="title"><h1>EDU&nbsp;|</h1><h1>&nbsp;网易教育产品部</h1></div>
 					<!-- <div class="u-follow"><div id="follow" class="icn">关注</div><div class="followed"><div class="icn"></div>已关注<span class="cancel">| <span id="unfollow">取消</span></span></div><span>粉丝 45</span></div> -->
-					<div class="links">
-						<a class="u-link" href="http://open.163.com" target="_blank">网易公开课</a>
-						<a class="u-link" href="http://study.163.com" target="_blank">网易云课堂</a>
-						<a class="u-link" href="http://www.icourse163.org" target="_blank">中国大学MOOC</a>
+					<ul class="links">
+						<li class="u-link"><a href="http://open.163.com" target="_blank">网易公开课</a></li>
+						<li class="u-link"><a href="http://study.163.com" target="_blank">网易云课堂</a></li>
+						<li class="u-link"><a href="http://www.icourse163.org" target="_blank">中国大学MOOC</a></li>
 						<div class="icn"></div>
-					</div>
+					</ul>
 				</div>
 			</div>
 		</div>
@@ -71,13 +71,13 @@
 			</div>
 		</div>
 	</div>
-	<div class="m-intro f-cb">
-		<div class="wplace"><img src="images/1.jpg" alt="" ></div>
-		<div class="wplace"><img src="images/2.jpg" alt="" ></div>
-		<div class="wplace"><img src="images/3.jpg" alt="" ></div>
-		<div class="wplace"><img src="images/4.jpg" alt="" ></div>
-		<div class="wplace"><img src="images/5.jpg" alt="" ></div>
-	</div>
+	<ul class="m-intro f-cb">
+		<li class="wplace"><img src="images/1.jpg" alt="" ></li>
+		<li class="wplace"><img src="images/2.jpg" alt="" ></li>
+		<li class="wplace"><img src="images/3.jpg" alt="" ></li>
+		<li class="wplace"><img src="images/4.jpg" alt="" ></li>
+		<li class="wplace"><img src="images/5.jpg" alt="" ></li>
+	</ul>
 	<div class="g-bd f-cb">
 		<div class="g-flow f-cb">
 			<div class="g-mn ">
@@ -95,7 +95,7 @@
 			</div>
 			<div class="g-sd">
 				<div class="m-video">
-					<div class="intro">机构介绍</div>
+					<h2 class="intro">机构介绍</h2>
 					<div class="video">观看下面的视频来了解吧:
 						<img class="u-intro" width="180px" height="110px" src="images/play.jpg">
 					</div>
@@ -157,7 +157,9 @@
 	  }
 	}
 	iftip();
+
 	var follow = new Follow();
+
 	var url = "https://study.163.com/webDev/couresByCategory.htm",
 			data = {pageNo:1,psize:20,type:10},
 			hoturl = "https://study.163.com/webDev/hotcouresByCategory.htm"
@@ -176,7 +178,7 @@
 		images:["images/banner1.jpg",
 				"images/banner2.jpg",
 				"images/banner3.jpg",],
-		pageindex:5
+		pageindex:1
 	});
 	// 点击"圆点"跳转
 	addEvent(slider.pointer,"click",function(e){
@@ -198,8 +200,12 @@
 
   var login = new Login();
 
-
+  addEvent(document.querySelector(".u-intro"),"click",function(){
+  	var mvideo = new VModal();
+  })
 	</script>
 	
 </body>
 </html>
+
+<!-- 1.视频弹窗2.JS后台运行问题(滚动列表)3.居中,两边隐藏. -->
