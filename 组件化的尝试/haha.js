@@ -38,6 +38,97 @@
     xhr.open('get',url + '?' + serialize(options),true);
     xhr.send(null);
   }
+  // dataset 兼容低版本IE
+  function dataset(element){
+    if(element.dataset){//如果支持element.dataset
+        return element.dataset;//则使用W3C推荐标准
+    }else{//否则使用以下代码模拟实现
+        var attributes=element.attributes;//获取节点的所有属性
+        var name=[],value=[];//定义两个数组保存属性名和属性值
+        var obj={};//定义一个空对象
+        for(var i=0;i<attributes.length;i++){//遍历节点的所有属性
+            if(attributes[i].nodeName.slice(0,5)=="data-"){//如果属性名的前面5个字符符合"data-"
+                // 取出属性名的"data-"的后面的字符串放入name数组中
+                name.push(attributes[i].nodeName.slice(5));
+                //取出对应的属性值放入value数组中
+                value.push(attributes[i].nodeValue);
+            }
+        }
+        for(var j=0;j<name.length;j++){//遍历name和value数组
+            obj[name[j]]=value[j];//将属性名和属性值保存到obj中
+        }
+        return obj;//返回对象
+    }
+  }
+  // bind低版本IE兼容方法
+  // 代码来源:https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Function/bind
+  if (!Function.prototype.bind) {
+    Function.prototype.bind = function (oThis) {
+      if (typeof this !== "function") {
+        // closest thing possible to the ECMAScript 5
+        // internal IsCallable function
+        throw new TypeError("Function.prototype.bind - what is trying to be bound is not callable");
+      }
+
+      var aArgs = Array.prototype.slice.call(arguments, 1), 
+          fToBind = this, 
+          fNOP = function () {},
+          fBound = function () {
+            return fToBind.apply(this instanceof fNOP
+                                   ? this
+                                   : oThis || this,
+                                 aArgs.concat(Array.prototype.slice.call(arguments)));
+          };
+
+      fNOP.prototype = this.prototype;
+      fBound.prototype = new fNOP();
+
+      return fBound;
+    };
+  }
+
+  //兼容版的element.children
+  function children(element){
+    if(element.children){
+        return element.children;
+    }else{
+       var elementarr = [];
+       var nodelist = element.childNodes;
+       for(var i=0; i < nodelist.length; i++){
+           if(nodelist[i].nodeType == 1){
+               elementarr.push(nodelist[i]);
+           }else continue;
+       }return elementarr;
+    }
+  }
+
+  // 兼容版getElementsByClassName
+  function getElementsByClassName(element, names) {
+        if (element.getElementsByClassName) {
+            return element.getElementsByClassName(names);
+        } else {
+            var elements = element.getElementsByTagName('*');
+            var result = [];
+            var element,
+                classNameStr,
+                flag;
+            names = names.split(' ');
+            for (var i = 0; element = elements[i]; i++) {
+                classNameStr = ' ' + element.className + ' ';
+                flag = true;
+                for (var j = 0, name; name = names[j]; j++) {
+                    if (classNameStr.indexOf(' ' + name + '') == -1) {
+                        flag = false;
+                        break;
+                    }
+                }
+                if (flag) {
+                    result.push(element);
+                }
+            }
+            return result;
+        }
+    }
 (function(){
     // 将HTML转换为节点
   function html2node(str){
@@ -107,11 +198,11 @@
     // 主容器
     this.container = document.querySelector(".m-courselist");
     // 当前页课程数
-    this.coursecount = this.container.getElementsByClassName("u-course");
+    this.coursecount = getElementsByClassName(this.container,"u-course");
     // 页码器
     this.page = document.querySelector(".m-page"),
     // 页数
-    this.pagecount = document.getElementsByClassName("pageindex");
+    this.pagecount = getElementsByClassName(document,"pageindex");
 
     extend(this,options);
 
@@ -133,24 +224,25 @@
     },
     // 设置课程样式
     setcourse:function(i){
-      var s = this.container.children[i],
+      var s = children(this.container)[i],
           l = this.list[i];
-      s.children[0].firstElementChild.src = l.middlePhotoUrl;
-      s.children[0].lastElementChild.firstElementChild.children[0].src = l.middlePhotoUrl;
-      s.children[0].lastElementChild.firstElementChild.lastElementChild.children[0].textContent = l.name;
-      s.children[0].lastElementChild.firstElementChild.lastElementChild.children[1].textContent = l.learnerCount + "人在学"
-      s.children[0].lastElementChild.firstElementChild.lastElementChild.children[2].textContent = "发布者:" + l.provider;
-      s.children[0].lastElementChild.firstElementChild.lastElementChild.children[3].textContent = "分类:" + (l.categoryName?l.categoryName:"无");
-      s.children[0].lastElementChild.lastElementChild.textContent = l.description;
-      s.children[1].textContent = l.name
-      s.children[2].innerHTML = l.provider;
-      s.children[3].innerHTML = l.learnerCount;
-      s.children[4].innerHTML = l.price == 0? "免费" : '￥'+ l.price;
+      children(children(s)[0])[0].src = l.middlePhotoUrl;
+      s.querySelector(".dimg").src = l.middlePhotoUrl;
+      s.querySelector(".dttl").innerText = l.name;
+      s.querySelector(".dlcount").innerText = l.learnerCount + "人在学"
+      s.querySelector(".dprv").innerText = "发布者:" + l.provider;
+      s.querySelector(".dcategory").innerText = "分类:" + (l.categoryName?l.categoryName:"无");
+      s.querySelector(".descr").innerText = l.description;
+      children(s)[1].innerText = l.name
+      children(s)[2].innerText = l.provider;
+      children(s)[3].innerText = l.learnerCount;
+      children(s)[4].innerText = l.price == 0? "免费" : '￥'+ l.price;
     },
     // 页码器
     pager:function(event){
-      if(event.target.tagName == "LI"){
-        var index = Number(event.target.dataset.index),
+      var target = event.srcElement ? event.srcElement:event.target;
+      if(target.tagName == "LI"){
+        var index = Number(dataset(target).index),
             pageNo = data.pageNo;
 
         // -1为上一页,0为下一页
@@ -169,7 +261,7 @@
             if(pageNo<course.totalPage){
               data.pageNo += 1;
               get(url,data,function(obj){
-                extend(obj,data);
+                extend(obj,data)
                 course = new Course(obj);
               })
             }
@@ -179,7 +271,7 @@
             if(index>0 && index != pageNo){
               data.pageNo = index;
               get(url,data,function(obj){
-                extend(obj,data);
+                extend(obj,data)
                 course = new Course(obj);
               })
             }
@@ -200,11 +292,11 @@
           this.setcourse(i)
         }
       }else if(clength>llength){
-        for(var i = 0,length=llength;i<length;i++){
-          this.setcourse(i)
+        for(var i = 0,length=clength - llength;i<length;i++){
+          this.container.removeChild(children(this.container)[0])
         }
-        for(var i=llength,length=clength;i<length;i++){
-          this.container.removeChild(this.container.lastElementChild)
+        for(var i=0,length=llength;i<length;i++){
+          this.setcourse(i)
         }
       }else{
         for(var i = 0;i<clength;i++){
@@ -221,15 +313,9 @@
           (i+1) == this.pageNo ? pageindex.className = "pageindex z-sel" : pageindex.className = "pageindex";
           pageindex.setAttribute("data-index",i+1);
           pageindex.innerHTML = i+1 ;
-          this.page.insertBefore(pageindex,this.page.lastElementChild);
-          /**  对页码器进行事件代理
-               这里有个疑问,原想法
-               this.pager.bind(this);addEvent(this.page,"click",this)
-               当点击翻页或页码时,会执行2次pager,还请老师解答一下 **/
-          addEvent(this.page,"click",this.pager);
-          // 注册tab的点击事件
-          var coursetab = document.getElementsByClassName("u-tab");
-          addEvent(coursetab[0].firstElementChild,"click",function(){
+          this.page.insertBefore(pageindex,children(this.page)[i+1]);
+          
+      /*    addEvent(coursetab[0].firstElementChild,"click",function(){
             data.type = 10;
             data.pageNo = 1;
             coursetab[0].firstElementChild.className = "z-sel";
@@ -238,8 +324,8 @@
               extend(obj,data)
               course = new Course(obj)
             });
-          });
-          addEvent(coursetab[0].lastElementChild,"click",function(){
+          });*/
+    /*      addEvent(coursetab[0].lastElementChild,"click",function(){
             data.type = 20;
             data.pageNo = 1;
             coursetab[0].lastElementChild.className = "z-sel";
@@ -248,9 +334,37 @@
               extend(obj,data)
               course = new Course(obj);
             });
-          })
+          })*/
     
         }
+        /**  对页码器进行事件代理
+               这里有个疑问,原想法
+               this.pager.bind(this);addEvent(this.page,"click",this)
+               当点击翻页或页码时,会执行2次pager,还请老师解答一下 **/
+          addEvent(this.page,"click",this.pager);
+          // 注册tab的点击事件
+          var coursetab = document.querySelector(".u-tab");
+          addEvent(coursetab,"click",function(e){
+            var target = e.srcElement ? e.srcElement:e.target;
+            switch(dataset(target).type){
+              case "10":
+              data.type = 10;
+              data.pageNo = 1;
+              break;
+
+              case "20":
+              data.type = 20;
+              data.pageNo = 1;
+              break;
+            }
+            for(var i = 0,length = children(coursetab).length;i<length;i++){
+              children(coursetab)[i].className = "";
+            }
+            target.className = "z-sel"
+            get(url,data,function(obj){
+              course = new Course(obj)
+            })
+          })
       }
       // 设置页码状态
       for(i=0;i<this.totalPage;i++){
@@ -261,7 +375,7 @@
 
   // 热门课程模块
   //
-  var templateHotC = "<li class=u-hot f-cb>\
+  var templateHotC = "<li class='u-hot f-cb'>\
                       <img width='50px' height='50px'>\
                       <div>\
                         <div class='cttl'></div>\
@@ -276,7 +390,7 @@
 
     extend(this.list,options);
 
-    this.container = document.querySelector(".hot").children[0];
+    this.container = children(document.querySelector(".hot"))[0];
 
     this.supcontainer = this.container.parentNode;
 
@@ -300,11 +414,11 @@
     // 设置课程样式
     setcourse:function(i){
 
-      this.container.children[i].firstElementChild.src = this.list[i].smallPhotoUrl;
+      children(children(this.container)[i])[0].src = this.list[i].smallPhotoUrl;
 
-      this.container.children[i].lastElementChild.firstElementChild.textContent = this.list[i].name;
+      children(this.container)[i].querySelector(".cttl").innerText = this.list[i].name;
 
-      this.container.children[i].lastElementChild.lastElementChild.textContent = this.list[i].learnerCount;
+      children(this.container)[i].querySelector(".lcount").innerText = this.list[i].learnerCount;
     },
     // 滚动排行榜
     scroll:function(){
@@ -447,7 +561,7 @@
 
     this.form = this.container.querySelector(".form");
 
-    this.cls = this.form.children[1];
+    this.cls = children(this.form)[1];
 
     this._initEvent();
   }
@@ -509,15 +623,15 @@
   function Follow(){
     this.container = this._layout.cloneNode(true);
 
-    this.follow = this.container.firstElementChild;
+    this.follow = children(this.container)[0];
 
-    this.followed = this.container.children[1];
+    this.followed = children(this.container)[1];
 
     this.unfollow = this.followed.querySelector(".unfollow");
 
     this._initEvent();
 
-    document.getElementsByClassName("m-ct f-cb")[0].insertBefore(this.container,document.querySelector(".links"))
+    getElementsByClassName(document,"m-ct f-cb")[0].insertBefore(this.container,document.querySelector(".links"))
   }
 
   extend(Follow.prototype,{
@@ -641,5 +755,6 @@
   window.Login = Login;
   window.VModal = VModal;
   window.Hotcourse = Hotcourse;
-  window.Slider = Slider
+  window.Slider = Slider;
+  window.extend = extend;
 })()

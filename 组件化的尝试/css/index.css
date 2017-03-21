@@ -21,10 +21,10 @@ body{font: 12px "宋体";}
 .g-hd .m-hd{height: 82px;line-height: 82px;}
 .g-hd .m-ct .title{float: left;}
 .g-hd .m-ct .title h1:first-child{display:inline;vertical-align: middle;font: bold 28px "GillSansMT";color: #39a030;}
-.g-hd .m-ct .title h1:nth-child(2){display: inline;vertical-align: middle;font: 22px "HiraginoSansGB";}
+.g-hd .m-ct .title h1{display: inline;vertical-align: middle;font: 22px "HiraginoSansGB";}
 .g-hd .m-ct .u-follow{float: left;height: 21px;margin: 30px 0 31px 31px;font: 12px/21px "宋体";}
 .g-hd .m-ct .followed{display: none;float: left;width: 104px;height: 19px;padding-left: 6px;margin-right: 14px;border: 1px solid #f1f1f1;box-sizing: border-box;line-height: 19px;background-color: #f8f8f8;}
-.g-hd .followed .cancel{font-color: #999999;}
+.g-hd .followed .cancel{color: #999999;}
 .g-hd .m-ct .followed:hover{background-color: #fff}
 .g-hd .followed .cancel span:hover{text-decoration: underline;color: #21a557;cursor: pointer;}
 .g-hd .m-ct .followed .icn{width: 11px;height: 9px;margin-right: 5px;background-position: 0 -30px;}
@@ -38,8 +38,8 @@ body{font: 12px "宋体";}
 .m-slider {position: relative; margin-top: 7px;font-size: 0}
 .m-slider .slide{width: 100%;height: 460px;}
 .m-slider .pointer{position: absolute;left: 50%;bottom: 20px;margin-left: -26px; width: 52px;}
-.m-slider .pointer .u-p{display: inline-block;width: 10px;height: 10px;margin-right: 11px; background-color: #fff; border-radius:5px; }
-.m-slider .pointer i:last-child{margin-right: 0;}
+.m-slider .pointer .u-p{display: inline-block;width: 10px;height: 10px;margin-left: 11px; background-color: #fff; border-radius:5px; }
+.m-slider .pointer i:first-child{margin-left: 0;}
 .m-slider .pointer .z-crt{background-color: #000;}
 .g-content .logo{float: left;width: 80px;height: 80px;margin-right: 20px;background: url(../images/icon-sprit.png);cursor: default;}
 .g-content .m-ct{float:left;width: 343px;}
@@ -71,16 +71,16 @@ body{font: 12px "宋体";}
 .g-bd .g-sd .m-hotlist{margin-top: 21px;background-color: #fff;box-shadow: 1px 0px #ecebeb,-1px 0 #ecebeb}
 .g-bd .g-sd .m-hotlist .ttl{height: 56px;padding-left: 20px;font: 16px/56px "Microsoft Yahei"; box-shadow: 0 1px #eeeeee;}
 .g-bd .g-sd .m-hotlist .hot{height: 700px;padding: 20px 0 0 20px;overflow: hidden;}
-.g-bd .hot .u-hot{margin-bottom: 20px;}
+.g-bd .hot .u-hot{height:50px;margin-bottom: 20px;}
 .g-bd .hot .u-hot img{float: left;margin-right: 12px;}
 .g-bd .hot .u-hot .cttl{margin-right: 20px;font: 14px "Microsoft Yahei";overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
 .g-bd .hot .u-hot .lcount{padding-left: 15px;margin-top: 12px;font: 14px "Microsoft Yahei";}
 .g-bd .u-hot .icn{background-position: -62px -44px}
 .g-bd .g-mn{position: relative;float:left;width: 960px;}
 .g-bd .u-tab{margin-bottom: 30px;}
-.g-bd .u-tab div{float: left;width: 200px;height: 50px;text-align: center;font: 20px/50px "Microsoft Yahei";color: #666666;background-color: #ffffff;cursor: pointer;}
-.g-bd .u-tab div:first-child{box-shadow: -1px 0 #ecebeb,0 2px 1px #d4d3d3}
-.g-bd .u-tab div:last-child{box-shadow: 1px 0 #ecebeb,0 2px 1px #d4d3d3}
+.g-bd .u-tab li{float: left;width: 200px;height: 50px;text-align: center;font: 20px/50px "Microsoft Yahei";color: #666666;background-color: #ffffff;cursor: pointer;}
+.g-bd .u-tab li:first-child{box-shadow: -1px 0 #ecebeb,0 2px 1px #d4d3d3}
+.g-bd .u-tab li:last-child{box-shadow: 1px 0 #ecebeb,0 2px 1px #d4d3d3}
 .g-bd .u-tab .z-sel{color: #ffffff;background-color: #39a030;}
 .g-bd .g-mn .m-courselist{width: 980px;}
 .g-bd .g-mn .u-course{position: relative;display: inline-block;width: 225px;height: 228px;padding: 1px 1px 0 1px;margin:0 20px 20px 0;box-sizing: border-box;box-shadow: 1px 0 #f1f1f1,-1px 0 #f1f1f1,0 2px 1px #e6e6e6;background-color: #fff;}

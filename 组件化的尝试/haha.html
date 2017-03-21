@@ -81,10 +81,10 @@
 	<div class="g-bd f-cb">
 		<div class="g-flow f-cb">
 			<div class="g-mn ">
-				<div class="u-tab f-cb">
-					<div class="z-sel">产品设计</div>
-					<div>编程语言</div>
-				</div>
+				<ul class="u-tab f-cb">
+					<li class="z-sel" data-type="10">产品设计</li>
+					<li data-type="20">编程语言</li>
+				</ul>
 				<ul class="m-courselist">
 					
 				</ul>
@@ -147,16 +147,16 @@
 	<script type="text/javascript" src="js/md5.js"></script>
 	<script type="text/javascript" src="haha.js"></script>
 	<script type="text/javascript">
-	addEvent(document.querySelector(".cancel"),"click",function(){
-  	document.cookie = "tipcancel=1";
-  	iftip();
-  });
-	function iftip(){
-	  if(document.cookie.indexOf("tipcancel=1") != -1){
-	  	document.querySelector(".g-wrap").style.display = "none";
-	  }
-	}
-	iftip();
+	// addEvent(document.querySelector(".cancel"),"click",function(){
+ //  	document.cookie = "tipcancel=1";
+ //  	iftip();
+ //  });
+	// function iftip(){
+	//   if(document.cookie.indexOf("tipcancel=1") != -1){
+	//   	document.querySelector(".g-wrap").style.display = "none";
+	//   }
+	// }
+	// iftip();
 
 	var follow = new Follow();
 
@@ -164,7 +164,7 @@
 			data = {pageNo:1,psize:20,type:10},
 			hoturl = "https://study.163.com/webDev/hotcouresByCategory.htm"
 	get(url,data,function(obj){
-	// extend(obj,data)
+		extend(obj,data);
   	course = new Course(obj);
   });
 
@@ -177,14 +177,15 @@
 
 		images:["images/banner1.jpg",
 				"images/banner2.jpg",
-				"images/banner3.jpg",],
+				"images/banner3.jpg"],
 		pageindex:1
 	});
 	// 点击"圆点"跳转
 	addEvent(slider.pointer,"click",function(e){
-  	if(e.target.tagName=="I"){
+		var target = e.srcElement ? e.srcElement:e.target
+  	if(target.tagName=="I"){
     	slider.stop();
-      slider.pageindex = e.target.dataset.index - 1;
+      slider.pageindex = dataset(target).index - 1;
       slider.change();
       slider.start();
     }
