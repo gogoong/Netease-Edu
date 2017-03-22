@@ -265,6 +265,7 @@
                 course = new Course(obj);
               })
             }
+
           
           break;
           default:
@@ -310,32 +311,10 @@
       if(this.pagecount.length == 0){
         for(var i=0 ,length = this.totalPage;i<length;i++){
           var pageindex = document.createElement("li");
-          (i+1) == this.pageNo ? pageindex.className = "pageindex z-sel" : pageindex.className = "pageindex";
+          (i+1) == data.pageNo ? pageindex.className = "pageindex z-sel" : pageindex.className = "pageindex";
           pageindex.setAttribute("data-index",i+1);
           pageindex.innerHTML = i+1 ;
           this.page.insertBefore(pageindex,children(this.page)[i+1]);
-          
-      /*    addEvent(coursetab[0].firstElementChild,"click",function(){
-            data.type = 10;
-            data.pageNo = 1;
-            coursetab[0].firstElementChild.className = "z-sel";
-            coursetab[0].lastElementChild.className = "";
-            get(url,data,function(obj){
-              extend(obj,data)
-              course = new Course(obj)
-            });
-          });*/
-    /*      addEvent(coursetab[0].lastElementChild,"click",function(){
-            data.type = 20;
-            data.pageNo = 1;
-            coursetab[0].lastElementChild.className = "z-sel";
-            coursetab[0].firstElementChild.className = "";
-            get(url,data,function(obj){
-              extend(obj,data)
-              course = new Course(obj);
-            });
-          })*/
-    
         }
         /**  对页码器进行事件代理
                这里有个疑问,原想法
@@ -362,13 +341,29 @@
             }
             target.className = "z-sel"
             get(url,data,function(obj){
+              extend(obj,data)
               course = new Course(obj)
             })
           })
-      }
-      // 设置页码状态
-      for(i=0;i<this.totalPage;i++){
+      }else if (this.pagecount.length < this.totalPage){
+        for(var i = this.pagecount.length ; i<this.totalPage;i++){
+          var pageindex = document.createElement("li");
+          pageindex.className = "pageindex";
+          pageindex.setAttribute("data-index",i+1);
+          pageindex.innerHTML = i+1 ;
+          this.page.insertBefore(pageindex,children(this.page)[i+1]);
+          document.querySelector(".pageindex").className += " z-sel";
+        }
+      }else if(this.pagecount.length > this.totalPage){
+        for(var i = this.totalPage;i<this.pagecount.length;i++){
+          this.page.removeChild(children(this.page)[i+1]);
+          document.querySelector(".pageindex").className += " z-sel";
+        }
+      }else{
+        // 设置页码状态
+        for(i=0;i<this.totalPage;i++){
         (i+1) == this.pageNo ? this.pagecount[i].className = "pageindex z-sel" : this.pagecount[i].className = "pageindex";
+        }
       }
     }
   })
@@ -461,6 +456,14 @@
       addEvent(this.supcontainer,"mouseover",this.stop.bind(this))
 
       addEvent(this.supcontainer,"mouseout",this.start.bind(this))
+
+      addEvent(document,"visibilitychange",function(){
+        if(document.hidden){
+          this.stop();
+        }else{
+          this.start();
+        }
+      }.bind(this))
     }
 
   })
@@ -468,7 +471,7 @@
   // slider
   // 
   var templateS = "<div class='m-slider'>\
-                    <img class='slide'>\
+                    <a href='' target='_blank'><img class='slide'></a>\
                     <div class='pointer'>\
                       <i class='u-p' data-index='1'></i>\
                       <i class='u-p' data-index='2'></i>\
@@ -486,7 +489,9 @@
 
     this.slides = this.slider.querySelector(".slide");
 
-    this.pointer = this.slider.querySelector(".pointer")
+    this.link = this.slides.parentNode;
+
+    this.pointer = this.slider.querySelector(".pointer");
 
     this.pointes = this.slider.querySelectorAll(".u-p");
 
@@ -514,6 +519,8 @@
       this.pointes[index-1].className += " z-crt";
       // 改变src,实现轮播
       this.slides.src = this.images[index-1];
+      // 改变url
+      this.link.href = this.urls[index-1];
       // 淡入效果
       this.slides.style.cssText = "opacity:0;";
 
@@ -533,6 +540,7 @@
     },
     // 初始化,设置'首页'图片以及对应"圆点"样式,开始轮播
     _initEvent:function(){
+      this.link.href = this.urls[this.pageindex-1];
       this.slides.src = this.images[this.pageindex-1];
       this.pointes[this.pageindex-1].className+=" z-crt";
       this.start();
@@ -542,15 +550,15 @@
   // 登录Modal
   // 
   var templateL = 
-    "<div class='m-login'>\
+    "<div class='m-modal'>\
       <div class='align'></div>\
-      <div class='wrap'>\
+      <div class='login'>\
         <form class='form' name='loginForm'>\
           <div class='u-ttl'>登录网易云课堂</div>\
           <div class='icn'></div>\
           <input id='account' name='name' type='text' placeholder='账号''>\
           <input id = 'password' name='password' type='password' placeholder='密码'>\
-          <div class='msg'>111</div>\
+          <div class='msg'></div>\
           <button class='loginbtn'>登录</button>\
          </form>\
        </div>\
@@ -563,6 +571,10 @@
 
     this.cls = children(this.form)[1];
 
+    this.mask = document.createElement("div");
+
+    this.mask.className = "f-mask";
+
     this._initEvent();
   }
 
@@ -570,18 +582,26 @@
     _layout:html2node(templateL),
 
     show:function(){
+      document.body.appendChild(this.mask);
       document.body.appendChild(this.container);
     },
 
     hide:function(){
+      document.body.removeChild(this.mask)
       document.body.removeChild(this.container);
     },
 
     _initEvent:function(){
+      this.show();
       addEvent(this.form,"submit",function(e){
-        e.preventDefault();
-        var account = hex_md5(this.account.value),
-            pswd = hex_md5(this.password.value),
+        if(e.preventDefault){
+          e.preventDefault();
+        }else{
+          e.returnValue = false;
+        }
+        
+        var account = hex_md5(this.form.account.value),
+            pswd = hex_md5(this.form.password.value),
             url = "http://study.163.com/webDev/login.htm",
             data = {userName:account,password:pswd};
 
@@ -601,7 +621,7 @@
             //
           }
         }.bind(this))
-      });
+      }.bind(this));
 
       addEvent(this.cls,"click",this.hide.bind(this));
     },
@@ -617,7 +637,7 @@
     <div class='followed'>\
       <div class='icn'></div>已关注<span class='cancel'>| <span class='unfollow'>取消</span></span>\
     </div>\
-    <span>粉丝 45</span>\
+    <span>粉丝 </span><span class='fancount'>45</span>\
   </div>"
 
   function Follow(){
@@ -629,6 +649,8 @@
 
     this.unfollow = this.followed.querySelector(".unfollow");
 
+    this.fcount = this.container.querySelector(".fancount");
+
     this._initEvent();
 
     getElementsByClassName(document,"m-ct f-cb")[0].insertBefore(this.container,document.querySelector(".links"))
@@ -638,11 +660,13 @@
     _layout:html2node(templateFo),
 
     status_ava:function(){
+      this.fcount.innerText -= 1;
       this.follow.style.display = "inline-block";
       this.followed.style.display = "none";
     },
 
     status_un:function(){
+      this.fcount.innerText = Number(this.fcount.innerText) + 1;
       this.follow.style.display = "none";
       this.followed.style.display = "block";
     },
@@ -660,7 +684,7 @@
 
       addEvent(this.follow,"click",function(){
         if(document.cookie.indexOf("loginSuc=")==-1){
-          login.show();
+          login = new Login();
         }else{
           var url = "http://study.163.com/webDev/attention.htm";
           get(url,"",function(num){
@@ -679,11 +703,14 @@
   })
 
   var templateVModal = 
-  "<div class='m-vct'>\
-    <div class='zttl'>遇见更好的自己</div>\
-    <div class='zcls'></div>\
-    <div class='u-playbtn'></div>\
-    <video src='http://mov.bn.netease.com/open-movie/nos/mp4/2014/12/30/SADQ86F5S_shd.mp4'  width='889' height='537'></video>\
+  "<div class='m-modal'>\
+    <div class='align'></div>\
+    <div class='vct'>\
+      <div class='zttl'>遇见更好的自己</div>\
+      <div class='zcls'></div>\
+      <div class='u-playbtn'></div>\
+      <video src='http://mov.bn.netease.com/open-movie/nos/mp4/2014/12/30/SADQ86F5S_shd.mp4'  width='960px'></video>\
+      <div>\
   </div>"
 
   function VModal(options){
@@ -742,7 +769,12 @@
 
       addEvent(this.cls,"click",this.hide.bind(this));
 
-      addEvent(this.mask,"click",this.hide.bind(this));
+      addEvent(this.container,"click",function(e){
+        var target = e.target || e.srcElement;
+        if(target.className == "m-modal"){
+          this.hide();
+        }
+      }.bind(this));
 
       addEvent(this.vcontent,"click",this.judge.bind(this));
 

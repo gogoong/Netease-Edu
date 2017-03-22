@@ -64,7 +64,7 @@
 				<div class="logo"></div>
 				<div class="text">
 					<h1>中国大学MOOC</h1>
-					<p>是爱课程网携手云课堂打造的在线学习平台，每一个有提升愿望的人，都可以在这里学习中国最好的大学课程，学完还能获得认证证书。</p>
+					<p>是爱课程网携手云课堂打造的在线学习平台，每一个有提升愿望的人,都可以在这里学习中国最好的大学课程，学完还能获得认证证书。</p>
 					<a href="http://www.icourse163.org"  target="_blank" class="u-link">了解更多</a>
 				</div>
 			
@@ -147,24 +147,52 @@
 	<script type="text/javascript" src="js/md5.js"></script>
 	<script type="text/javascript" src="haha.js"></script>
 	<script type="text/javascript">
-	// addEvent(document.querySelector(".cancel"),"click",function(){
- //  	document.cookie = "tipcancel=1";
- //  	iftip();
- //  });
-	// function iftip(){
-	//   if(document.cookie.indexOf("tipcancel=1") != -1){
-	//   	document.querySelector(".g-wrap").style.display = "none";
-	//   }
-	// }
-	// iftip();
+	addEvent(document.querySelector(".cancel"),"click",function(){
+  	document.cookie = "tipcancel=1";
+  	iftip();
+  });
+	function iftip(){
+	  if(document.cookie.indexOf("tipcancel=1") != -1){
+	  	document.querySelector(".g-wrap").style.display = "none";
+	  }
+	}
+	iftip();
 
 	var follow = new Follow();
 
 	var url = "https://study.163.com/webDev/couresByCategory.htm",
 			data = {pageNo:1,psize:20,type:10},
 			hoturl = "https://study.163.com/webDev/hotcouresByCategory.htm"
+
+
+	var winWidth = window.innerWidth,
+			flag = 1;
+	if(window.innerWidth < 1205){
+		data.psize = 15;
+		flag =0;
+	}
+
+	window.onresize = function(){
+		if(window.innerWidth < 1205  && flag ==1){
+			flag = 0;
+			data.psize = 15;
+			data.pageNo = 1;
+			get(url,data,function(obj){
+			// extend(obj,data);
+  		course = new Course(obj);
+  		});
+		}else if(window.innerWidth >=1206 && flag ==0){
+			flag = 1;
+			data.psize = 20;
+			data.pageNo = 1;
+			get(url,data,function(obj){
+			// extend(obj,data);
+  		course = new Course(obj);
+  		});
+		}
+	}
 	get(url,data,function(obj){
-		extend(obj,data);
+		// extend(obj,data);
   	course = new Course(obj);
   });
 
@@ -178,6 +206,11 @@
 		images:["images/banner1.jpg",
 				"images/banner2.jpg",
 				"images/banner3.jpg"],
+
+		urls:["http://open.163.com/",
+					"http://study.163.com/",
+					"http://www.icourse163.org/"],
+
 		pageindex:1
 	});
 	// 点击"圆点"跳转
@@ -198,8 +231,6 @@
   addEvent(slider.slides,"mouseout",function(){
   	slider.start();
   });
-
-  var login = new Login();
 
   addEvent(document.querySelector(".u-intro"),"click",function(){
   	var mvideo = new VModal();
