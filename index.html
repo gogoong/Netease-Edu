@@ -5,11 +5,11 @@
 	<title>EDU | 网易产品教育部</title>
 	<meta name="keywords" content="网易产品教育部、网易公开课、云课堂、计算机开发、编程语言、视频教程、培训、免费、教育、优质课程">
 	<meta name="description" content="云课堂是网易公司研发的一款大型在线教育平台服务，该平台面向学习者提供海量免费、优质课程，创新的个性化学习体验，
-自由开放的交流互动环境。继网易公开课后，云课堂是网易公司在教育领域的又一重量级产品。"">
-	<link rel="shortcut icon" href="images/favicon.ico" />
+自由开放的交流互动环境。继网易公开课后，云课堂是网易公司在教育领域的又一重量级产品。">
 	<link rel="stylesheet" type="text/css" href="css/reset.css">
 	<link rel="stylesheet" href="css/index.css">
-	<!-- <link rel="stylesheet" type="text/css" href="css/edu.css"> -->
+	<link rel="shortcut icon" href="images/favicon.ico" />
+	
 </head>
 <body>
 	<div class="g-hd">
@@ -21,27 +21,21 @@
 		<div class="m-hd">
 			<div class="g-flow">
 				<div class="m-ct f-cb">
-					<div class="title"><h1>EDU&nbsp;</h1><h2>|&nbsp;网易教育产品部</h2></div>
-					<div class="u-follow"><div id="follow" class="icn">关注</div><div class="followed"><div class="icn"></div>已关注<span class="cancel">| <span id="unfollow">取消</span></span></div><span>粉丝 45</span></div>
-					<div class="links">
-						<a class="u-link" href="http://open.163.com" target="_blank">网易公开课</a>
-						<a class="u-link" href="http://study.163.com" target="_blank">网易云课堂</a>
-						<a class="u-link" href="http://www.icourse163.org" target="_blank">中国大学MOOC</a>
+					<div class="title"><h1>EDU&nbsp;|</h1><h1>&nbsp;网易教育产品部</h1></div>
+					
+					<ul class="links">
+						<li class="u-link"><a href="http://open.163.com" target="_blank">网易公开课</a></li>
+						<li class="u-link"><a href="http://study.163.com" target="_blank">网易云课堂</a></li>
+						<li class="u-link"><a href="http://www.icourse163.org" target="_blank">中国大学MOOC</a></li>
 						<div class="icn"></div>
-					</div>
+					</ul>
 				</div>
 			</div>
 		</div>
 	</div>
-	<div class="m-slides">
-		<img class="u-slide" src="images/banner1.jpg" alt="网易教育部">
-		<div class="u-pointer">
-			<i class="z-crt" data-index="1">1</i>
-			<i data-index="2">2</i>
-			<i data-index="3">3</i>
-		</div>
+	<div id="m-slider-container">
+		
 	</div>
-
 	<div class="g-content">
 		<div class="g-flow f-cb">
 			<div class="m-ct open f-cb">
@@ -66,38 +60,38 @@
 				<div class="logo"></div>
 				<div class="text">
 					<h1>中国大学MOOC</h1>
-					<p>是爱课程网携手云课堂打造的在线学习平台，每一个有提升愿望的人，都可以在这里学习中国最好的大学课程，学完还能获得认证证书。</p>
+					<p>是爱课程网携手云课堂打造的在线学习平台，每一个有提升愿望的人,都可以在这里学习中国最好的大学课程，学完还能获得认证证书。</p>
 					<a href="http://www.icourse163.org"  target="_blank" class="u-link">了解更多</a>
 				</div>
 			
 			</div>
 		</div>
 	</div>
-	<div class="m-intro f-cb">
-		<div class="wplace"><img src="images/1.jpg" alt="" ></div>
-		<div class="wplace"><img src="images/2.jpg" alt="" ></div>
-		<div class="wplace"><img src="images/3.jpg" alt="" ></div>
-		<div class="wplace"><img src="images/4.jpg" alt="" ></div>
-		<div class="wplace"><img src="images/5.jpg" alt="" ></div>
-	</div>
+	<ul class="m-intro f-cb">
+		<li class="wplace"><img src="images/1.jpg" alt="" ></li>
+		<li class="wplace"><img src="images/2.jpg" alt="" ></li>
+		<li class="wplace"><img src="images/3.jpg" alt="" ></li>
+		<li class="wplace"><img src="images/4.jpg" alt="" ></li>
+		<li class="wplace"><img src="images/5.jpg" alt="" ></li>
+	</ul>
 	<div class="g-bd f-cb">
 		<div class="g-flow f-cb">
 			<div class="g-mn ">
-				<div class="u-tab f-cb">
-					<div class="z-sel">产品设计</div>
-					<div>编程语言</div>
-				</div>
+				<ul class="u-tab f-cb">
+					<li class="z-sel" data-type="10">产品设计</li>
+					<li data-type="20">编程语言</li>
+				</ul>
 				<ul class="m-courselist">
 					
 				</ul>
-				<div class="m-page">
-					<div class="icn left"></div>
-					<div class="icn right"></div>
-				</div>
+				<ul class="m-page">
+					<li class="icn left" data-index="-1"></li>
+					<li class="icn right" data-index="0"></li>
+				</ul>
 			</div>
 			<div class="g-sd">
 				<div class="m-video">
-					<div class="intro">机构介绍</div>
+					<h2 class="intro">机构介绍</h2>
 					<div class="video">观看下面的视频来了解吧:
 						<img class="u-intro" width="180px" height="110px" src="images/play.jpg">
 					</div>
@@ -106,154 +100,12 @@
 					<div class="ttl">最热排行</div>
 						<ul class="hot">
 							<ul>
-							<li class="u-hot f-cb">
-								<img width="50px" height="50px" src="" alt="">
-								<div>
-									<div class="cttl"></div>
-									<div class="lcount icn"></div>
-								</div>
-							</li>
-							<li class="u-hot f-cb">
-								<img width="50px" height="50px" src="" alt="">
-								<div>
-									<div class="cttl"></div>
-									<div class="lcount icn"></div>
-								</div>
-							</li>
-							<li class="u-hot f-cb">
-								<img width="50px" height="50px" src="" alt="">
-								<div>
-									<div class="cttl"></div>
-									<div class="lcount icn"></div>
-								</div>
-							</li>
-							<li class="u-hot f-cb">
-								<img width="50px" height="50px" src="" alt="">
-								<div>
-									<div class="cttl"></div>
-									<div class="lcount icn"></div>
-								</div>
-							</li>
-							<li class="u-hot f-cb">
-								<img width="50px" height="50px" src="" alt="">
-								<div>
-									<div class="cttl"></div>
-									<div class="lcount icn"></div>
-								</div>
-							</li>
-							<li class="u-hot f-cb">
-								<img width="50px" height="50px" src="" alt="">
-								<div>
-									<div class="cttl"></div>
-									<div class="lcount icn"></div>
-								</div>
-							</li>
-							<li class="u-hot f-cb">
-								<img width="50px" height="50px" src="" alt="">
-								<div>
-									<div class="cttl"></div>
-									<div class="lcount icn"></div>
-								</div>
-							</li>
-							<li class="u-hot f-cb">
-								<img width="50px" height="50px" src="" alt="">
-								<div>
-									<div class="cttl"></div>
-									<div class="lcount icn"></div>
-								</div>
-							</li>
-							<li class="u-hot f-cb">
-								<img width="50px" height="50px" src="" alt="">
-								<div>
-									<div class="cttl"></div>
-									<div class="lcount icn"></div>
-								</div>
-							</li>
-							<li class="u-hot f-cb">
-								<img width="50px" height="50px" src="" alt="">
-								<div>
-									<div class="cttl"></div>
-									<div class="lcount icn"></div>
-								</div>
-							</li>
-							<li class="u-hot f-cb">
-								<img width="50px" height="50px" src="" alt="">
-								<div>
-									<div class="cttl"></div>
-									<div class="lcount icn"></div>
-								</div>
-							</li>
-							<li class="u-hot f-cb">
-								<img width="50px" height="50px" src="" alt="">
-								<div>
-									<div class="cttl"></div>
-									<div class="lcount icn"></div>
-								</div>
-							</li>
-							<li class="u-hot f-cb">
-								<img width="50px" height="50px" src="" alt="">
-								<div>
-									<div class="cttl"></div>
-									<div class="lcount icn"></div>
-								</div>
-							</li>
-							<li class="u-hot f-cb">
-								<img width="50px" height="50px" src="" alt="">
-								<div>
-									<div class="cttl"></div>
-									<div class="lcount icn"></div>
-								</div>
-							</li>
-							<li class="u-hot f-cb">
-								<img width="50px" height="50px" src="" alt="">
-								<div>
-									<div class="cttl"></div>
-									<div class="lcount icn"></div>
-								</div>
-							</li>
-							<li class="u-hot f-cb">
-								<img width="50px" height="50px" src="" alt="">
-								<div>
-									<div class="cttl"></div>
-									<div class="lcount icn"></div>
-								</div>
-							</li>
-							<li class="u-hot f-cb">
-								<img width="50px" height="50px" src="" alt="">
-								<div>
-									<div class="cttl"></div>
-									<div class="lcount icn"></div>
-								</div>
-							</li>
-							<li class="u-hot f-cb">
-								<img width="50px" height="50px" src="" alt="">
-								<div>
-									<div class="cttl"></div>
-									<div class="lcount icn"></div>
-								</div>
-							</li>
-							<li class="u-hot f-cb">
-								<img width="50px" height="50px" src="" alt="">
-								<div>
-									<div class="cttl"></div>
-									<div class="lcount icn"></div>
-								</div>
-							</li>
-							<li class="u-hot f-cb">
-								<img width="50px" height="50px" src="" alt="">
-								<div>
-									<div class="cttl"></div>
-									<div class="lcount icn"></div>
-								</div>
-							</li>
 							</ul>
 						</ul>
 				</div>
 			</div>
 		</div>
 	</div>
-	<!-- <div class="f-mask"></div> -->
-
 	<div class="g-ft">
 		<div class="g-flow f-cb">
 			<div class="ftlt">
@@ -271,29 +123,40 @@
 			</div>
 		</div>
 	</div>
-<!-- 	<div class="m-login">
-	<form name="loginForm">
-	<div class='u-ttl'>登录网易云课堂</div>
-	<div class='icn'></div>
-	<input id="account" name="name" type='text' placeholder="账号">
-	<input id = "password" name="password" type='password' placeholder="密码">
-	<button class='loginbtn'>登录</button>
-	</form>
-	</div> -->
 	<script type="text/javascript" src="js/md5.js"></script>
-		<!-- <div class="f-mask"></div>
-	<div class="m-vct"><video src="http://mov.bn.netease.com/open-movie/nos/mp4/2014/12/30/SADQ86F5S_shd.mp4" autoplay="autoplay" width="700px" height="500px"></video></div> -->
 	<script type="text/javascript" src="js/index.js"></script>
+	<script type="text/javascript">
+	addEvent(document.querySelector(".cancel"),"click",function(){
+  	document.cookie = "tipcancel=1";
+  	iftip();
+  });
+	function iftip(){
+	  if(document.cookie.indexOf("tipcancel=1") != -1){
+	  	document.querySelector(".g-wrap").style.display = "none";
+	  }
+	}
+	iftip();
+
+	var follow = new Follow();	
+
+	var slider = new Slider({
+		container:document.getElementById("m-slider-container"),
+
+		images:["images/banner1.jpg",
+				"images/banner2.jpg",
+				"images/banner3.jpg"],
+
+		urls:["http://open.163.com/",
+					"http://study.163.com/",
+					"http://www.icourse163.org/"],
+
+		pageindex:1
+	});
+
+  addEvent(document.querySelector(".u-intro"),"click",function(){
+  	var mvideo = new VModal();
+  })
+	</script>
+	
 </body>
 </html>
-<!-- 顶部通知条是否一直固定在顶部?即下拉后是否会消失 -->
-<!-- ​右侧导航区的搜索图标hover效果 -->
-
-<!-- 待填的坑 -->
-<!-- 渐入效果用transition,IE兼容用JS -->
-<!-- 字体问题待解决 -->
-<!-- 课程详情弹窗到底是hover谁 字体变绿是hover谁 done-->
-<!-- 课程描述中,多行文本超出用省略号显示 -->
-<!-- 一个奇怪的现象,热门列表滚动时,不动页面就没问题,一动页面就出BUG,奇怪 done-->
-<!-- getElementsByclassName querySelector dataset 不支持IE8 -->
-<!-- 组件化,模块化,规范命名 -->
