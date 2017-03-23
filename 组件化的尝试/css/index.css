@@ -1,13 +1,14 @@
-
 body{font: 12px "宋体";}
 .g-flow{width: 1206px;margin: 0 auto;}
 .icn{display: inline-block;background: url(../images/sprit1.png) no-repeat;}
 .f-cb:after{content: "";clear: both;display: block;height: 0;overflow: hidden;visibility: hidden;}
 .f-cb{zoom: 1;}
 .f-mask{position: fixed;left: 0;top: 0;height: 100%;width: 100%;background-color: #000000;opacity: 0.8;filter: alpha(opacity=80);z-index: 99;}
-/*.align{display: inline-block;vertical-align: middle;height: 100%;line-height: 100%;width: 1px;}
-.m-login{position: fixed;top: 0;left: 0;height: 100%;width: 100%;text-align: center;background-color: rgba(0,0,0,0.5);}
-.warp{vertical-align: middle; display: inline-block;width: 387px;height: 288px;padding-left: 39px;box-sizing: border-box;z-index: 299;background-color: #ffffff}*/
+.m-modal{position: fixed;top: 0;left: 0;width: 100%;height: 100%;text-align: center;z-index: 100;}
+.m-modal .login,.align,.vct{display: inline-block;vertical-align: middle;}
+.m-modal .align{width: 1px;height: 100%;line-height: 100%;zoom:1;}
+.m-modal .login{position: relative; background-color: #fff;padding: 20px;}
+.m-modal .form{display: inline-block;}
 .login input{display: block;width: 282px;height: 43px;padding-left: 11px;border: solid 1px #dfdfdf;box-shadow: 2px 2px #f1f1f1 inset;font: 16px/43px "Microsoft Yahei";}
 .login #password{margin: 15px 0 29px;}
 .login .u-ttl{height: 18px;margin-top: 30px;margin-bottom: 20px;font: 18px/18px "Microsoft Yahei";color: #444444;}
@@ -29,7 +30,7 @@ body{font: 12px "宋体";}
 .g-hd .m-ct .followed:hover{background-color: #fff}
 .g-hd .followed .cancel span:hover{text-decoration: underline;color: #21a557;cursor: pointer;}
 .g-hd .m-ct .followed .icn{width: 11px;height: 9px;margin-right: 5px;background-position: 0 -30px;}
-.g-hd #follow.icn{width: 54px;height: 21px;padding-left: 22px;margin-right: 14px;box-sizing: border-box;}
+.g-hd #follow.icn{width: 54px;height: 21px;padding-left: 22px;margin-right: 14px;box-sizing: border-box;cursor: pointer;}
 .g-hd .m-ct .links{float: right;font-size: 16px;}
 .g-hd .links .icn{width: 18px;height: 18px;margin: 0 14px 0 30px;background-position: 0 -66px;vertical-align: middle;cursor: pointer;}
 .g-hd .links .icn:hover{background: url(../images/sprit1.png) 0 -93px no-repeat;}
@@ -59,7 +60,6 @@ body{font: 12px "宋体";}
 .m-intro .wplace{float: left;width: 20%;padding-left: 4px;box-sizing: border-box;}
 .m-intro .wplace img{width: 100%;}
 .g-bd{padding-top: 80px;padding-bottom: 120px;background-color: #f8f8f8;}
-
 .g-bd .g-sd{float: right;width: 223px;}
 .g-bd .g-sd .m-video{background-color: #fff;box-shadow: 1px 0 #ecebeb,-1px 0 #ecebeb,0 2px #dddddd}
 .g-bd .g-sd .intro{height: 55px;padding-left: 20px;font: 16px/55px "Microsoft Yahei";color: #333333;box-shadow: 0 1px #dddddd;}
@@ -117,19 +117,13 @@ body{font: 12px "宋体";}
 .g-ft .ftlt .u-title h1{display: inline-block;font: bold 28px/1  "GillSansMT";color: #39a030;vertical-align: middle;}
 .g-ft .ftlt .u-title h2{display: inline-block;font: 22px/1 "HiraginoSansGB";color: #39a030;vertical-align: middle}
 .g-ft .ftlt .u-cprt{font: 12.5px/25px "Microsoft Yahei";color: #ffffff;opacity: 0.4;}
-.g-ft .ftrt {float: left;padding-top: 81px;padding-right: 202px;font: 12.5px/29.17px "Microsoft Yahei";color: #ffffff;opacity: 0.4}
+.g-ft .ftrt {float: left;padding-top: 81px;font: 12.5px/29.17px "Microsoft Yahei";color: #ffffff;opacity: 0.4}
 .g-ft .ftrt a{display: block;font: 12.5px/29.17px "Microsoft Yahei";color: #ffffff;}
 .g-ft .ftrt a:hover{text-decoration: underline;}
 .g-ft .ftrt .links{float: left;margin-right: 70px;}
 .g-ft .ftrt .ours{float: left;margin-right: 70px;}
 .g-ft .ftrt .more{float: left}
 .g-ft .ftrt .icn{width: 66px;background-position: -25px -59px;}
-
-.m-modal{position: fixed;top: 0;left: 0;width: 100%;height: 100%;text-align: center;z-index: 100;}
-.m-modal .login,.align,.vct{display: inline-block;vertical-align: middle;}
-.m-modal .align{width: 1px;height: 100%;line-height: 100%;zoom:1;}
-.m-modal .login{position: relative; background-color: #fff;padding: 20px;}
-.m-modal .form{display: inline-block;}
 
 @media screen and (max-width: 1205px){
 	.g-flow{width: 960px;}

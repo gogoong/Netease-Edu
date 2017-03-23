@@ -18,7 +18,7 @@
 			<div class="g-flow">
 				<div class="m-ct f-cb">
 					<div class="title"><h1>EDU&nbsp;|</h1><h1>&nbsp;网易教育产品部</h1></div>
-					<!-- <div class="u-follow"><div id="follow" class="icn">关注</div><div class="followed"><div class="icn"></div>已关注<span class="cancel">| <span id="unfollow">取消</span></span></div><span>粉丝 45</span></div> -->
+					
 					<ul class="links">
 						<li class="u-link"><a href="http://open.163.com" target="_blank">网易公开课</a></li>
 						<li class="u-link"><a href="http://study.163.com" target="_blank">网易云课堂</a></li>
@@ -29,14 +29,6 @@
 			</div>
 		</div>
 	</div>
-<!-- 	<div class="m-slide">
-		<img class="u-slide" src="images/banner1.jpg" alt="网易教育部">
-		<div class="pointer">
-			<i class="z-crt" data-index="1">1</i>
-			<i data-index="2">2</i>
-			<i data-index="3">3</i>
-		</div>
-	</div> -->
 	<div id="m-slider-container">
 		
 	</div>
@@ -110,8 +102,6 @@
 			</div>
 		</div>
 	</div>
-	<!-- <div class="f-mask"></div> -->
-
 	<div class="g-ft">
 		<div class="g-flow f-cb">
 			<div class="ftlt">
@@ -129,21 +119,6 @@
 			</div>
 		</div>
 	</div>
-
-<!-- 	<div class='m-login'>
-		<div class='align'></div>
-		<div class="wrap">
-			<form class="loginf" name='loginForm'>
-				<div class='u-ttl'>登录网易云课堂</div>
-				<div class='icn'></div>
-				<input id='account' name='name' type='text' placeholder='账号''>
-				<input id = 'password' name='password' type='password' placeholder='密码'>
-				<button class='loginbtn'>登录</button>
-		   </form>
-	   </div>
-	 </div> -->
-
-	
 	<script type="text/javascript" src="js/md5.js"></script>
 	<script type="text/javascript" src="haha.js"></script>
 	<script type="text/javascript">
@@ -158,47 +133,7 @@
 	}
 	iftip();
 
-	var follow = new Follow();
-
-	var url = "https://study.163.com/webDev/couresByCategory.htm",
-			data = {pageNo:1,psize:20,type:10},
-			hoturl = "https://study.163.com/webDev/hotcouresByCategory.htm"
-
-
-	var winWidth = window.innerWidth,
-			flag = 1;
-	if(window.innerWidth < 1205){
-		data.psize = 15;
-		flag =0;
-	}
-
-	window.onresize = function(){
-		if(window.innerWidth < 1205  && flag ==1){
-			flag = 0;
-			data.psize = 15;
-			data.pageNo = 1;
-			get(url,data,function(obj){
-			// extend(obj,data);
-  		course = new Course(obj);
-  		});
-		}else if(window.innerWidth >=1206 && flag ==0){
-			flag = 1;
-			data.psize = 20;
-			data.pageNo = 1;
-			get(url,data,function(obj){
-			// extend(obj,data);
-  		course = new Course(obj);
-  		});
-		}
-	}
-	get(url,data,function(obj){
-		// extend(obj,data);
-  	course = new Course(obj);
-  });
-
-	get(hoturl,"",function(arr){
-		hotcourse = new Hotcourse(arr);
-	})
+	var follow = new Follow();	
 
 	var slider = new Slider({
 		container:document.getElementById("m-slider-container"),
@@ -213,32 +148,11 @@
 
 		pageindex:1
 	});
-	// 点击"圆点"跳转
-	addEvent(slider.pointer,"click",function(e){
-		var target = e.srcElement ? e.srcElement:e.target
-  	if(target.tagName=="I"){
-    	slider.stop();
-      slider.pageindex = dataset(target).index - 1;
-      slider.change();
-      slider.start();
-    }
-  });
-  // 鼠标移入,停止轮播. 这里用mouseover不能达到预期效果,why
-  addEvent(slider.slides,"mouseenter",function(){
-  	slider.stop();
-  });
-  // 鼠标移出,重新开始轮播
-  addEvent(slider.slides,"mouseout",function(){
-  	slider.start();
-  });
 
   addEvent(document.querySelector(".u-intro"),"click",function(){
   	var mvideo = new VModal();
-  	mvideo.play();
   })
 	</script>
 	
 </body>
 </html>
-
-<!-- 1.视频弹窗2.JS后台运行问题(滚动列表)3.居中,两边隐藏. -->
