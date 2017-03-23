@@ -509,7 +509,7 @@ function getElementsByClassName(element, names) {
           
           break;
           case 0:
-            if(pageNo<this.totalPage){
+            if(pageNo<course.totalPage){
               data.pageNo += 1;
               get(url,data,function(obj){
                 course = new Course(obj);
@@ -618,6 +618,17 @@ function getElementsByClassName(element, names) {
             pageindex.innerHTML = i+1 ;
 
             this.pager.insertBefore(pageindex,children(this.pager)[i+1]);
+            // 再注册一次,如果没有这步,多出来的那页无法用下一页按钮来达到,或者在pmove函数中,将this.totalPage改为course.totalPage
+            // 表现为:浏览器最大化打开页面,点击'向下还原'缩小浏览器到1205px以下宽度
+            // 一直点击下一页,到第三页时,无法再向下翻页.
+            // 导致原因:pmove函数中,this.totalPage始终是3,并且这个'this',list的长度还是20! 
+            // 说明这个'this'就是第一次请求获得的course??
+            // 我后面请求执行的course = new Course(); 不会覆盖掉之前的么?为什么之前的course以某种形式存在?
+            // addEvent(this.pager,"click",this.pmove.bind(this))
+            // 妥协了,还是在pmove中改为course.totalPage;因为如果这样写还有另外个问题:
+            // 从小窗口变成大窗口时,this.totalPage始终是4 在第三页按下一页时,还会进行get请求
+            // 虽然页面无表现,但这是一次'无用的'请求,必须扼杀!
+            // 写了那么多,就是希望老师能给我解答这个'this'到底是什么鬼?
           }
         }else if(this.pagecount.length > this.totalPage){ //页面总页码数大于从服务器获取的总页码数时
           for(var i = this.totalPage;i<this.pagecount.length;i++){
