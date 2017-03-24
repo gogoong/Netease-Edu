@@ -12,8 +12,8 @@ arr.forEach(function callback(currentValue, index, array) {
 >>`事件委托`,即在父节点上监听事件,子节点发生事件后,通过冒泡的方式到达父节点,触发相应函数.
 >>`apply`接受数组参数,`call`接受任意参数,2者在调用时直接执行.fun.apply/call(thisArg[,])<br>
 >>`bind`接受任意参数,需要额外一步调用 var a = fun.bind(thisArg[,]); a();<br>
->>调用之后函数fun内的this指向thisArg,也就是调用者.
-<br>
+>>调用之后函数fun内的this指向thisArg,也就是调用者.<br>
+
 >2017年3月24日<br>
 >>好久没写..这个项目都差不多写完了..
 >>`xx.onclick=`在IE8中,传入的参数需要通过`window.event`取得,IE9+则无需.但是通过`attachEvent`注册的事件也可以直接用event取得(IE8).<br>
