@@ -481,7 +481,7 @@ function getElementsByClassName(element, names) {
     // 当前页课程数
     this.coursecount = getElementsByClassName(this.container,"u-course");
     // 页码器
-    this.pager = document.getElementsByClassName("m-page")[0],
+    this.pager = getElementsByClassName(document,"m-page")[0],
     // 页数
     this.pagecount = getElementsByClassName(document,"pageindex");
 
@@ -523,6 +523,7 @@ function getElementsByClassName(element, names) {
     },
     // 页码点击执行函数
     pmove:function(event){
+      event = event || window.event;
       this.msg.innerText = ""
       var target = event.srcElement ? event.srcElement:event.target;
       if(target.tagName == "LI"){
@@ -668,14 +669,13 @@ function getElementsByClassName(element, names) {
             
           }
         }
+        // 对页码器进行事件代理,执行跳转
+        // addEvent(this.pager,"click",this.pmove.bind(this));
+        this.pager.onclick = this.pmove.bind(this);
         // 设置页码状态
         for(i=0;i<this.totalPage;i++){
         (i+1) == data.pageNo ? this.pagecount[i].className = "pageindex z-sel" : this.pagecount[i].className = "pageindex";
         } 
-        
-        // 对页码器进行事件代理,执行跳转
-        // addEvent(this.pager,"click",this.pmove.bind(this));
-        this.pager.onclick = this.pmove.bind(this)
       }      
     }
   })
