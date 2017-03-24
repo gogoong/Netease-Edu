@@ -6,7 +6,14 @@ var addEvent = document.addEventListener ?
         function(ele,type,listener){
           ele.attachEvent('on'+type,listener);
         };
-
+// 事件取消函数,兼容IE8
+var removeEvent = document.removeEventListener ?
+        function(ele,type,listener,useCapture){
+          ele.removeEventListener(type,listener,useCapture)
+        }:
+        function(ele,type,listener){
+          ele.detachEvent('on'+type,listener)
+        };
 /**
  * [Ajax get请求封装]
  * @param  {Str}   url      [请求地址]
@@ -242,12 +249,14 @@ function getElementsByClassName(element, names) {
       <div class='align'></div>\
       <div class='login'>\
         <form class='form' name='loginForm'>\
-          <div class='u-ttl'>登录网易云课堂</div>\
-          <div class='icn'></div>\
-          <input id='account' name='name' type='text' placeholder='账号''>\
-          <input id = 'password' name='password' type='password' placeholder='密码'>\
-          <div class='msg'></div>\
-          <button class='loginbtn'>登录</button>\
+          <legend class='u-ttl'>登录网易云课堂</legend>\
+          <fieldset>\
+            <div class='icn'></div>\
+            <input id='account' name='name' type='text' placeholder='账号' required>\
+            <input id = 'password' name='password' type='password' placeholder='密码' required>\
+            <div class='msg'></div>\
+            <button class='loginbtn'>登录</button>\
+          </fieldset>\
          </form>\
        </div>\
      </div>";
@@ -257,7 +266,15 @@ function getElementsByClassName(element, names) {
 
     this.form = this.container.querySelector(".form");
 
-    this.cls = children(this.form)[1];
+    this.cls = this.form.querySelector(".icn");
+
+    this.msg = this.form.querySelector(".msg");
+
+    this.suc = document.createElement("div");
+
+    this.suc.className = "j-suc";
+
+    this.suc.innerText = "登录成功!";
 
     this.mask = document.createElement("div");
 
@@ -280,6 +297,16 @@ function getElementsByClassName(element, names) {
       document.body.removeChild(this.container);
     },
 
+    success:function(){
+
+      document.body.appendChild(this.suc);
+     
+    },
+
+    suchide:function(){
+      
+      document.body.removeChild(this.suc)
+    },
     _initEvent:function(){
       this.show();
       // 登录事件
@@ -302,8 +329,10 @@ function getElementsByClassName(element, names) {
               document.cookie = "loginSuc=1";
               document.cookie = "followSuc=1";
               follow.status_un();
+              this.success();
+              setTimeout(this.suchide.bind(this),1500)
             }else if(num==0){
-              alert("账号/密码错误")
+              this.msg.innerText = "账号/密码错误"
             }
           }catch(ex){
             //
@@ -452,9 +481,11 @@ function getElementsByClassName(element, names) {
     // 当前页课程数
     this.coursecount = getElementsByClassName(this.container,"u-course");
     // 页码器
-    this.pager = document.querySelector(".m-page"),
+    this.pager = document.getElementsByClassName("m-page")[0],
     // 页数
     this.pagecount = getElementsByClassName(document,"pageindex");
+
+    this.msg = this.pager.querySelector(".msg");
 
     extend(this,options);
 
@@ -492,6 +523,7 @@ function getElementsByClassName(element, names) {
     },
     // 页码点击执行函数
     pmove:function(event){
+      this.msg.innerText = ""
       var target = event.srcElement ? event.srcElement:event.target;
       if(target.tagName == "LI"){
         var index = Number(dataset(target).index),
@@ -505,15 +537,23 @@ function getElementsByClassName(element, names) {
               get(url,data,function(obj){
                 course = new Course(obj)
               })
+            }else{
+              this.msg.innerText = "已经是第一页啦,别浪费力气了~"
             }
           
           break;
           case 0:
-            if(pageNo<course.totalPage){
+            // 这里不用totalPage的原因是'this'会一直指向页面第一次加载时new出来的Course
+            // 如果是大屏,那么this.totalPage就是3,会造成变成小屏后点击下一页无法到达第四页的情况
+            // 改用ele.onlick注册事件,解决
+            // 引申出的问题--> [我重复进行course = new Course的做法,是不是很不好?]
+            if(pageNo<this.totalPage){
               data.pageNo += 1;
               get(url,data,function(obj){
                 course = new Course(obj);
               })
+            }else{
+              this.msg.innerText = "已经是最后页啦,别浪费力气了~"
             }
 
           
@@ -521,6 +561,7 @@ function getElementsByClassName(element, names) {
           default:
             if(index>0 && index != pageNo){
               data.pageNo = index;
+
               get(url,data,function(obj){
                 course = new Course(obj);
               })
@@ -577,34 +618,35 @@ function getElementsByClassName(element, names) {
 
             pageindex.innerHTML = i+1 ;
 
-            this.pager.insertBefore(pageindex,children(this.pager)[i+1]);
+            this.pager.insertBefore(pageindex,children(this.pager)[i+2]);
           }
-          // 对页码器进行事件代理,执行跳转
-          addEvent(this.pager,"click",this.pmove.bind(this));
+         
           // 注册tab的点击事件,采用事件代理
           var coursetab = document.querySelector(".u-tab");
           addEvent(coursetab,"click",function(e){
             var target = e.srcElement ? e.srcElement:e.target;
-            switch(dataset(target).type){
-              case "10":
-              data.type = 10;
-              data.pageNo = 1;
-              break;
+            if(target.tagName == "LI"){
+              switch(dataset(target).type){
+                case "10":
+                data.type = 10;
+                data.pageNo = 1;
+                break;
 
-              case "20":
-              data.type = 20;
-              data.pageNo = 1;
-              break;
+                case "20":
+                data.type = 20;
+                data.pageNo = 1;
+                break;
+              }
+              // 遍历所有tab,设置基本类名
+              for(var i = 0,length = children(coursetab).length;i<length;i++){
+                children(coursetab)[i].className = "";
+              }
+              // 当前tab设置'z-sel'
+              target.className = "z-sel"
+              get(url,data,function(obj){
+                course = new Course(obj)
+              })
             }
-            // 遍历所有tab,设置基本类名
-            for(var i = 0,length = children(coursetab).length;i<length;i++){
-              children(coursetab)[i].className = "";
-            }
-            // 当前tab设置'z-sel'
-            target.className = "z-sel"
-            get(url,data,function(obj){
-              course = new Course(obj)
-            })
           })
         }else if (this.pagecount.length < this.totalPage){ // 页面总页码数小于从服务器获取的总页码数时
           for(var i = this.pagecount.length ; i<this.totalPage;i++){
@@ -617,30 +659,23 @@ function getElementsByClassName(element, names) {
 
             pageindex.innerHTML = i+1 ;
 
-            this.pager.insertBefore(pageindex,children(this.pager)[i+1]);
-            // 再注册一次,如果没有这步,多出来的那页无法用下一页按钮来达到,或者在pmove函数中,将this.totalPage改为course.totalPage
-            // 表现为:浏览器最大化打开页面,点击'向下还原'缩小浏览器到1205px以下宽度
-            // 一直点击下一页,到第三页时,无法再向下翻页.
-            // 导致原因:pmove函数中,this.totalPage始终是3,并且这个'this',list的长度还是20! 
-            // 说明这个'this'就是第一次请求获得的course??
-            // 我后面请求执行的course = new Course(); 不会覆盖掉之前的么?为什么之前的course以某种形式存在?
-            // addEvent(this.pager,"click",this.pmove.bind(this))
-            // 妥协了,还是在pmove中改为course.totalPage;因为如果这样写还有另外个问题:
-            // 从小窗口变成大窗口时,this.totalPage始终是4 在第三页按下一页时,还会进行get请求
-            // 虽然页面无表现,但这是一次'无用的'请求,必须扼杀!
-            // 写了那么多,就是希望老师能给我解答这个'this'到底是什么鬼?
+            this.pager.insertBefore(pageindex,children(this.pager)[i+2]);
           }
         }else if(this.pagecount.length > this.totalPage){ //页面总页码数大于从服务器获取的总页码数时
           for(var i = this.totalPage;i<this.pagecount.length;i++){
 
-            this.pager.removeChild(children(this.pager)[i+1]);
+            this.pager.removeChild(children(this.pager)[i+2]);
             
           }
         }
         // 设置页码状态
         for(i=0;i<this.totalPage;i++){
         (i+1) == data.pageNo ? this.pagecount[i].className = "pageindex z-sel" : this.pagecount[i].className = "pageindex";
-        }
+        } 
+        
+        // 对页码器进行事件代理,执行跳转
+        // addEvent(this.pager,"click",this.pmove.bind(this));
+        this.pager.onclick = this.pmove.bind(this)
       }      
     }
   })
@@ -853,6 +888,8 @@ function getElementsByClassName(element, names) {
 
       data.psize = 15;
 
+      course.msg.innerText = "";
+
       get(url,data,function(obj){
       course = new Course(obj);
       });
@@ -860,7 +897,9 @@ function getElementsByClassName(element, names) {
       flag = 1;
 
       data.psize = 20;
-      
+
+      course.msg.innerText = "";
+
       get(url,data,function(obj){
       course = new Course(obj);
       });
