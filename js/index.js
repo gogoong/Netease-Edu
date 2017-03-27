@@ -788,7 +788,7 @@ function getElementsByClassName(element, names) {
     <div class='align'></div>\
     <div class='vct'>\
       <div class='zttl'>遇见更好的自己</div>\
-      <div class='zcls'></div>\
+      <div class='zcls icn'></div>\
       <div class='u-playbtn'></div>\
       <video src='http://mov.bn.netease.com/open-movie/nos/mp4/2014/12/30/SADQ86F5S_shd.mp4'  width='960px'></video>\
       <div>\
